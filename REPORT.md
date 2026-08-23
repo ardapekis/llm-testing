@@ -2,7 +2,7 @@
 
 ## Status
 
-**RESUMED at M1-A-v2.** M0 passed. The original M1-A-v1 gate failed and remains recorded. On 2026-08-23, the user revised M1-A so that estimator convergence and theta Spearman >0.98 are the hard ranking-recovery checks; difficulty RMSE remains diagnostic. M1-B and M2–M5 have not yet been run.
+**M1-A-v2 passed; M1-B is in progress.** M0 passed. The original M1-A-v1 gate failed and remains recorded. On 2026-08-23, the user revised M1-A so that estimator convergence and theta Spearman >0.98 are the hard ranking-recovery checks; difficulty RMSE remains diagnostic. M2–M5 have not yet been run.
 
 The ordered milestone contract still applies. The revised gate changes only the decision rule and preserves the original response data, estimator, seed, and failed result. The repository currently contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
 
@@ -12,8 +12,8 @@ The ordered milestone contract still applies. The revised gate changes only the 
 |---|---|---|
 | M0 — response matrices | PASS | MMLU: 395 models × 14,042 items, 100% dense. SWE-bench Verified: 134 systems × 500 items, 100% dense. Both artifacts are Boolean, pair-unique, checksummed, and carry source manifests. |
 | M1-A-v1 — original synthetic recovery | **FAIL** | Difficulty RMSE 0.2138646913 (required <0.15); theta Spearman 0.9917795029 (required >0.98). |
-| M1-A-v2 — ranking recovery | PENDING | Preregistered hard checks: convergence and theta Spearman >0.98. Difficulty recovery is diagnostic. |
-| M1-B — reference agreement | NOT RUN | Runs only after M1-A-v2 passes. |
+| M1-A-v2 — ranking recovery | **PASS** | Clean revision `496012a`: converged; theta Spearman 0.9917795029 >0.98. Difficulty RMSE remains diagnostic. |
+| M1-B — reference agreement | IN PROGRESS | M1-A-v2 passed and unblocked the real-matrix comparison. |
 | M2 — replay baselines | NOT RUN | Blocked until all revised M1 gates pass. |
 | M3 — adaptive ranking | NOT RUN | Blocked until M2 passes. |
 | M4 — live adapter | NOT RUN | Blocked by milestone order; no paid API use is authorized. |
@@ -89,4 +89,4 @@ The available evidence is additionally bounded by these conditions:
 
 ## Authorized continuation
 
-The user authorized the M1-A-v2 ranking-recovery rule on 2026-08-23. The preregistered config is `configs/m1_recovery_rank_v2.json`. A clean v2 pass permits M1-B reference comparison; a v2 failure stops the milestone again. E-M1-001 remains negative evidence under the original contract.
+The user authorized the M1-A-v2 ranking-recovery rule on 2026-08-23. The clean run from preregistration revision `496012a` passed both hard checks and now permits M1-B reference comparison. E-M1-001 remains negative evidence under the original contract.

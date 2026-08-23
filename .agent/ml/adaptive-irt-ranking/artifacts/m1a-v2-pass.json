@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    ".agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-rank-v2-result.json",
+    "configs/m1_recovery_rank_v2.json"
+  ],
+  "claim_scope": [
+    "the user-authorized M1-A-v2 ranking-recovery rule",
+    "the unchanged 50-model x 1000-item synthetic run at seed 20260823"
+  ],
+  "command": "uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.json --output .agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-rank-v2-result.json",
+  "commitments_tested": [
+    "estimator convergence is required",
+    "theta Spearman must exceed 0.98",
+    "difficulty RMSE remains diagnostic only",
+    "data, estimator, and seed remain identical to M1-A-v1"
+  ],
+  "config": {
+    "path": "configs/m1_recovery_rank_v2.json",
+    "sha256": "e2dfdd798d6fc09255ce261211fdc2bb6f9a74bcdbe44b96c119e6282497e177"
+  },
+  "control": "M1-A-v1 uses the same generated outcomes and estimator but additionally gates difficulty RMSE; E-M1-001 preserves that rejection.",
+  "evidence_id": "E-M1-002",
+  "hypothesis": "The unchanged synthetic run establishes ability-rank recovery under revised M1-A.",
+  "hypothesis_id": "H-M1-002",
+  "intervention": "Apply the preregistered user-authorized v2 decision rule without changing the data or estimator.",
+  "metrics": {
+    "converged": true,
+    "difficulty_rmse_diagnostic": 0.21386469130940508,
+    "iterations": 10,
+    "theta_spearman": 0.9917795028913772
+  },
+  "negative_prediction": "Nonconvergence or theta Spearman <=0.98 rejects M1-A-v2.",
+  "next_implication": "M1-A-v2 passes and unblocks M1-B reference agreement. The original M1-A-v1 failure remains valid.",
+  "positive_prediction": "The estimator converges and theta Spearman exceeds 0.98.",
+  "provenance": {
+    "data": "deterministic synthetic generator; unchanged from E-M1-001",
+    "environment": "uv.lock; CPython 3.13.2; local CPU",
+    "revision": "496012ad628b968bde0bf679f7078f9f2c583d25",
+    "worktree_dirty_at_run": false
+  },
+  "result_class": "supports",
+  "tag": "ACCEPTANCE_GATE",
+  "target_constraint": "M1-A-v2",
+  "timestamp_utc": "2026-08-23T21:36:33Z",
+  "validity_checks": [
+    "v2 config was committed and pushed before execution",
+    "worktree was clean before result creation",
+    "gate checks are named in the result artifact",
+    "v1 and v2 decision rules have unit-test coverage"
+  ],
+  "validity_notes": "This is an explicit user-authorized contract revision, not a claim that the original RMSE gate passed. E-M1-001 is retained unchanged."
+}

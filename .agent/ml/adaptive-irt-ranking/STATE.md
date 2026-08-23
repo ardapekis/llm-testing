@@ -23,7 +23,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Current provenance
 
 - Repository: `/Users/arda/Documents/ChatGPT/New project`
-- Revision: `121cec42581122016ec17343a55a0ee82917de29` on `codex/adaptive-irt-ranking`
+- Revision: M1-A-v2 ran cleanly from `496012ad628b968bde0bf679f7078f9f2c583d25` on `codex/adaptive-irt-ranking`
 - Initial state: upstream `main` contained only a README and stock Python `.gitignore`
 - Runtime: macOS; system Python 3.14.0; `uv 0.6.3`; package targets Python >=3.11
 - Source candidate 1: `felipemaiapolo/tinyBenchmarks` commit `e9a8b1031b0340571beb6c9ca3a27891be09a8fd`, `tutorials/data/lb.pickle`, SHA-256 `34f44d6a819512ef74d00a95288d252fa679288a10ca167cd97fdbc3aae66437`
@@ -39,12 +39,13 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | E-M0-004 | SWE-bench result rows are model+agent submissions, so the second matrix ranks systems rather than isolated base models | SWE Verified source | Submission metadata and README |
 | E-M0-005 | M0 passes: MMLU is 395x14,042 and SWE Verified is 134x500; both are binary, pair-unique, and 100% dense with verified checksums/manifests | Pinned processed artifacts | `scripts/verify_m0_data.py`; 10 passing tests; strict lint/type checks |
 | E-M1-001 | M1-A fails: the preregistered 50x1,000 1PL run has difficulty RMSE 0.21386, above 0.15; theta Spearman 0.99178 passes | Revision `121cec4`, clean worktree | `artifacts/m1-recovery-result.json`; exit code 2 |
+| E-M1-002 | M1-A-v2 passes: estimator converged and theta Spearman 0.99178 exceeds 0.98; b RMSE 0.21386 remains diagnostic | Revision `496012a`, clean worktree | `artifacts/m1-recovery-rank-v2-result.json`; exit code 0 |
 
 ## Best valid candidate
 
-- Candidate: checked-in MMLU and SWE-bench Verified long-format Parquet matrices.
-- Evidence: E-M0-005.
-- Gate status: M0 passed. MMLU SHA-256 `eebe5be98848d595f005e76f35bab9eb795cddac9b74e6feec3dfd1df99283e4`; SWE SHA-256 `a1cd623aad7f7e1405db19ee4878bfe532466e71fc29e24908e018b5dadb1d80`.
+- Candidate: checked-in response matrices plus the implemented 1PL/2PL/3PL core and revised rank-recovery gate.
+- Evidence: E-M0-005 and E-M1-002.
+- Gate status: M0 and M1-A-v2 pass; M1-B is next. The original M1-A-v1 failure remains recorded as E-M1-001.
 
 ## Hypothesis register
 
@@ -52,14 +53,14 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 |---|---|---|---|---|---|---|
 | H-M0-001 | The two pinned sources satisfy M0 without paid evaluation | MMLU rows are 0/1; SWE unresolved complement counts as incorrect | >=15 entities, >=500 items, >=90% dense for both | Invalid values, fewer rows/items, unresolved IDs outside canonical set, or unusable provenance/licence | SUPPORTED | E-M0-005 |
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
-| H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | ACTIVE | Preregistered config `configs/m1_recovery_rank_v2.json` |
+| H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | SUPPORTED | E-M1-002 |
 
 ## Weakest currently admissible claim
 
-- Claim: the implemented 1PL MML-EM estimator converges and recovers ability ordering in the declared synthetic regime, but the required difficulty-recovery threshold is not met.
-- Directly tested scope: the frozen M1-A configuration at revision `121cec4` and seed 20260823.
-- Conditions retained: difficulty RMSE is 0.21386; the same-data true-theta oracle RMSE is 0.17570 and the Cramér–Rao RMS scale is 0.16688, both above the required threshold.
-- Action: evaluate the preregistered M1-A v2 rule from a clean revision; proceed to M1-B only if it passes.
+- Claim: the implemented 1PL MML-EM estimator converges and recovers ability ordering above the revised threshold in the declared synthetic regime.
+- Directly tested scope: the frozen 50x1,000 configuration, seed 20260823, and revision `496012a`.
+- Conditions retained: difficulty RMSE is diagnostic at 0.21386; M1-A-v1 remains failed and item calibration is not reference-validated until M1-B.
+- Action: run M1-B reference agreement on a full real response matrix.
 
 ## Constraint summary
 
@@ -67,8 +68,8 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 |---|---|---|---|
 | M0 | PASS | E-M0-005 | Preserve artifacts and provenance |
 | M1-A-v1 | FAIL | E-M1-001 | Preserve as rejected original contract |
-| M1-A-v2 | UNRESOLVED | User-authorized revised gate | Run from a clean preregistration commit |
-| M1-B | UNRESOLVED | Milestone order | Begin only after M1-A-v2 passes |
+| M1-A-v2 | PASS | E-M1-002 | Preserve config and result |
+| M1-B | UNRESOLVED | Milestone order | Compare against `girth` on one full real matrix |
 | M2–M5 | UNRESOLVED | Milestone order | Do not begin until M1 passes |
 
 ## Validity concerns
@@ -86,10 +87,10 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 
 ## Next targeted objective
 
-- Constraint: M1-A-v2 ranking recovery.
-- Experiment: same 50x1,000 deterministic response matrix and estimator as v1; revised hard checks only.
-- Exact first action: commit the v2 config and gate evaluator, then run it from that clean revision.
-- Decision map: pass permits M1-B; failure stops and reports again.
+- Constraint: M1-B reference implementation agreement.
+- Experiment: calibrate a full real response matrix with the local implementation and `girth` under aligned 1PL assumptions.
+- Exact first action: inspect the installed `girth` API and preregister an agreement metric/tolerance before running the comparison.
+- Decision map: agreement within the preregistered uncertainty tolerance passes M1; disagreement stops and reports.
 
 ## Remaining budget
 
