@@ -1,0 +1,48 @@
+{
+  "artifact": {
+    "columns": [
+      "model_id",
+      "item_id",
+      "correct"
+    ],
+    "format": "parquet",
+    "path": "responses.parquet",
+    "sha256": "eebe5be98848d595f005e76f35bab9eb795cddac9b74e6feec3dfd1df99283e4"
+  },
+  "benchmark": "MMLU 5-shot",
+  "created_at": "2026-08-23T21:06:52.832319+00:00",
+  "entity_semantics": "language model evaluation run",
+  "licence": {
+    "expression": "MIT",
+    "scope": "tinyBenchmarks repository and checked-in derived response artifact",
+    "source": "https://github.com/felipemaiapolo/tinyBenchmarks/blob/main/LICENSE"
+  },
+  "m0_gate_pass": true,
+  "matrix_id": "mmlu_openllm",
+  "schema_version": 1,
+  "source": {
+    "artifacts": [
+      {
+        "path": "tutorials/data/lb.pickle",
+        "sha256": "34f44d6a819512ef74d00a95288d252fa679288a10ca167cd97fdbc3aae66437"
+      }
+    ],
+    "commit": "e9a8b1031b0340571beb6c9ca3a27891be09a8fd",
+    "url": "https://github.com/felipemaiapolo/tinyBenchmarks"
+  },
+  "statistics": {
+    "correct": 3163221,
+    "density": 1.0,
+    "incorrect": 2383369,
+    "items": 14042,
+    "models": 395,
+    "observed": 5546590,
+    "possible": 5546590
+  },
+  "transform": {
+    "notes": [
+      "Selected all harness_hendrycksTest_* 5-shot scenarios.",
+      "Transposed upstream item-by-model arrays to model-by-item before long conversion."
+    ]
+  }
+}

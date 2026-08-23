@@ -1,0 +1,51 @@
+{
+  "artifact": {
+    "columns": [
+      "model_id",
+      "item_id",
+      "correct"
+    ],
+    "format": "parquet",
+    "path": "responses.parquet",
+    "sha256": "a1cd623aad7f7e1405db19ee4878bfe532466e71fc29e24908e018b5dadb1d80"
+  },
+  "benchmark": "SWE-bench Verified",
+  "created_at": "2026-08-23T21:06:52.877213+00:00",
+  "entity_semantics": "model-plus-agent leaderboard submission",
+  "licence": {
+    "expression": "NOASSERTION",
+    "scope": "leaderboard submission result artifacts",
+    "source": "No root licence file at the pinned experiments commit",
+    "upstream_benchmark_code": "MIT"
+  },
+  "m0_gate_pass": true,
+  "matrix_id": "swebench_verified",
+  "schema_version": 1,
+  "source": {
+    "artifacts": [
+      {
+        "file_count": "134",
+        "path": "evaluation/verified/*/results/results.json",
+        "sha256_tree": "73c4562effda270e01e053643d0c89f72c6faa30c0e1e091f99cbb68d536b11b"
+      }
+    ],
+    "commit": "1faa91cade0562ba62b66c1c99e71f7b72d96f13",
+    "url": "https://github.com/SWE-bench/experiments"
+  },
+  "statistics": {
+    "correct": 34485,
+    "density": 1.0,
+    "incorrect": 32515,
+    "items": 500,
+    "models": 134,
+    "observed": 67000,
+    "possible": 67000
+  },
+  "transform": {
+    "notes": [
+      "Canonical 500 IDs taken from 20240402_rag_gpt4.generated.",
+      "Resolved IDs map to 1; every other canonical ID maps to 0.",
+      "Rows rank submitted systems, not isolated base models."
+    ]
+  }
+}

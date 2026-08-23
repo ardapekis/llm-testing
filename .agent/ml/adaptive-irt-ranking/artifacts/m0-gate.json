@@ -1,0 +1,54 @@
+{
+  "evidence_id": "E-M0-005",
+  "tag": "ACCEPTANCE_GATE",
+  "target_constraint": "M0",
+  "hypothesis_id": "H-M0-001",
+  "hypothesis": "The two pinned public sources satisfy the M0 response-matrix gate.",
+  "commitments_tested": [
+    "tinyBenchmarks commit e9a8b1031b0340571beb6c9ca3a27891be09a8fd",
+    "SWE-bench experiments commit 1faa91cade0562ba62b66c1c99e71f7b72d96f13",
+    "SWE unresolved canonical instances count as incorrect"
+  ],
+  "positive_prediction": "Both derived matrices have at least 15 entities, at least 500 items, at least 90% density, binary outcomes, unique pairs, and complete manifests.",
+  "negative_prediction": "Any invalid value, duplicate pair, checksum mismatch, missing provenance/licence field, or gate statistic below threshold rejects M0.",
+  "intervention": "Transform pinned source artifacts to long-format Parquet and independently verify the written files.",
+  "control": "Direct source shape and identifier audits E-M0-001 through E-M0-003.",
+  "command": "uv run python scripts/verify_m0_data.py && uv run pytest && uv run ruff check . && uv run mypy src scripts tests",
+  "config": {
+    "lockfile": "uv.lock"
+  },
+  "provenance": {
+    "revision": "uncommitted initial repository",
+    "data": "data/processed/*/manifest.json",
+    "environment": "uv.lock; CPython 3.13.2",
+    "hardware": "local CPU"
+  },
+  "validity_checks": [
+    "Parquet checksum matches manifest",
+    "schema is exactly model_id:string, item_id:string, correct:boolean",
+    "model-item pairs are unique and complete",
+    "manifest statistics equal independently recomputed statistics",
+    "10 tests pass; ruff and mypy --strict pass"
+  ],
+  "result_class": "supports",
+  "metrics": {
+    "mmlu_models": 395,
+    "mmlu_items": 14042,
+    "mmlu_density": 1.0,
+    "swe_models": 134,
+    "swe_items": 500,
+    "swe_density": 1.0
+  },
+  "artifacts": [
+    "data/processed/mmlu_openllm/responses.parquet",
+    "data/processed/mmlu_openllm/manifest.json",
+    "data/processed/swebench_verified/responses.parquet",
+    "data/processed/swebench_verified/manifest.json"
+  ],
+  "validity_notes": "Two verifier implementation failures were repaired before evidence collection: NumPy private-symbol compatibility and table-level null counting. Neither reached or altered response data.",
+  "claim_scope": [
+    "the two pinned source revisions",
+    "structural M0 acceptance only"
+  ],
+  "next_implication": "M0 passes; M1 IRT implementation and recovery experiments may begin."
+}
