@@ -54,6 +54,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | H-M0-001 | The two pinned sources satisfy M0 without paid evaluation | MMLU rows are 0/1; SWE unresolved complement counts as incorrect | >=15 entities, >=500 items, >=90% dense for both | Invalid values, fewer rows/items, unresolved IDs outside canonical set, or unusable provenance/licence | SUPPORTED | E-M0-005 |
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
 | H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | SUPPORTED | E-M1-002 |
+| H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; N(0,1) prior; local MML-EM vs girth 0.8.0 Rasch MML; 100 paired parametric bootstraps | b Spearman >0.99; observed b RMSE <= bootstrap RMSE q95; all local bootstrap fits converge | Any hard check fails | ACTIVE | Preregistered config `configs/m1_reference_agreement.json` |
 
 ## Weakest currently admissible claim
 
@@ -69,7 +70,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | M0 | PASS | E-M0-005 | Preserve artifacts and provenance |
 | M1-A-v1 | FAIL | E-M1-001 | Preserve as rejected original contract |
 | M1-A-v2 | PASS | E-M1-002 | Preserve config and result |
-| M1-B | UNRESOLVED | Milestone order | Compare against `girth` on one full real matrix |
+| M1-B | UNRESOLVED | Preregistered full-matrix comparison | Run config `configs/m1_reference_agreement.json` from a clean revision |
 | M2–M5 | UNRESOLVED | Milestone order | Do not begin until M1 passes |
 
 ## Validity concerns
@@ -88,8 +89,8 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Next targeted objective
 
 - Constraint: M1-B reference implementation agreement.
-- Experiment: calibrate a full real response matrix with the local implementation and `girth` under aligned 1PL assumptions.
-- Exact first action: inspect the installed `girth` API and preregister an agreement metric/tolerance before running the comparison.
+- Experiment: calibrate the full 134x500 SWE matrix locally and with `girth 0.8.0`; compare b rank and RMSE against 100 paired parametric-bootstrap RMSE values.
+- Exact first action: commit the comparison implementation and config, then run it from the clean preregistration revision.
 - Decision map: agreement within the preregistered uncertainty tolerance passes M1; disagreement stops and reports.
 
 ## Remaining budget

@@ -45,7 +45,7 @@ strict = true
 warn_unused_configs = true
 
 [[tool.mypy.overrides]]
-module = ["pyarrow.*"]
+module = ["girth.*", "pyarrow.*"]
 ignore_missing_imports = true
 
 [tool.ruff]

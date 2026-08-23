@@ -1,0 +1,40 @@
+{
+  "experiment": "m1_real_matrix_reference_agreement",
+  "matrix": {
+    "id": "swebench_verified",
+    "path": "data/processed/swebench_verified/responses.parquet",
+    "sha256": "a1cd623aad7f7e1405db19ee4878bfe532466e71fc29e24908e018b5dadb1d80",
+    "expected_models": 134,
+    "expected_items": 500,
+    "entity_semantics": "model-plus-agent leaderboard submission"
+  },
+  "model": {
+    "family": "1pl",
+    "fixed_discrimination": 1.0,
+    "guessing": 0.0,
+    "latent_prior": "normal(0,1)"
+  },
+  "local_estimator": {
+    "quadrature_points": 61,
+    "max_iterations": 80,
+    "tolerance": 0.0001,
+    "parameter_bound": 6.0
+  },
+  "reference_estimator": {
+    "package": "girth",
+    "version": "0.8.0",
+    "function": "rasch_mml",
+    "quadrature_bounds": [-6.0, 6.0],
+    "quadrature_points": 61
+  },
+  "monte_carlo": {
+    "method": "paired_parametric_bootstrap_from_local_real_matrix_fit",
+    "replicates": 100,
+    "seed": 20260824
+  },
+  "gate": {
+    "difficulty_spearman_greater_than": 0.99,
+    "observed_rmse_at_most_bootstrap_quantile": 0.95,
+    "require_all_bootstrap_local_fits_converged": true
+  }
+}

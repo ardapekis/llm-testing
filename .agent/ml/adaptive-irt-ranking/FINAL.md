@@ -86,7 +86,7 @@ The M1 command is expected to exit 2 because the gate fails. Exact config and pr
 
 ## Highest-value next experiment
 
-Preregister and run M1-B against `girth` on one full real matrix with aligned IRT assumptions and an uncertainty-aware agreement tolerance.
+Run the preregistered `configs/m1_reference_agreement.json` comparison from a clean revision.
 
 Evidence confidence: 98/100 for the M1-A failure decision; no confidence is assigned to unrun downstream claims.
 
