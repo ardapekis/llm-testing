@@ -1,0 +1,32 @@
+{
+  "experiment": "reduced_m2_m5_offline_prototype",
+  "scope_revision": "User-authorized reduced scope: exploratory fixed-budget replay, normalized unit cost, 20 seeds, fake provider only, and no fixed-confidence or 5x claim.",
+  "matrices": [
+    {
+      "id": "mmlu_openllm",
+      "path": "data/processed/mmlu_openllm/responses.parquet"
+    },
+    {
+      "id": "swebench_verified",
+      "path": "data/processed/swebench_verified/responses.parquet"
+    }
+  ],
+  "seeds": {
+    "start": 10000,
+    "count": 20
+  },
+  "budget_fractions": [0.002, 0.005, 0.01, 0.02, 0.05],
+  "policies": [
+    "random",
+    "balanced_random",
+    "cat_se",
+    "rank_aware",
+    "rank_aware_no_contest"
+  ],
+  "cost_model": "one_normalized_unit_per_unique_model_item_observation",
+  "m4": {
+    "fake_models": 5,
+    "fake_items": 2,
+    "request_limit": 8
+  }
+}
