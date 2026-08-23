@@ -1,0 +1,40 @@
+{
+  "config": {
+    "data": {
+      "difficulty_distribution": "uniform[-1.25,1.25]",
+      "discrimination": 2.5,
+      "items": 1000,
+      "models": 50,
+      "seed": 20260823
+    },
+    "estimator": {
+      "fixed_discrimination": 2.5,
+      "max_iterations": 80,
+      "model": "1pl",
+      "quadrature_points": 41,
+      "tolerance": 0.0001
+    },
+    "gate": {
+      "difficulty_rmse_less_than": 0.15,
+      "theta_spearman_greater_than": 0.98
+    }
+  },
+  "config_sha256": "39039a9b150257058ea86373adc469aa45d26d2e0ba867030534edfb919c027a",
+  "experiment": "m1_synthetic_recovery",
+  "gate_pass": false,
+  "metrics": {
+    "converged": true,
+    "cramer_rao_rms_scale": 0.16688003541529234,
+    "difficulty_rmse": 0.21386469130940508,
+    "elapsed_seconds": 0.45420050001121126,
+    "iterations": 10,
+    "marginal_log_likelihood": -18609.260764751194,
+    "oracle_theta_difficulty_rmse": 0.1757007915040549,
+    "theta_spearman": 0.9917795028913772
+  },
+  "provenance": {
+    "dirty": false,
+    "revision": "121cec42581122016ec17343a55a0ee82917de29"
+  },
+  "schema_version": 1
+}

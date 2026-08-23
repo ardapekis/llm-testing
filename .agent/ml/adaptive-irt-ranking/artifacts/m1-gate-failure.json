@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    ".agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-result.json",
+    ".agent/ml/adaptive-irt-ranking/artifacts/M1_FAILURE.md"
+  ],
+  "claim_scope": [
+    "the preregistered M1-A synthetic configuration",
+    "revision 121cec42581122016ec17343a55a0ee82917de29"
+  ],
+  "command": "uv run python scripts/run_m1_recovery.py",
+  "commitments_tested": [
+    "50 models and 1000 items",
+    "1PL discrimination fixed at 2.5",
+    "seed 20260823",
+    "difficulty RMSE <0.15 and theta Spearman >0.98"
+  ],
+  "config": {
+    "path": "configs/m1_recovery.json",
+    "sha256": "39039a9b150257058ea86373adc469aa45d26d2e0ba867030534edfb919c027a"
+  },
+  "control": "Same-data true-theta oracle difficulty estimator and Cramér–Rao RMS diagnostic.",
+  "evidence_id": "E-M1-001",
+  "hypothesis": "The preregistered synthetic recovery run satisfies both M1-A thresholds.",
+  "hypothesis_id": "H-M1-001",
+  "intervention": "Fit the implemented 1PL MML-EM estimator to the frozen synthetic response matrix.",
+  "metrics": {
+    "converged": true,
+    "cramer_rao_rms_scale": 0.16688003541529234,
+    "difficulty_rmse": 0.21386469130940508,
+    "iterations": 10,
+    "oracle_theta_difficulty_rmse": 0.1757007915040549,
+    "theta_spearman": 0.9917795028913772
+  },
+  "negative_prediction": "Difficulty RMSE >=0.15 or theta Spearman <=0.98 rejects M1-A and stops subsequent milestones.",
+  "next_implication": "M1-A fails. Do not run M1-B or begin M2 without a revised contract or new authorization.",
+  "positive_prediction": "Difficulty RMSE is below 0.15 and theta Spearman is above 0.98.",
+  "provenance": {
+    "data": "deterministic synthetic generator",
+    "environment": "uv.lock; CPython 3.13.2; local CPU",
+    "revision": "121cec42581122016ec17343a55a0ee82917de29",
+    "worktree_dirty_at_run": false
+  },
+  "result_class": "rejects",
+  "tag": "ACCEPTANCE_GATE",
+  "target_constraint": "M1-A",
+  "timestamp_utc": "2026-08-23T21:19:07Z",
+  "validity_checks": [
+    "estimator converged",
+    "configuration hash recorded",
+    "clean revision recorded before artifact creation",
+    "oracle and information-bound diagnostics computed on the same generated data"
+  ],
+  "validity_notes": "The acceptance run was not tuned after observation. The oracle RMSE and Cramér–Rao RMS scale both exceed the required threshold under the frozen regime."
+}
