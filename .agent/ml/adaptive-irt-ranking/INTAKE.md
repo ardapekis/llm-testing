@@ -6,7 +6,7 @@
 - Repository: `/Users/arda/Documents/ChatGPT/New project`
 - Blocking decisions: none for M0–M3. A paid M4 run requires a configured provider and an explicit dollar cap before calls are issued.
 
-## Configured contract
+## Current understanding
 
 | Field | Value | Source | Evidence / consequence |
 |---|---|---|---|
@@ -24,6 +24,27 @@
 | Completion rule | Every M0–M5 gate passes with direct artifacts and a requirement-by-requirement audit | `USER_CONFIRMED` | Acceptance criteria and goal completion audit |
 | Intended claim scope | Only the exact dataset revisions, seeds, cost configs, and live model/provider versions recorded in manifests | `AGENT_PROPOSED` | Prevents unsupported generalization |
 
+## Answered decisions
+
+| Decision | Answer | Source | Consequence for plan |
+|---|---|---|---|
+| Repository | Use `ardapekis/llm-testing` | `USER_CONFIRMED` | All checkpoints are pushed to `codex/adaptive-irt-ranking` |
+| Milestone order | Execute M0–M5 in order | `USER_CONFIRMED` | M1-A failure blocks every later milestone |
+| Failed-gate behavior | Report; do not tune to the threshold | `USER_CONFIRMED` | Preserve E-M1-001 and stop |
+| Paid evaluation | Not authorized | `REPO_INFERRED` | M4 would require explicit approval even if earlier gates passed |
+
+## Proposed defaults and assumptions
+
+| Proposal / assumption | Rationale | Reversible? | Confirmation required? | Status |
+|---|---|---|---|---|
+| Development seeds 0–49 and sealed replay seeds from 10,000 | Prevent downstream tuning on the required 200-seed evaluation | Yes | Only if M2 is reached | Retained but unused |
+| Treat SWE submissions as replay entities | Preserves the public matrix while avoiding a false base-model interpretation | Yes | No | Accepted with caveat |
+| M1 recovery seed 20260823 and fixed discrimination 2.5 | Deterministic, high-information preregistered gate | No after observation | A changed experiment now requires approval | Frozen and failed |
+
+## Next configuration questions
+
+None while the ordered stop remains in force. Continuing would require the user to revise the M1-A statistical contract explicitly.
+
 ## Authorization boundaries
 
 - Pre-authorized compute: local CPU work and small dependency installation.
@@ -34,11 +55,16 @@
 
 ## READY deployment brief
 
-- Decision: whether rank-aware adaptive allocation can lower dollar cost at matched ranking fidelity without breaking coverage.
+- Decision and objective: determine whether rank-aware adaptive allocation can lower dollar cost at matched ranking fidelity without breaking coverage.
 - Deliverable: package, data manifests, experiment configs/artifacts, adapter, and report.
+- Target system and access: local `llm-testing` repository, public benchmark artifacts, local CPU, and no network access in tests.
+- Primary metric / verifier: epsilon-inversion rate for fixed-confidence mode; Kendall tau and inversion rate for fixed-budget mode; ordered milestone gates.
 - Baseline: the five required non-rank-aware policies on the same response cache and cost model.
-- Evaluation: development seeds are separate from a locked 200-seed final cohort.
-- Completion: all milestone gates pass in order; a failed gate is reported rather than tuned away.
+- Development and sealed evaluation policy: development seeds are separate from a locked 200-seed final cohort.
+- Hard constraints and non-goals: anytime-valid stopping, uncertainty propagation, information barrier, reproducibility, no product ranking claim, and no network tests.
+- Budget and authorization: public downloads and local CPU only; no paid model or API calls.
+- Completion rule: all milestone gates pass in order; a failed gate is reported rather than tuned away.
+- Intended claim scope: exact pinned datasets, configs, seeds, code revisions, and provider versions recorded in artifacts.
 - Nonblocking assumptions: public benchmark submissions are replay entities even when a SWE-bench row represents a model+agent system rather than a bare model.
 - Exact first action: transform the two pinned public artifacts into validated long-format Parquet matrices and emit provenance/licence manifests.
 

@@ -6,6 +6,10 @@
 - Objective: build and validate a cost-minimal adaptive IRT system for LLM benchmark ranking, executing M0–M5 in order.
 - Intake: `INTAKE.md`
 
+## Objective
+
+Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, executing M0–M5 in order and stopping with a diagnostic report at the first failed gate.
+
 ## Locked contract
 
 - Primary metric: fixed-confidence epsilon-inversion rate <= delta; fixed-budget Kendall tau and inversion rate.
@@ -76,3 +80,18 @@
 - Result: rejected by difficulty RMSE 0.21386 >= 0.15; theta Spearman 0.99178 > 0.98.
 - Diagnostic: the true-theta oracle RMSE (0.17570) and Cramér–Rao RMS scale (0.16688) also exceed 0.15 under the frozen 50-response-per-item regime.
 - Required action: report the failed gate. A revised statistical contract or explicitly authorized new experiment is required before further milestone work.
+
+## Next targeted objective
+
+- Constraint: M1-A remains failed under the locked contract.
+- Experiment: none authorized; the ordered milestone rule requires a stop.
+- Exact first action: if the user revises the contract, preregister the changed sample-size or acceptance rule before generating new outcomes.
+- Decision map: retain STOP-BEST while the contract is unchanged; a revision may permit a new M1-A experiment, but cannot erase E-M1-001.
+
+## Remaining budget
+
+- Full runs: no numerical limit supplied; zero are authorized after the failed gate under the current contract.
+- Compute: local CPU available.
+- External cost: $0 authorized.
+- Recursive rounds: unbounded, subject to milestone gates.
+- Replication reserve: untouched downstream sealed seeds; M2 was not reached.
