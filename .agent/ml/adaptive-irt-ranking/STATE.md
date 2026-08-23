@@ -40,6 +40,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | E-M0-005 | M0 passes: MMLU is 395x14,042 and SWE Verified is 134x500; both are binary, pair-unique, and 100% dense with verified checksums/manifests | Pinned processed artifacts | `scripts/verify_m0_data.py`; 10 passing tests; strict lint/type checks |
 | E-M1-001 | M1-A fails: the preregistered 50x1,000 1PL run has difficulty RMSE 0.21386, above 0.15; theta Spearman 0.99178 passes | Revision `121cec4`, clean worktree | `artifacts/m1-recovery-result.json`; exit code 2 |
 | E-M1-002 | M1-A-v2 passes: estimator converged and theta Spearman 0.99178 exceeds 0.98; b RMSE 0.21386 remains diagnostic | Revision `496012a`, clean worktree | `artifacts/m1-recovery-rank-v2-result.json`; exit code 0 |
+| E-M1-003 | First M1-B attempt is invalid: local real-matrix EM hit its 80-iteration ceiling before agreement metrics; diagnostic ceiling 500 converged at iteration 168 | Revision `9eba82f`, clean worktree | `artifacts/m1b-invalid-80-iterations.json` |
 
 ## Best valid candidate
 
@@ -54,7 +55,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | H-M0-001 | The two pinned sources satisfy M0 without paid evaluation | MMLU rows are 0/1; SWE unresolved complement counts as incorrect | >=15 entities, >=500 items, >=90% dense for both | Invalid values, fewer rows/items, unresolved IDs outside canonical set, or unusable provenance/licence | SUPPORTED | E-M0-005 |
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
 | H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | SUPPORTED | E-M1-002 |
-| H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; N(0,1) prior; local MML-EM vs girth 0.8.0 Rasch MML; 100 paired parametric bootstraps | b Spearman >0.99; observed b RMSE <= bootstrap RMSE q95; all local bootstrap fits converge | Any hard check fails | ACTIVE | Preregistered config `configs/m1_reference_agreement.json` |
+| H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; N(0,1) prior; local MML-EM vs girth 0.8.0 Rasch MML; 100 paired parametric bootstraps; repaired 250-iteration ceiling | b Spearman >0.99; observed b RMSE <= bootstrap RMSE q95; all local bootstrap fits converge | Any hard check fails | ACTIVE | Preregistered config `configs/m1_reference_agreement.json`; validity repair E-M1-003 |
 
 ## Weakest currently admissible claim
 
@@ -70,7 +71,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | M0 | PASS | E-M0-005 | Preserve artifacts and provenance |
 | M1-A-v1 | FAIL | E-M1-001 | Preserve as rejected original contract |
 | M1-A-v2 | PASS | E-M1-002 | Preserve config and result |
-| M1-B | UNRESOLVED | Preregistered full-matrix comparison | Run config `configs/m1_reference_agreement.json` from a clean revision |
+| M1-B | UNRESOLVED | E-M1-003 invalid; repaired config pending | Commit numerical-ceiling repair, then rerun cleanly |
 | M2–M5 | UNRESOLVED | Milestone order | Do not begin until M1 passes |
 
 ## Validity concerns
@@ -89,8 +90,8 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Next targeted objective
 
 - Constraint: M1-B reference implementation agreement.
-- Experiment: calibrate the full 134x500 SWE matrix locally and with `girth 0.8.0`; compare b rank and RMSE against 100 paired parametric-bootstrap RMSE values.
-- Exact first action: commit the comparison implementation and config, then run it from the clean preregistration revision.
+- Experiment: rerun the unchanged full-matrix agreement experiment with only the local EM ceiling raised from 80 to 250.
+- Exact first action: commit the validity repair and execute from the clean revision.
 - Decision map: agreement within the preregistered uncertainty tolerance passes M1; disagreement stops and reports.
 
 ## Remaining budget

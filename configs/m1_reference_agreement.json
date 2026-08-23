@@ -16,9 +16,10 @@
   },
   "local_estimator": {
     "quadrature_points": 61,
-    "max_iterations": 80,
+    "max_iterations": 250,
     "tolerance": 0.0001,
-    "parameter_bound": 6.0
+    "parameter_bound": 6.0,
+    "validity_revision": "The preregistered 80-iteration ceiling produced no agreement metrics; a diagnostic run converged at iteration 168, so only the numerical ceiling was raised."
   },
   "reference_estimator": {
     "package": "girth",

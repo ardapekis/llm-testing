@@ -1,0 +1,51 @@
+{
+  "artifacts": [
+    "configs/m1_reference_agreement.json",
+    ".agent/ml/adaptive-irt-ranking/STATE.md"
+  ],
+  "claim_scope": [
+    "M1-B verifier validity only",
+    "no reference-agreement metric was computed"
+  ],
+  "command": "uv run python scripts/run_m1_reference_agreement.py",
+  "commitments_tested": [
+    "local real-matrix MML must converge before reference agreement is interpretable",
+    "the original numerical ceiling was 80 iterations"
+  ],
+  "config": {
+    "path": "configs/m1_reference_agreement.json at revision 9eba82fe612c640dc44e29f4c1f2970f66266529",
+    "sha256": "cb4f8fd19d8fe12750d13486324edf573c9f480893035671d7d84516373c0d6b"
+  },
+  "control": "A diagnostic-only rerun with a 500-iteration ceiling converged at iteration 168 without changing the data, estimator, or tolerance.",
+  "evidence_id": "E-M1-003",
+  "hypothesis": "The preregistered M1-B runner reaches an interpretable reference-agreement result within 80 local EM iterations.",
+  "hypothesis_id": "H-M1-003-validity",
+  "intervention": "Run the preregistered full-matrix comparison from a clean revision.",
+  "metrics": {
+    "diagnostic_converged": true,
+    "diagnostic_convergence_iteration": 168,
+    "diagnostic_final_log_likelihood": -20627.16002923457,
+    "preregistered_converged": false,
+    "preregistered_iterations": 80
+  },
+  "negative_prediction": "If the local fit hits the numerical ceiling, the attempt is invalid and must not decide M1-B.",
+  "next_implication": "Raise only the numerical ceiling to 250, preserve all comparison thresholds, and preregister a clean rerun.",
+  "positive_prediction": "The local fit converges before reference metrics are computed.",
+  "provenance": {
+    "data": "full SWE-bench Verified 134x500 matrix",
+    "environment": "uv.lock; CPython 3.13.2; local CPU",
+    "revision": "9eba82fe612c640dc44e29f4c1f2970f66266529",
+    "worktree_dirty_at_run": false
+  },
+  "result_class": "invalid",
+  "tag": "VALIDITY_REPAIR",
+  "target_constraint": "M1-B",
+  "timestamp_utc": "2026-08-23T21:42:30Z",
+  "validity_checks": [
+    "runner stopped before agreement evaluation",
+    "no output artifact or gate decision was produced",
+    "likelihood and parameter-bound diagnostics were inspected",
+    "a higher-ceiling diagnostic converged at iteration 168"
+  ],
+  "validity_notes": "This does not fail or pass M1-B. The repair changes only maximum iterations, not the estimator tolerance, agreement metric, bootstrap count, or thresholds."
+}

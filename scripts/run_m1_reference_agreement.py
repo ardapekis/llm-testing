@@ -99,6 +99,11 @@ def _agreement_payload(result: AgreementResult) -> dict[str, object]:
     }
 
 
+def _write_result(path: Path, result: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     args = parse_args()
     config_bytes = args.config.read_bytes()
@@ -124,7 +129,34 @@ def main() -> int:
         matrix.responses, local_config, reference_config, discrimination
     )
     if not local_real.converged:
-        raise RuntimeError("local estimator did not converge on the real matrix")
+        invalid_result: dict[str, object] = {
+            "schema_version": 1,
+            "experiment": config["experiment"],
+            "config": config,
+            "config_sha256": hashlib.sha256(config_bytes).hexdigest(),
+            "provenance": provenance,
+            "matrix": {
+                "models": len(matrix.model_ids),
+                "items": len(matrix.item_ids),
+                "sha256": matrix_config["sha256"],
+            },
+            "reference": {
+                "package": "girth",
+                "version": version("girth"),
+                "function": reference_config["function"],
+            },
+            "validity": "invalid",
+            "invalid_reason": "local estimator did not converge on the real matrix",
+            "metrics": {
+                "local_real_converged": False,
+                "local_real_iterations": local_real.iterations,
+                "elapsed_seconds": time.perf_counter() - started,
+            },
+            "gate_pass": None,
+        }
+        _write_result(args.output, invalid_result)
+        print(json.dumps(invalid_result["metrics"], sort_keys=True))
+        return 3
     real_abilities = estimate_eap(
         matrix.responses,
         local_real.parameters,
@@ -183,10 +215,10 @@ def main() -> int:
             "bootstrap_rmse": bootstrap_rmse.tolist(),
             "elapsed_seconds": elapsed,
         },
+        "validity": "valid",
         "gate_pass": agreement.passed,
     }
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    _write_result(args.output, result)
     print(json.dumps({**_agreement_payload(agreement), "elapsed_seconds": elapsed}, sort_keys=True))
     return 0 if agreement.passed else 2
 
