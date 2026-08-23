@@ -6,9 +6,138 @@ from dataclasses import dataclass
 
 import numpy as np
 import numpy.typing as npt
+from scipy.optimize import minimize
 from scipy.stats import spearmanr
 
+from irt_rank.irt.model import ItemParameters, probability
+
 FloatArray = npt.NDArray[np.float64]
+BoolArray = npt.NDArray[np.bool_]
+
+
+@dataclass(frozen=True, slots=True)
+class ScaleLink:
+    """Reference item parameters transformed onto the local latent scale."""
+
+    slope: float
+    intercept: float
+    parameters: ItemParameters
+    tcc_rmse: float
+
+
+@dataclass(frozen=True, slots=True)
+class ParameterAgreementMetrics:
+    """Linked 2PL parameter and response-function disagreement."""
+
+    difficulty_rmse: float
+    log_discrimination_rmse: float
+    difficulty_spearman: float
+    discrimination_spearman: float
+    icc_rmse: float
+
+
+def estimable_item_mask(responses: npt.ArrayLike) -> BoolArray:
+    """Identify items with both response classes and therefore finite 2PL parameters."""
+
+    matrix = np.asarray(responses)
+    if matrix.ndim != 2:
+        raise ValueError("responses must be a model-by-item matrix")
+    if not bool(np.isfinite(matrix).all()):
+        raise ValueError("responses must be finite")
+    if not bool(np.isin(matrix, (0, 1)).all()):
+        raise ValueError("responses must be binary")
+    return np.asarray((matrix.min(axis=0) == 0) & (matrix.max(axis=0) == 1))
+
+
+def _linked_parameters(
+    reference: ItemParameters,
+    slope: float,
+    intercept: float,
+) -> ItemParameters:
+    return ItemParameters(
+        discrimination=reference.discrimination / slope,
+        difficulty=slope * reference.difficulty + intercept,
+        guessing=reference.guessing,
+    )
+
+
+def link_reference_scale(
+    local: ItemParameters,
+    reference: ItemParameters,
+    *,
+    theta_grid: npt.ArrayLike,
+) -> ScaleLink:
+    """Link reference parameters to the local scale by Stocking-Lord TCC matching."""
+
+    if local.items != reference.items:
+        raise ValueError("local and reference parameters must contain the same items")
+    grid = np.asarray(theta_grid, dtype=np.float64)
+    if grid.ndim != 1 or grid.size < 3 or not bool(np.isfinite(grid).all()):
+        raise ValueError("theta_grid must be a finite one-dimensional grid")
+    local_tcc = probability(grid, local).sum(axis=1)
+
+    def objective(raw: FloatArray) -> float:
+        slope = float(np.exp(raw[0]))
+        intercept = float(raw[1])
+        linked = _linked_parameters(reference, slope, intercept)
+        difference = probability(grid, linked).sum(axis=1) - local_tcc
+        return float(np.mean(np.square(difference)))
+
+    result = minimize(
+        objective,
+        np.zeros(2, dtype=np.float64),
+        method="L-BFGS-B",
+        bounds=[(np.log(0.1), np.log(10.0)), (-6.0, 6.0)],
+    )
+    if not result.success:
+        raise RuntimeError(f"Stocking-Lord linking failed: {result.message}")
+    slope = float(np.exp(result.x[0]))
+    intercept = float(result.x[1])
+    return ScaleLink(
+        slope=slope,
+        intercept=intercept,
+        parameters=_linked_parameters(reference, slope, intercept),
+        tcc_rmse=float(np.sqrt(result.fun)),
+    )
+
+
+def parameter_agreement_metrics(
+    local: ItemParameters,
+    linked_reference: ItemParameters,
+    *,
+    theta_grid: npt.ArrayLike,
+) -> ParameterAgreementMetrics:
+    """Measure linked parameter and item-characteristic-curve disagreement."""
+
+    if local.items != linked_reference.items:
+        raise ValueError("local and linked reference parameters must contain the same items")
+    grid = np.asarray(theta_grid, dtype=np.float64)
+    if grid.ndim != 1 or grid.size < 3 or not bool(np.isfinite(grid).all()):
+        raise ValueError("theta_grid must be a finite one-dimensional grid")
+    if bool(
+        np.any(local.discrimination <= 0)
+        or np.any(linked_reference.discrimination <= 0)
+    ):
+        raise ValueError("discriminations must be positive")
+
+    difficulty_difference = local.difficulty - linked_reference.difficulty
+    log_discrimination_difference = np.log(local.discrimination) - np.log(
+        linked_reference.discrimination
+    )
+    probability_difference = probability(grid, local) - probability(grid, linked_reference)
+    return ParameterAgreementMetrics(
+        difficulty_rmse=float(np.sqrt(np.mean(np.square(difficulty_difference)))),
+        log_discrimination_rmse=float(
+            np.sqrt(np.mean(np.square(log_discrimination_difference)))
+        ),
+        difficulty_spearman=float(
+            spearmanr(local.difficulty, linked_reference.difficulty).statistic
+        ),
+        discrimination_spearman=float(
+            spearmanr(local.discrimination, linked_reference.discrimination).statistic
+        ),
+        icc_rmse=float(np.sqrt(np.mean(np.square(probability_difference)))),
+    )
 
 
 @dataclass(frozen=True, slots=True)

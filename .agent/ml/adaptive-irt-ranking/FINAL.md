@@ -2,9 +2,9 @@
 
 ## Outer decision
 
-`STOP-BEST`
+`REFINE (resumed)`
 
-M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. M1-B fails: item ordering agrees with `girth`, but absolute difficulty RMSE exceeds the paired-bootstrap tolerance and only 99/100 bootstrap local fits converge. The ordered contract stops before M2.
+M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. The user authorized a corrected M1-B-v2 validator; M2 remains blocked pending its result.
 
 ## Objective and locked contract
 
@@ -33,7 +33,7 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. M1-B fails: item orderin
 - `src/irt_rank/irt/`: 1PL/2PL/3PL, MML-EM, MAP/EAP, quadrature, synthetic generator, and optional NumPyro/NUTS path.
 - `configs/m1_recovery.json` and `scripts/run_m1_recovery.py`: frozen acceptance runner.
 - `artifacts/m1-recovery-result.json` and `artifacts/M1_FAILURE.md`: raw result and stop diagnosis.
-- `artifacts/m1-reference-agreement-result.json` and `artifacts/M1B_FAILURE.md`: valid M1-B result and stop diagnosis.
+- `artifacts/m1-reference-agreement-result.json` and `artifacts/M1B_FAILURE.md`: preserved M1-B-v1 raw result and original stop diagnosis, whose acceptance inference E-M1-005 invalidates.
 
 ## Baseline and final candidate
 
@@ -41,7 +41,7 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. M1-B fails: item orderin
 |---|---|---:|---|---|
 | M0 processed matrices | E-M0-005; commit `8c2ba93` | Both structural gates pass | Pair uniqueness, schema, checksum, manifest | Local CPU; no paid cost |
 | M1-A 1PL recovery | E-M1-001; clean revision `121cec4` | b RMSE 0.2138646913 (FAIL) | theta Spearman 0.9917795029; 10 iterations | 0.454 seconds; no paid cost |
-| M1-B reference agreement | E-M1-004; clean revision `2e93db3` | b RMSE 0.66304 > q95 0.60888 (FAIL) | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
+| M1-B-v1 reference agreement | E-M1-004 raw result; invalidated by E-M1-005 | b RMSE 0.66304 > q95 0.60888 | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
 
 ## Constraint outcomes
 
@@ -50,17 +50,18 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. M1-B fails: item orderin
 | M0-A/B/C | PASS | E-M0-005 | Two public, dense, binary, manifested matrices |
 | M1-A-v1 | FAIL | E-M1-001 | b RMSE exceeds 0.15; preserved negative evidence |
 | M1-A-v2 | PASS | E-M1-002 | Converged; theta Spearman 0.99178 |
-| M1-B | FAIL | E-M1-004 | Absolute-scale and bootstrap-convergence checks fail |
-| M2–M5 | UNRESOLVED | Not run | Blocked by M1-B |
+| M1-B-v1 | INVALID | E-M1-005 | Non-equivalent estimators, unlinked scales, wrong bootstrap population |
+| M1-B-v2 | UNRESOLVED | Revised config | Corrected validator pending |
+| M2–M5 | UNRESOLVED | Not run | Blocked by M1-B-v2 |
 | ENG | PASS | 27 tests; Ruff; strict mypy | No network tests |
 
 ## Weakest supported claim
 
-- Claim: the local and `girth` 1PL calibrations agree on item ordering on the full SWE matrix, but not on absolute difficulty within the preregistered Monte Carlo tolerance.
-- Tested scope: full pinned 134x500 SWE matrix, fixed a=1, local MML-EM, girth 0.8.0, and 100 paired bootstraps.
-- Conditions removed: none from M1-B after the valid run.
-- Stronger interpretations not established: absolute-scale reference agreement, adaptive cost savings, confidence calibration, and live integration.
-- Counterexamples bounding further weakening: real b RMSE 0.66304 exceeds bootstrap q95 0.60888; one bootstrap local fit did not converge.
+- Claim: M1-B-v1 establishes ordinal similarity only; it cannot decide absolute-scale implementation agreement.
+- Tested scope: estimator source, real-fit affine decomposition, bootstrap population, and a model-correct synthetic 2PL smoke comparison.
+- Conditions removed: the unsupported assumptions that both v1 estimators solve the same objective, share raw coordinates, and use N(0,1) bootstrap abilities.
+- Stronger interpretations not established: corrected real-matrix reference agreement, adaptive cost savings, confidence calibration, and live integration.
+- Counterexamples bounding further weakening: raw E-M1-004 remains reproducible; only its acceptance interpretation is invalid.
 
 ## Commands and reproducibility
 
@@ -74,26 +75,26 @@ uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The original M1-A-v1 and current M1-B commands exit 2 because their respective gates fail. Exact configs and provenance are in their result artifacts.
+The original M1-A-v1 command exits 2 under its preserved gate. The M1-B-v1 command also exited 2, but E-M1-005 later showed that its gate was invalid. Exact configs and provenance are in their result artifacts.
 
 ## Failures, regressions, and rejected paths
 
 - H-M1-001 rejected: b RMSE 0.2138646913 is not below 0.15.
-- H-M1-003 rejected: real b RMSE exceeds the paired-bootstrap q95 and one bootstrap local fit does not converge.
+- H-M1-003 superseded: its raw checks failed, but the validator compared non-equivalent estimators on unlinked scales and used the wrong Monte Carlo population.
 - No seed or hyperparameter search was used to replace the failed acceptance result.
 - No engineering regressions were observed in the final verification suite.
 
 ## Remaining caveats and unresolved constraints
 
-- M1-B fails and all M2–M5 requirements remain unresolved.
+- M1-B-v2 is pending, so all M2–M5 requirements remain unresolved.
 - The SWE matrix ranks submitted model-plus-agent systems and carries a `NOASSERTION` experiment-artifact license caveat.
 - No empirical cost-reduction or fixed-confidence claim can be made.
 
 ## Highest-value next experiment
 
-No experiment is authorized under the failed-gate rule. An explicit M1-B contract revision is required to resume.
+Run the preregistered `configs/m1_reference_agreement_v2.json` comparison from a clean revision.
 
-Evidence confidence: 99/100 for the valid M1-B failure decision; no confidence is assigned to unrun downstream claims.
+Evidence confidence: high for the E-M1-005 validity diagnosis; no confidence is assigned to the pending M1-B-v2 or unrun downstream claims.
 
 ## Evidence map
 
@@ -103,4 +104,5 @@ Evidence confidence: 99/100 for the valid M1-B failure decision; no confidence i
 | E-M1-001 | `artifacts/m1-recovery-result.json`; `uv run python scripts/run_m1_recovery.py` | Original M1-A-v1 fails; result remains valid after contract revision |
 | E-M1-002 | `artifacts/m1-recovery-rank-v2-result.json`; v2 config | Revised M1-A passes and unblocks M1-B |
 | E-M1-003 | `artifacts/m1b-invalid-80-iterations.json` | Initial M1-B attempt invalid; numerical ceiling repaired |
-| E-M1-004 | `artifacts/m1-reference-agreement-result.json`; `artifacts/M1B_FAILURE.md` | Valid M1-B failure stops M2 |
+| E-M1-004 | `artifacts/m1-reference-agreement-result.json`; `artifacts/M1B_FAILURE.md` | Reproducible M1-B-v1 raw measurements; acceptance inference invalidated by E-M1-005 |
+| E-M1-005 | `artifacts/M1B_VALIDATOR_DIAGNOSIS.md` | M1-B-v1 acceptance inference invalid; corrected validator required |

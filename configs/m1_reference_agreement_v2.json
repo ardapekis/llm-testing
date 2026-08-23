@@ -1,0 +1,63 @@
+{
+  "experiment": "m1_real_matrix_reference_agreement_v2",
+  "contract_revision": {
+    "authorized_on": "2026-08-23",
+    "reason": "The v1 validator compared non-equivalent 1PL estimators on raw latent coordinates and generated bootstrap outcomes from fixed EAP abilities rather than the declared population prior."
+  },
+  "matrix": {
+    "id": "swebench_verified",
+    "path": "data/processed/swebench_verified/responses.parquet",
+    "sha256": "a1cd623aad7f7e1405db19ee4878bfe532466e71fc29e24908e018b5dadb1d80",
+    "expected_models": 134,
+    "expected_items": 500,
+    "entity_semantics": "model-plus-agent leaderboard submission"
+  },
+  "model": {
+    "family": "2pl",
+    "guessing": 0.0,
+    "latent_prior": "normal(0,1)"
+  },
+  "local_estimator": {
+    "quadrature_points": 41,
+    "max_iterations": 100,
+    "tolerance": 0.001,
+    "minimum_discrimination": 0.2,
+    "maximum_discrimination": 5.0,
+    "parameter_bound": 6.0
+  },
+  "reference_estimator": {
+    "package": "girth",
+    "version": "0.8.0",
+    "function": "twopl_mml",
+    "quadrature_bounds": [-6.0, 6.0],
+    "quadrature_points": 41,
+    "max_iterations": 25,
+    "estimate_distribution": false,
+    "use_lut": false
+  },
+  "linking": {
+    "method": "Stocking-Lord test-characteristic-curve",
+    "theta_grid_min": -4.0,
+    "theta_grid_max": 4.0,
+    "theta_grid_points": 161
+  },
+  "monte_carlo": {
+    "method": "parametric_bootstrap_with_theta_drawn_from_normal_0_1",
+    "generator": "local_real_matrix_2pl_fit",
+    "replicates": 20,
+    "minimum_valid_replicates": 19,
+    "models_per_replicate": 134,
+    "seed": 20260825
+  },
+  "gate": {
+    "minimum_estimable_item_fraction": 0.9,
+    "difficulty_spearman_greater_than": 0.98,
+    "discrimination_spearman_greater_than": 0.95,
+    "observed_metrics_at_most_bootstrap_quantile": 0.95,
+    "monte_carlo_metrics": [
+      "difficulty_rmse",
+      "log_discrimination_rmse",
+      "icc_rmse"
+    ]
+  }
+}

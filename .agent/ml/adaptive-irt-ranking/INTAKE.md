@@ -32,6 +32,7 @@
 | Milestone order | Execute M0–M5 in order | `USER_CONFIRMED` | M1-B follows only after the revised M1-A gate passes |
 | Failed-gate behavior | Report; do not tune to the threshold | `USER_CONFIRMED` | Preserve E-M1-001 even after revising the contract |
 | Revised M1-A | Ability-rank recovery is the hard gate because its Spearman criterion passed; item difficulty RMSE is diagnostic | `USER_CONFIRMED` | Preregister and run M1-A v2 without changing data or estimator |
+| Revised M1-B | Replace the confounded validator and proceed | `USER_CONFIRMED` | Use like-for-like joint 2PL MML, Stocking-Lord linking, and prior-correct Monte Carlo |
 | Paid evaluation | Not authorized | `REPO_INFERRED` | M4 would require explicit approval even if earlier gates passed |
 
 ## Proposed defaults and assumptions
@@ -74,3 +75,4 @@ None. The user explicitly revised M1-A on 2026-08-23.
 - 2026-08-23: Repository inspected and found empty; task marked `READY` from the complete user specification.
 - 2026-08-23: Deferred only paid live-evaluation authorization; it does not block M0–M3.
 - 2026-08-23: User resumed the task and revised M1-A: theta Spearman >0.98 plus estimator convergence are hard gates; difficulty RMSE and its oracle/information-bound comparators are diagnostic.
+- 2026-08-23: User authorized revising M1-B after E-M1-005 showed the v1 validator compared different estimators, unlinked scales, and a bootstrap inconsistent with its declared prior.
