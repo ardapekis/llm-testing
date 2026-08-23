@@ -2,7 +2,7 @@
 
 ## Status
 
-**RESUMED at M1-B-v2.** M0 and the user-revised M1-A-v2 gate passed. The M1-B-v1 raw result remains recorded, but its acceptance inference was invalidated because it compared non-equivalent estimators on unlinked scales with a bootstrap inconsistent with the declared prior. At the user's request, M1-B-v2 is preregistered as a lightweight test using a deterministic 64-item hash sample and four Monte Carlo replicates; M2–M5 have not been run.
+**M1 COMPLETE; READY FOR M2.** M0, the user-revised M1-A-v2 gate, and the user-authorized lightweight M1-B-v2 gate passed. The M1-B-v1 raw result remains recorded, but its acceptance inference was invalidated because it compared non-equivalent estimators on unlinked scales with a bootstrap inconsistent with the declared prior. M2–M5 have not been run.
 
 The ordered milestone contract still applies. The revised gate changes only the decision rule and preserves the original response data, estimator, seed, and failed result. The repository currently contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
 
@@ -14,8 +14,8 @@ The ordered milestone contract still applies. The revised gate changes only the 
 | M1-A-v1 — original synthetic recovery | **FAIL** | Difficulty RMSE 0.2138646913 (required <0.15); theta Spearman 0.9917795029 (required >0.98). |
 | M1-A-v2 — ranking recovery | **PASS** | Clean revision `496012a`: converged; theta Spearman 0.9917795029 >0.98. Difficulty RMSE remains diagnostic. |
 | M1-B-v1 — original reference agreement | INVALID | E-M1-004 measurements reproduce, but E-M1-005 shows the validator was not like-for-like. |
-| M1-B-v2 — corrected reference agreement | PENDING | Full-artifact validation, deterministic 64-item sample, joint 2PL MML, Stocking-Lord linking, and four theta~N(0,1) replicates. |
-| M2 — replay baselines | NOT RUN | Blocked until M1-B-v2 passes. |
+| M1-B-v2 — corrected reference agreement | **PASS** | Clean revision `ed6ca95`; 93.6% estimable, all four replicates valid, all six checks pass in 52.44 seconds. |
+| M2 — replay baselines | NOT RUN | Unblocked by M1-B-v2. |
 | M3 — adaptive ranking | NOT RUN | Blocked until M2 passes. |
 | M4 — live adapter | NOT RUN | Blocked by milestone order; no paid API use is authorized. |
 | M5 — complete report and ablations | NOT RUN | Required upstream evidence does not exist. |
@@ -70,6 +70,8 @@ Bootstrap RMSE ranged from 0.5187877005 to 0.6299211656, with median 0.554745289
 
 M1-B-v2 corrects those defects with a like-for-like joint 2PL comparison, Stocking-Lord scale linking, and prior-correct Monte Carlo. The user-authorized lightweight revision still validates the complete source artifact's checksum and shape, then selects 64 estimable items by salted SHA-256 rank and runs four replicates. Its coarse q95 (the maximum of four values) is suitable as a fast implementation-agreement gate, not a precise population-tail estimate. The original v1 artifact remains preserved.
 
+The clean M1-B-v2 run passed. Difficulty Spearman was 0.998752 (>0.98), discrimination Spearman was 0.952610 (>0.95), and observed difficulty, log-discrimination, and ICC RMSE values (0.247001, 0.152776, and 0.023439) were below their Monte Carlo q95 thresholds (0.768469, 0.569162, and 0.093079). The source matrix had 468/500 estimable items and all four Monte Carlo fits were valid.
+
 ## Reproducibility
 
 ```bash
@@ -88,7 +90,7 @@ The recorded engineering verification passed with 27 tests, Ruff, and strict myp
 
 ## Cost curves, ablations, and guarantees
 
-No cost curves or ablations are reported. The replay harness, cost models, baseline and rank-aware policies, anytime-valid confidence sequences, item-parameter uncertainty propagation through replay, and live adapter belong to M2–M4 and remain blocked while M1-B-v2 is pending. Consequently:
+No cost curves or ablations are reported. The replay harness, cost models, baseline and rank-aware policies, anytime-valid confidence sequences, item-parameter uncertainty propagation through replay, and live adapter belong to M2–M4. M2 is now unblocked. Consequently:
 
 - no cost reduction at matched ranking fidelity has been demonstrated;
 - no fixed-confidence epsilon-inversion guarantee has been calibrated;
@@ -107,4 +109,4 @@ The available evidence is additionally bounded by these conditions:
 
 ## Authorized continuation
 
-The user authorized revising M1-B on 2026-08-23 after the root-cause diagnosis E-M1-005. A clean M1-B-v2 pass permits M2; a valid failure stops again. E-M1-004 remains preserved but is not acceptance evidence.
+The user authorized revising M1-B on 2026-08-23 after the root-cause diagnosis E-M1-005 and later required the test to be lightweight and fast. The clean M1-B-v2 pass permits M2. E-M1-004 remains preserved but is not acceptance evidence.

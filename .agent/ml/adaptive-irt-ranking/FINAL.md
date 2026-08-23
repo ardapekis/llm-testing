@@ -4,7 +4,7 @@
 
 `REFINE (resumed)`
 
-M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. The user authorized a corrected M1-B-v2 validator and subsequently required it to be lightweight and fast; M2 remains blocked pending its clean result.
+M0, M1-A-v2, and the lightweight M1-B-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. M2 is unblocked and remains to be implemented.
 
 ## Objective and locked contract
 
@@ -43,6 +43,7 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the
 | M0 processed matrices | E-M0-005; commit `8c2ba93` | Both structural gates pass | Pair uniqueness, schema, checksum, manifest | Local CPU; no paid cost |
 | M1-A 1PL recovery | E-M1-001; clean revision `121cec4` | b RMSE 0.2138646913 (FAIL) | theta Spearman 0.9917795029; 10 iterations | 0.454 seconds; no paid cost |
 | M1-B-v1 reference agreement | E-M1-004 raw result; invalidated by E-M1-005 | b RMSE 0.66304 > q95 0.60888 | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
+| M1-B-v2 lightweight agreement | E-M1-006; clean revision `ed6ca95` | All six gate checks pass | b rho 0.99875; a rho 0.95261; 4/4 valid replicates | 52.44 seconds; no paid cost |
 
 ## Constraint outcomes
 
@@ -52,9 +53,9 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the
 | M1-A-v1 | FAIL | E-M1-001 | b RMSE exceeds 0.15; preserved negative evidence |
 | M1-A-v2 | PASS | E-M1-002 | Converged; theta Spearman 0.99178 |
 | M1-B-v1 | INVALID | E-M1-005 | Non-equivalent estimators, unlinked scales, wrong bootstrap population |
-| M1-B-v2 | UNRESOLVED | Revised config | Corrected validator pending |
-| M2–M5 | UNRESOLVED | Not run | Blocked by M1-B-v2 |
-| ENG | PASS | 27 tests; Ruff; strict mypy | No network tests |
+| M1-B-v2 | PASS | E-M1-006 | Clean lightweight validator; all checks pass |
+| M2–M5 | UNRESOLVED | Not run | M2 now unblocked |
+| ENG | PASS | 31 tests; Ruff; strict mypy | No network tests |
 
 ## Weakest supported claim
 
@@ -88,15 +89,15 @@ The original M1-A-v1 command exits 2 under its preserved gate. The M1-B-v1 comma
 
 ## Remaining caveats and unresolved constraints
 
-- M1-B-v2 is pending, so all M2–M5 requirements remain unresolved.
+- M2–M5 remain unresolved; M2 is no longer blocked by M1.
 - The SWE matrix ranks submitted model-plus-agent systems and carries a `NOASSERTION` experiment-artifact license caveat.
 - No empirical cost-reduction or fixed-confidence claim can be made.
 
 ## Highest-value next experiment
 
-Run the preregistered `configs/m1_reference_agreement_v2.json` comparison from a clean revision.
+Implement and preregister the M2 replay engine, cost models, and five required baseline policies.
 
-Evidence confidence: high for the E-M1-005 validity diagnosis; no confidence is assigned to the pending M1-B-v2 or unrun downstream claims.
+Evidence confidence: high for the M1 implementation-agreement pass within its explicitly lightweight 64-item/four-replicate scope; no confidence is assigned to unrun downstream claims.
 
 ## Evidence map
 
@@ -108,3 +109,4 @@ Evidence confidence: high for the E-M1-005 validity diagnosis; no confidence is 
 | E-M1-003 | `artifacts/m1b-invalid-80-iterations.json` | Initial M1-B attempt invalid; numerical ceiling repaired |
 | E-M1-004 | `artifacts/m1-reference-agreement-result.json`; `artifacts/M1B_FAILURE.md` | Reproducible M1-B-v1 raw measurements; acceptance inference invalidated by E-M1-005 |
 | E-M1-005 | `artifacts/M1B_VALIDATOR_DIAGNOSIS.md` | M1-B-v1 acceptance inference invalid; corrected validator required |
+| E-M1-006 | `artifacts/m1-reference-agreement-v2-result.json` | Lightweight corrected M1-B-v2 passes from a clean revision |

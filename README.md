@@ -16,8 +16,8 @@ model measurements.
 
 M0 passed. The original M1-A synthetic gate failed on difficulty RMSE and remains recorded. The
 user subsequently revised M1-A around ranking recovery: convergence and theta Spearman are hard
-checks, while difficulty RMSE is diagnostic. M1-A-v2 passed. The corrected M1-B-v2 test is
-preregistered as a lightweight deterministic 64-item comparison; M2 remains unrun.
+checks, while difficulty RMSE is diagnostic. M1-A-v2 passed. The corrected, lightweight M1-B-v2
+test passed from a clean revision in 52.44 seconds; M2 is now unblocked but remains unrun.
 See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
 
 ## Development
