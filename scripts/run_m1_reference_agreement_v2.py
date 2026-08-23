@@ -24,6 +24,7 @@ from irt_rank.irt.agreement import (
     estimable_item_mask,
     link_reference_scale,
     parameter_agreement_metrics,
+    sample_estimable_item_indices,
 )
 from irt_rank.irt.mml import MMLConfig, MMLResult, fit_mml
 from irt_rank.irt.model import IRTModel, ItemParameters
@@ -162,6 +163,7 @@ def main() -> int:
     config_bytes = args.config.read_bytes()
     config = cast(dict[str, Any], json.loads(config_bytes))
     matrix_config = cast(dict[str, Any], config["matrix"])
+    sample_config = cast(dict[str, Any], config["item_sample"])
     local_config_raw = cast(dict[str, Any], config["local_estimator"])
     reference_config = cast(dict[str, Any], config["reference_estimator"])
     linking_config = cast(dict[str, Any], config["linking"])
@@ -176,8 +178,16 @@ def main() -> int:
     _validate_matrix(matrix, matrix_config, matrix_path)
     real_mask = estimable_item_mask(matrix.responses)
     estimable_fraction = float(real_mask.mean())
-    real_responses = matrix.responses[:, real_mask]
-    item_ids = [item for item, keep in zip(matrix.item_ids, real_mask, strict=True) if keep]
+    if sample_config["method"] != "sha256_smallest":
+        raise ValueError("unsupported item sampling method")
+    sampled_indices = sample_estimable_item_indices(
+        matrix.item_ids,
+        real_mask,
+        sample_size=int(sample_config["items"]),
+        salt=str(sample_config["salt"]),
+    )
+    real_responses = matrix.responses[:, sampled_indices]
+    item_ids = [matrix.item_ids[index] for index in sampled_indices]
     local_config = _local_config(local_config_raw)
     theta_grid = _theta_grid(linking_config)
     started = time.perf_counter()
@@ -196,6 +206,18 @@ def main() -> int:
 
     local_real, linked_real, observed = _fit_pair(
         real_responses, local_config, reference_config, theta_grid
+    )
+    print(
+        json.dumps(
+            {
+                "stage": "real_fit",
+                "sampled_items": len(item_ids),
+                "local_iterations": local_real.iterations,
+                "local_converged": local_real.converged,
+            },
+            sort_keys=True,
+        ),
+        flush=True,
     )
     if not local_real.converged:
         result = _invalid_result(
@@ -241,6 +263,18 @@ def main() -> int:
         metric_payload = asdict(metrics)
         metric_payload["estimable_items"] = int(replicate_mask.sum())
         bootstrap.append(metric_payload)
+        print(
+            json.dumps(
+                {
+                    "stage": "monte_carlo",
+                    "replicate": replicate + 1,
+                    "replicates": replicates,
+                    "valid_replicates": len(bootstrap),
+                },
+                sort_keys=True,
+            ),
+            flush=True,
+        )
 
     minimum_valid = int(monte_carlo["minimum_valid_replicates"])
     if len(bootstrap) < minimum_valid:
@@ -296,6 +330,8 @@ def main() -> int:
             "items": len(matrix.item_ids),
             "estimable_items": int(real_mask.sum()),
             "estimable_item_fraction": estimable_fraction,
+            "sampled_items": len(item_ids),
+            "item_sample_method": sample_config["method"],
             "sha256": matrix_config["sha256"],
         },
         "reference": {

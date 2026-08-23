@@ -2,7 +2,7 @@
 
 ## Status
 
-**RESUMED at M1-B-v2.** M0 and the user-revised M1-A-v2 gate passed. The M1-B-v1 raw result remains recorded, but its acceptance inference was invalidated because it compared non-equivalent estimators on unlinked scales with a bootstrap inconsistent with the declared prior. M1-B-v2 is preregistered; M2–M5 have not been run.
+**RESUMED at M1-B-v2.** M0 and the user-revised M1-A-v2 gate passed. The M1-B-v1 raw result remains recorded, but its acceptance inference was invalidated because it compared non-equivalent estimators on unlinked scales with a bootstrap inconsistent with the declared prior. At the user's request, M1-B-v2 is preregistered as a lightweight test using a deterministic 64-item hash sample and four Monte Carlo replicates; M2–M5 have not been run.
 
 The ordered milestone contract still applies. The revised gate changes only the decision rule and preserves the original response data, estimator, seed, and failed result. The repository currently contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
 
@@ -14,7 +14,7 @@ The ordered milestone contract still applies. The revised gate changes only the 
 | M1-A-v1 — original synthetic recovery | **FAIL** | Difficulty RMSE 0.2138646913 (required <0.15); theta Spearman 0.9917795029 (required >0.98). |
 | M1-A-v2 — ranking recovery | **PASS** | Clean revision `496012a`: converged; theta Spearman 0.9917795029 >0.98. Difficulty RMSE remains diagnostic. |
 | M1-B-v1 — original reference agreement | INVALID | E-M1-004 measurements reproduce, but E-M1-005 shows the validator was not like-for-like. |
-| M1-B-v2 — corrected reference agreement | PENDING | Joint 2PL MML, Stocking-Lord linking, constant-item exclusion, and theta~N(0,1) Monte Carlo. |
+| M1-B-v2 — corrected reference agreement | PENDING | Full-artifact validation, deterministic 64-item sample, joint 2PL MML, Stocking-Lord linking, and four theta~N(0,1) replicates. |
 | M2 — replay baselines | NOT RUN | Blocked until M1-B-v2 passes. |
 | M3 — adaptive ranking | NOT RUN | Blocked until M2 passes. |
 | M4 — live adapter | NOT RUN | Blocked by milestone order; no paid API use is authorized. |
@@ -68,7 +68,7 @@ The full 134x500 SWE-bench Verified matrix was calibrated with the local fixed-d
 
 Bootstrap RMSE ranged from 0.5187877005 to 0.6299211656, with median 0.5547452898. The ordinal match is strong, but the original absolute-scale conclusion is invalid: the two 1PL paths solve different estimating equations, raw latent coordinates were not linked, and bootstrap abilities were fixed EAP estimates with mean -0.2834 and standard deviation 1.9697 rather than N(0,1) draws.
 
-M1-B-v2 corrects those defects with a like-for-like joint 2PL comparison, Stocking-Lord scale linking, and prior-correct Monte Carlo. The original artifact remains preserved.
+M1-B-v2 corrects those defects with a like-for-like joint 2PL comparison, Stocking-Lord scale linking, and prior-correct Monte Carlo. The user-authorized lightweight revision still validates the complete source artifact's checksum and shape, then selects 64 estimable items by salted SHA-256 rank and runs four replicates. Its coarse q95 (the maximum of four values) is suitable as a fast implementation-agreement gate, not a precise population-tail estimate. The original v1 artifact remains preserved.
 
 ## Reproducibility
 
@@ -78,6 +78,7 @@ uv run python scripts/verify_m0_data.py
 uv run python scripts/run_m1_recovery.py  # expected exit code: 2
 uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.json --output .agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-rank-v2-result.json
 uv run python scripts/run_m1_reference_agreement.py  # expected exit code: 2
+uv run python scripts/run_m1_reference_agreement_v2.py
 uv run pytest
 uv run ruff check .
 uv run mypy src scripts tests

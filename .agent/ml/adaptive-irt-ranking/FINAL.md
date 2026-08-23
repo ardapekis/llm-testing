@@ -4,7 +4,7 @@
 
 `REFINE (resumed)`
 
-M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. The user authorized a corrected M1-B-v2 validator; M2 remains blocked pending its result.
+M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. The user authorized a corrected M1-B-v2 validator and subsequently required it to be lightweight and fast; M2 remains blocked pending its clean result.
 
 ## Objective and locked contract
 
@@ -13,6 +13,7 @@ M0 and M1-A-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the
 - Original M1-A-v1 rule: on a 50-model x 1,000-item synthetic experiment, difficulty RMSE <0.15 and theta Spearman >0.98.
 - Revised M1-A-v2 rule: on the unchanged experiment, the estimator converges and theta Spearman >0.98; difficulty RMSE is diagnostic.
 - Authorization: public downloads and local CPU work only; no paid API spend.
+- Lightweight M1-B-v2 authorization: validate the full artifact, then use a deterministic 64-item hash sample and four Monte Carlo replicates without weakening the original agreement thresholds.
 
 ## Configuration sources, assumptions, and authorization
 
@@ -70,6 +71,7 @@ uv run python scripts/verify_m0_data.py
 uv run python scripts/run_m1_recovery.py
 uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.json --output .agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-rank-v2-result.json
 uv run python scripts/run_m1_reference_agreement.py
+uv run python scripts/run_m1_reference_agreement_v2.py
 uv run pytest
 uv run ruff check .
 uv run mypy src scripts tests
@@ -81,7 +83,7 @@ The original M1-A-v1 command exits 2 under its preserved gate. The M1-B-v1 comma
 
 - H-M1-001 rejected: b RMSE 0.2138646913 is not below 0.15.
 - H-M1-003 superseded: its raw checks failed, but the validator compared non-equivalent estimators on unlinked scales and used the wrong Monte Carlo population.
-- No seed or hyperparameter search was used to replace the failed acceptance result.
+- No acceptance threshold was changed after the lightweight diagnostic; the 32-item pilot was rejected as underpowered because the unchanged discrimination-rank threshold also failed in three of four model-correct replicates.
 - No engineering regressions were observed in the final verification suite.
 
 ## Remaining caveats and unresolved constraints

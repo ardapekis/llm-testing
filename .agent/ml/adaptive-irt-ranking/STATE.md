@@ -58,7 +58,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
 | H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | SUPPORTED | E-M1-002 |
 | H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; local Bock-Aitkin EM vs girth marginal-rate Rasch estimator; unlinked raw b; fixed-EAP bootstrap | Raw gate checks | Validator equivalence failure | SUPERSEDED | E-M1-004 raw result; invalidated by E-M1-005 |
-| H-M1-004 | Equivalent local and girth joint 2PL MML implementations agree after Stocking-Lord linking | Constant items excluded; theta drawn from N(0,1); 20 Monte Carlo replicates | b rho >0.98; a rho >0.95; b/log-a/ICC RMSE each <= its bootstrap q95 | Any valid hard check fails | ACTIVE | `configs/m1_reference_agreement_v2.json` |
+| H-M1-004 | Equivalent local and girth joint 2PL MML implementations agree after Stocking-Lord linking | Full artifact validated; deterministic 64-item estimable sample; theta drawn from N(0,1); 4 Monte Carlo replicates | b rho >0.98; a rho >0.95; b/log-a/ICC RMSE each <= its bootstrap q95 | Any valid hard check fails | ACTIVE | `configs/m1_reference_agreement_v2.json` |
 
 ## Weakest currently admissible claim
 
@@ -94,7 +94,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Next targeted objective
 
 - Constraint: M1-B-v2 reference implementation agreement.
-- Experiment: full real matrix, common estimable items, local and girth joint 2PL MML, Stocking-Lord linking, and 20 theta~N(0,1) Monte Carlo replicates.
+- Experiment: validate the full real artifact, deterministically hash-sample 64 estimable items, fit local and girth joint 2PL MML, apply Stocking-Lord linking, and run four theta~N(0,1) Monte Carlo replicates.
 - Exact first action: commit the revised validator and config, then execute from that clean revision.
 - Decision map: a valid pass permits M2; a valid failure stops and reports; invalidity triggers only a verifier repair.
 

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 
 import numpy as np
@@ -47,6 +48,30 @@ def estimable_item_mask(responses: npt.ArrayLike) -> BoolArray:
     if not bool(np.isin(matrix, (0, 1)).all()):
         raise ValueError("responses must be binary")
     return np.asarray((matrix.min(axis=0) == 0) & (matrix.max(axis=0) == 1))
+
+
+def sample_estimable_item_indices(
+    item_ids: tuple[str, ...],
+    estimable_mask: npt.ArrayLike,
+    *,
+    sample_size: int,
+    salt: str,
+) -> npt.NDArray[np.int64]:
+    """Select a stable hash-ranked sample without inspecting response values."""
+
+    mask = np.asarray(estimable_mask, dtype=np.bool_)
+    if mask.ndim != 1 or mask.size != len(item_ids):
+        raise ValueError("estimable_mask must align with item_ids")
+    eligible = np.flatnonzero(mask)
+    if sample_size < 2 or sample_size > eligible.size:
+        raise ValueError("sample_size must be between 2 and the estimable item count")
+    ranked = sorted(
+        eligible.tolist(),
+        key=lambda index: hashlib.sha256(
+            f"{salt}\0{item_ids[index]}".encode()
+        ).digest(),
+    )
+    return np.asarray(sorted(ranked[:sample_size]), dtype=np.int64)
 
 
 def _linked_parameters(

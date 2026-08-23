@@ -8,6 +8,7 @@ from irt_rank.irt.agreement import (
     evaluate_difficulty_agreement,
     link_reference_scale,
     parameter_agreement_metrics,
+    sample_estimable_item_indices,
 )
 from irt_rank.irt.model import ItemParameters
 
@@ -23,6 +24,17 @@ def test_estimable_item_mask_excludes_constant_response_columns() -> None:
     )
 
     assert estimable_item_mask(responses).tolist() == [True, False, False, True]
+
+
+def test_lightweight_item_sample_is_stable_and_only_uses_estimable_items() -> None:
+    item_ids = ("a", "b", "c", "d", "e", "f")
+    estimable = np.asarray([True, False, True, True, False, True])
+    first = sample_estimable_item_indices(item_ids, estimable, sample_size=3, salt="fixed")
+    second = sample_estimable_item_indices(item_ids, estimable, sample_size=3, salt="fixed")
+
+    assert first.tolist() == second.tolist()
+    assert first.size == 3
+    assert estimable[first].all()
 
 
 def test_stocking_lord_link_recovers_known_affine_scale() -> None:
