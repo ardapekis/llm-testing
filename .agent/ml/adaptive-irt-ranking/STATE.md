@@ -23,7 +23,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Current provenance
 
 - Repository: `/Users/arda/Documents/ChatGPT/New project`
-- Revision: M1-A-v2 ran cleanly from `496012ad628b968bde0bf679f7078f9f2c583d25` on `codex/adaptive-irt-ranking`
+- Revision: M1-B ran cleanly from `2e93db345d0f86e04f05782b8ab3064c1dc50468` on `codex/adaptive-irt-ranking`
 - Initial state: upstream `main` contained only a README and stock Python `.gitignore`
 - Runtime: macOS; system Python 3.14.0; `uv 0.6.3`; package targets Python >=3.11
 - Source candidate 1: `felipemaiapolo/tinyBenchmarks` commit `e9a8b1031b0340571beb6c9ca3a27891be09a8fd`, `tutorials/data/lb.pickle`, SHA-256 `34f44d6a819512ef74d00a95288d252fa679288a10ca167cd97fdbc3aae66437`
@@ -41,12 +41,13 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | E-M1-001 | M1-A fails: the preregistered 50x1,000 1PL run has difficulty RMSE 0.21386, above 0.15; theta Spearman 0.99178 passes | Revision `121cec4`, clean worktree | `artifacts/m1-recovery-result.json`; exit code 2 |
 | E-M1-002 | M1-A-v2 passes: estimator converged and theta Spearman 0.99178 exceeds 0.98; b RMSE 0.21386 remains diagnostic | Revision `496012a`, clean worktree | `artifacts/m1-recovery-rank-v2-result.json`; exit code 0 |
 | E-M1-003 | First M1-B attempt is invalid: local real-matrix EM hit its 80-iteration ceiling before agreement metrics; diagnostic ceiling 500 converged at iteration 168 | Revision `9eba82f`, clean worktree | `artifacts/m1b-invalid-80-iterations.json` |
+| E-M1-004 | M1-B fails: b Spearman 0.999944 passes, but real b RMSE 0.66304 exceeds bootstrap q95 0.60888 and only 99/100 bootstrap local fits converge | Revision `2e93db3`, clean worktree | `artifacts/m1-reference-agreement-result.json`; exit code 2 |
 
 ## Best valid candidate
 
 - Candidate: checked-in response matrices plus the implemented 1PL/2PL/3PL core and revised rank-recovery gate.
 - Evidence: E-M0-005 and E-M1-002.
-- Gate status: M0 and M1-A-v2 pass; M1-B is next. The original M1-A-v1 failure remains recorded as E-M1-001.
+- Gate status: M0 and M1-A-v2 pass; M1-B fails. The ordered contract stops before M2. The original M1-A-v1 failure remains recorded as E-M1-001.
 
 ## Hypothesis register
 
@@ -55,14 +56,14 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | H-M0-001 | The two pinned sources satisfy M0 without paid evaluation | MMLU rows are 0/1; SWE unresolved complement counts as incorrect | >=15 entities, >=500 items, >=90% dense for both | Invalid values, fewer rows/items, unresolved IDs outside canonical set, or unusable provenance/licence | SUPPORTED | E-M0-005 |
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
 | H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | SUPPORTED | E-M1-002 |
-| H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; N(0,1) prior; local MML-EM vs girth 0.8.0 Rasch MML; 100 paired parametric bootstraps; repaired 250-iteration ceiling | b Spearman >0.99; observed b RMSE <= bootstrap RMSE q95; all local bootstrap fits converge | Any hard check fails | ACTIVE | Preregistered config `configs/m1_reference_agreement.json`; validity repair E-M1-003 |
+| H-M1-003 | Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix | Fixed a=1; N(0,1) prior; local MML-EM vs girth 0.8.0 Rasch MML; 100 paired parametric bootstraps; repaired 250-iteration ceiling | b Spearman >0.99; observed b RMSE <= bootstrap RMSE q95; all local bootstrap fits converge | Any hard check fails | REJECTED | E-M1-004 |
 
 ## Weakest currently admissible claim
 
-- Claim: the implemented 1PL MML-EM estimator converges and recovers ability ordering above the revised threshold in the declared synthetic regime.
-- Directly tested scope: the frozen 50x1,000 configuration, seed 20260823, and revision `496012a`.
-- Conditions retained: difficulty RMSE is diagnostic at 0.21386; M1-A-v1 remains failed and item calibration is not reference-validated until M1-B.
-- Action: run M1-B reference agreement on a full real response matrix.
+- Claim: the local and reference 1PL calibrations produce nearly identical item ordering on the full SWE matrix, but do not agree on absolute difficulty within the preregistered Monte Carlo tolerance.
+- Directly tested scope: full pinned SWE 134x500 matrix, fixed a=1, N(0,1) prior, local MML-EM versus girth 0.8.0, and 100 paired bootstraps.
+- Conditions retained: b Spearman is 0.999944; b RMSE is 0.66304 versus bootstrap q95 0.60888; one bootstrap local fit did not converge.
+- Action: stop at M1-B and report. Do not begin M2 without an explicit contract revision.
 
 ## Constraint summary
 
@@ -71,8 +72,8 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | M0 | PASS | E-M0-005 | Preserve artifacts and provenance |
 | M1-A-v1 | FAIL | E-M1-001 | Preserve as rejected original contract |
 | M1-A-v2 | PASS | E-M1-002 | Preserve config and result |
-| M1-B | UNRESOLVED | E-M1-003 invalid; repaired config pending | Commit numerical-ceiling repair, then rerun cleanly |
-| M2–M5 | UNRESOLVED | Milestone order | Do not begin until M1 passes |
+| M1-B | FAIL | E-M1-004 | Stop and report |
+| M2–M5 | UNRESOLVED | M1-B failure | Do not begin |
 
 ## Validity concerns
 
@@ -90,9 +91,9 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 ## Next targeted objective
 
 - Constraint: M1-B reference implementation agreement.
-- Experiment: rerun the unchanged full-matrix agreement experiment with only the local EM ceiling raised from 80 to 250.
-- Exact first action: commit the validity repair and execute from the clean revision.
-- Decision map: agreement within the preregistered uncertainty tolerance passes M1; disagreement stops and reports.
+- Experiment: completed validly from clean revision `2e93db3`.
+- Exact first action: none under the current contract; preserve the failure report.
+- Decision map: an explicit user revision may reopen M1-B, but E-M1-004 cannot be erased or relabeled as a pass.
 
 ## Remaining budget
 

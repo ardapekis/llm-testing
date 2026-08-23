@@ -1,0 +1,60 @@
+{
+  "artifacts": [
+    ".agent/ml/adaptive-irt-ranking/artifacts/m1-reference-agreement-result.json",
+    ".agent/ml/adaptive-irt-ranking/artifacts/M1B_FAILURE.md",
+    "configs/m1_reference_agreement.json"
+  ],
+  "claim_scope": [
+    "fixed-discrimination 1PL item difficulties",
+    "the full pinned SWE-bench Verified 134x500 system-response matrix",
+    "local MML-EM versus girth 0.8.0 rasch_mml"
+  ],
+  "command": "uv run python scripts/run_m1_reference_agreement.py",
+  "commitments_tested": [
+    "difficulty Spearman >0.99",
+    "observed difficulty RMSE <= paired parametric-bootstrap q95",
+    "all 100 local bootstrap fits converge"
+  ],
+  "config": {
+    "path": "configs/m1_reference_agreement.json",
+    "sha256": "ddd59be77becd9e07fa537fc90b2cf102549130abd3de91a95b04d6bcc3c780c"
+  },
+  "control": "100 paired parametric-bootstrap response matrices generated from the local real-matrix fit define the Monte Carlo RMSE distribution.",
+  "evidence_id": "E-M1-004",
+  "hypothesis": "Local and reference 1PL item difficulties agree within Monte Carlo error on the full SWE matrix.",
+  "hypothesis_id": "H-M1-003",
+  "intervention": "Fit both implementations under aligned fixed-discrimination and standard-normal-prior assumptions, then compare the real disagreement with the paired bootstrap distribution.",
+  "metrics": {
+    "bootstrap_converged": 99,
+    "bootstrap_replicates": 100,
+    "bootstrap_rmse_max": 0.6299211656214717,
+    "bootstrap_rmse_median": 0.5547452898405103,
+    "bootstrap_rmse_min": 0.5187877005166168,
+    "bootstrap_rmse_q95": 0.6088838865516996,
+    "difficulty_rmse": 0.6630381297563848,
+    "difficulty_spearman": 0.9999439914135735,
+    "elapsed_seconds": 147.16035029198974,
+    "local_real_convergence_iteration": 168
+  },
+  "negative_prediction": "Any failed hard check rejects M1-B and stops subsequent milestones.",
+  "next_implication": "M1-B fails. Stop before M2 and report the ordinal agreement plus absolute-scale and convergence failures.",
+  "positive_prediction": "Difficulty rank exceeds 0.99, real RMSE is at most bootstrap q95, and all local bootstrap fits converge.",
+  "provenance": {
+    "data": "SWE-bench Verified matrix SHA256 a1cd623aad7f7e1405db19ee4878bfe532466e71fc29e24908e018b5dadb1d80",
+    "environment": "uv.lock; CPython 3.13.2; local CPU; girth 0.8.0",
+    "revision": "2e93db345d0f86e04f05782b8ab3064c1dc50468",
+    "worktree_dirty_at_run": false
+  },
+  "result_class": "rejects",
+  "tag": "ACCEPTANCE_GATE",
+  "target_constraint": "M1-B",
+  "timestamp_utc": "2026-08-23T21:46:20Z",
+  "validity_checks": [
+    "real local fit converged",
+    "reference package version matched preregistration",
+    "matrix checksum and dimensions matched preregistration",
+    "100 paired bootstrap RMSE values were recorded",
+    "result artifact explicitly records validity=valid and gate_pass=false"
+  ],
+  "validity_notes": "The repaired rerun changed only the numerical iteration ceiling. Agreement thresholds, bootstrap seed/count, matrix, estimators, and model assumptions remained fixed."
+}
