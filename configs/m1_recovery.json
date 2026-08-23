@@ -1,0 +1,20 @@
+{
+  "data": {
+    "models": 50,
+    "items": 1000,
+    "discrimination": 2.5,
+    "difficulty_distribution": "uniform[-1.25,1.25]",
+    "seed": 20260823
+  },
+  "estimator": {
+    "model": "1pl",
+    "quadrature_points": 41,
+    "max_iterations": 80,
+    "tolerance": 0.0001,
+    "fixed_discrimination": 2.5
+  },
+  "gate": {
+    "difficulty_rmse_less_than": 0.15,
+    "theta_spearman_greater_than": 0.98
+  }
+}

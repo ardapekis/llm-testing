@@ -13,14 +13,23 @@ authors = [{ name = "IRT Rank contributors" }]
 dependencies = [
   "numpy>=1.26,<2.5",
   "pyarrow>=15",
+  "scipy>=1.13",
+]
+
+[project.optional-dependencies]
+bayes = [
+  "jax>=0.4.35",
+  "numpyro>=0.16",
 ]
 
 [dependency-groups]
 dev = [
+  "girth>=0.8",
   "mypy>=1.11",
   "pytest>=8.3",
   "pytest-cov>=5",
   "ruff>=0.6",
+  "scipy-stubs>=1.13",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -31,7 +40,7 @@ addopts = "-ra --strict-config --strict-markers"
 testpaths = ["tests"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.13"
 strict = true
 warn_unused_configs = true
 
