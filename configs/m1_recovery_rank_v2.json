@@ -1,0 +1,33 @@
+{
+  "experiment": "m1_synthetic_ranking_recovery_v2",
+  "contract_revision": {
+    "authorized_on": "2026-08-23",
+    "reason": "Ranking recovery is the M1-A decision target; the original difficulty RMSE threshold was below the same-run oracle and information-bound diagnostics."
+  },
+  "data": {
+    "models": 50,
+    "items": 1000,
+    "discrimination": 2.5,
+    "difficulty_distribution": "uniform[-1.25,1.25]",
+    "seed": 20260823
+  },
+  "estimator": {
+    "model": "1pl",
+    "quadrature_points": 41,
+    "max_iterations": 80,
+    "tolerance": 0.0001,
+    "fixed_discrimination": 2.5
+  },
+  "gate": {
+    "version": 2,
+    "required": {
+      "theta_spearman_greater_than": 0.98,
+      "converged": true
+    },
+    "diagnostic_only": [
+      "difficulty_rmse",
+      "oracle_theta_difficulty_rmse",
+      "cramer_rao_rms_scale"
+    ]
+  }
+}

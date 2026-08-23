@@ -7,9 +7,10 @@ Statuses: `PASS`, `PROVISIONAL`, `UNRESOLVED`, `FAIL`, `INVALID`, `N/A`.
 | M0-A | Public matrix count and size | Hard | Data audit | >=2 matrices; each >=15 entities x >=500 items | PASS | E-M0-005: 395x14,042 and 134x500 | Preserve |
 | M0-B | Matrix density and binary validity | Hard | Data audit | >=90% observed; values in {0,1} | PASS | E-M0-005: both 100% dense, Boolean, pair-unique | Preserve |
 | M0-C | Provenance and licence manifest | Hard | Manifest schema/checksum test | Source URL, commit, artifact hash, retrieval time, licence status, derived hash | PASS | `data/processed/*/manifest.json`; E-M0-005 | Preserve `NOASSERTION` caveat |
-| M1-A | Synthetic parameter recovery | Hard | 50x1000 synthetic experiment | b RMSE <0.15; theta Spearman >0.98 | FAIL | E-M1-001: b RMSE 0.21386; theta Spearman 0.99178; clean revision `121cec4` | Stop and report; do not tune after observing gate |
-| M1-B | Reference implementation agreement | Hard | Real-matrix comparison | Within Monte Carlo error vs girth or py-irt | UNRESOLVED | Not run because M1-A failed | Blocked by milestone order |
-| M2 | Replay baseline curves | Hard | >=200 sealed seeds on both matrices | Cost-vs-tau and cost-vs-inversion curves with bootstrap CIs | UNRESOLVED | | Blocked by M0 order |
+| M1-A-v1 | Original synthetic parameter recovery | Hard (superseded) | 50x1000 synthetic experiment | b RMSE <0.15; theta Spearman >0.98 | FAIL | E-M1-001: b RMSE 0.21386; theta Spearman 0.99178; clean revision `121cec4` | Preserve negative evidence |
+| M1-A-v2 | Synthetic ability-rank recovery | Hard | Same 50x1000 experiment | converged; theta Spearman >0.98; b RMSE diagnostic | UNRESOLVED | User-authorized contract revision; preregistered config | Run from clean revision |
+| M1-B | Reference implementation agreement | Hard | Real-matrix comparison | Within Monte Carlo error vs girth or py-irt | UNRESOLVED | | Blocked by M1-A-v2 |
+| M2 | Replay baseline curves | Hard | >=200 sealed seeds on both matrices | Cost-vs-tau and cost-vs-inversion curves with bootstrap CIs | UNRESOLVED | | Blocked by M1 order |
 | M3-A | Adaptive cost reduction | Hard | Matched-fidelity replay | >=5x median cost vs random at tau >=0.95 and clear win over cat-se | UNRESOLVED | | Blocked by M0 order |
 | M3-B | Fixed-confidence calibration | Hard | >=200 sealed seeds | Empirical epsilon-inversion rate <= delta for delta 0.05 and 0.1 | UNRESOLVED | | Blocked by M0 order |
 | M3-C | Information barrier | Hard | Adversarial replay test | Policy cannot read unrevealed outcomes | UNRESOLVED | | Blocked by M0 order |

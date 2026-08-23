@@ -20,6 +20,7 @@ from scipy.stats import spearmanr
 from irt_rank.irt.ability import estimate_eap
 from irt_rank.irt.mml import MMLConfig, fit_mml
 from irt_rank.irt.model import IRTModel
+from irt_rank.irt.recovery import RecoveryGate, RecoveryMetrics
 from irt_rank.irt.synthetic import recovery_dataset
 
 
@@ -107,7 +108,8 @@ def main() -> int:
     config = cast(dict[str, Any], json.loads(config_bytes))
     data_config = cast(dict[str, Any], config["data"])
     estimator_config = cast(dict[str, Any], config["estimator"])
-    gate = cast(dict[str, float], config["gate"])
+    gate_config = cast(dict[str, object], config["gate"])
+    gate = RecoveryGate.from_config(gate_config)
 
     data = recovery_dataset(
         models=int(data_config["models"]),
@@ -140,14 +142,17 @@ def main() -> int:
         data.parameters.difficulty,
         float(data_config["discrimination"]),
     )
-    passed = (
-        difficulty_rmse < gate["difficulty_rmse_less_than"]
-        and theta_spearman > gate["theta_spearman_greater_than"]
+    passed, gate_checks = gate.evaluate(
+        RecoveryMetrics(
+            difficulty_rmse=difficulty_rmse,
+            theta_spearman=theta_spearman,
+            converged=calibration.converged,
+        )
     )
 
     result = {
         "schema_version": 1,
-        "experiment": "m1_synthetic_recovery",
+        "experiment": config.get("experiment", "m1_synthetic_recovery"),
         "config": config,
         "config_sha256": hashlib.sha256(config_bytes).hexdigest(),
         "provenance": git_provenance(),
@@ -161,6 +166,7 @@ def main() -> int:
             "marginal_log_likelihood": calibration.marginal_log_likelihood,
             "elapsed_seconds": elapsed,
         },
+        "gate_checks": gate_checks,
         "gate_pass": passed,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

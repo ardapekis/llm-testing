@@ -2,20 +2,21 @@
 
 ## Status
 
-**STOP-BEST at M1-A.** M0 passed. The first M1 acceptance check failed, so M1-B and M2–M5 were not run. This is a failed-gate report, not an M5 acceptance report.
+**RESUMED at M1-A-v2.** M0 passed. The original M1-A-v1 gate failed and remains recorded. On 2026-08-23, the user revised M1-A so that estimator convergence and theta Spearman >0.98 are the hard ranking-recovery checks; difficulty RMSE remains diagnostic. M1-B and M2–M5 have not yet been run.
 
-The ordered milestone contract says not to proceed past a failing gate and not to tune an observed acceptance run until it passes. The repository therefore contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
+The ordered milestone contract still applies. The revised gate changes only the decision rule and preserves the original response data, estimator, seed, and failed result. The repository currently contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
 
 ## Milestone outcomes
 
 | Milestone | Status | Evidence |
 |---|---|---|
 | M0 — response matrices | PASS | MMLU: 395 models × 14,042 items, 100% dense. SWE-bench Verified: 134 systems × 500 items, 100% dense. Both artifacts are Boolean, pair-unique, checksummed, and carry source manifests. |
-| M1-A — synthetic recovery | **FAIL** | Difficulty RMSE 0.2138646913 (required <0.15); theta Spearman 0.9917795029 (required >0.98). |
-| M1-B — reference agreement | NOT RUN | Blocked by the M1-A failure. |
-| M2 — replay baselines | NOT RUN | Blocked by the M1-A failure. |
-| M3 — adaptive ranking | NOT RUN | Blocked by the M1-A failure. |
-| M4 — live adapter | NOT RUN | Blocked by the M1-A failure; no paid API use was authorized. |
+| M1-A-v1 — original synthetic recovery | **FAIL** | Difficulty RMSE 0.2138646913 (required <0.15); theta Spearman 0.9917795029 (required >0.98). |
+| M1-A-v2 — ranking recovery | PENDING | Preregistered hard checks: convergence and theta Spearman >0.98. Difficulty recovery is diagnostic. |
+| M1-B — reference agreement | NOT RUN | Runs only after M1-A-v2 passes. |
+| M2 — replay baselines | NOT RUN | Blocked until all revised M1 gates pass. |
+| M3 — adaptive ranking | NOT RUN | Blocked until M2 passes. |
+| M4 — live adapter | NOT RUN | Blocked by milestone order; no paid API use is authorized. |
 | M5 — complete report and ablations | NOT RUN | Required upstream evidence does not exist. |
 
 ## M0 data evidence
@@ -69,7 +70,7 @@ The recorded engineering verification passed with 18 tests, Ruff, and strict myp
 
 ## Cost curves, ablations, and guarantees
 
-No cost curves or ablations are reported. The replay harness, cost models, baseline and rank-aware policies, anytime-valid confidence sequences, item-parameter uncertainty propagation through replay, and live adapter belong to M2–M4 and were not started after M1-A failed. Consequently:
+No cost curves or ablations are reported. The replay harness, cost models, baseline and rank-aware policies, anytime-valid confidence sequences, item-parameter uncertainty propagation through replay, and live adapter belong to M2–M4 and remain blocked while revised M1 is in progress. Consequently:
 
 - no cost reduction at matched ranking fidelity has been demonstrated;
 - no fixed-confidence epsilon-inversion guarantee has been calibrated;
@@ -86,6 +87,6 @@ The available evidence is additionally bounded by these conditions:
 - the M1 diagnostic is specific to the frozen generator, sample size, and seed;
 - passing unit tests does not replace the unrun reference-agreement gate.
 
-## Decision required to continue
+## Authorized continuation
 
-Continuing requires an explicit change to the locked experiment contract, such as increasing the number of model responses per item or replacing the RMSE threshold with a statistically attainable criterion. Any revised experiment should be preregistered as a new gate and must retain this failed run as negative evidence.
+The user authorized the M1-A-v2 ranking-recovery rule on 2026-08-23. The preregistered config is `configs/m1_recovery_rank_v2.json`. A clean v2 pass permits M1-B reference comparison; a v2 failure stops the milestone again. E-M1-001 remains negative evidence under the original contract.

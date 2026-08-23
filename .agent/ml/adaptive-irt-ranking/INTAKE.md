@@ -29,8 +29,9 @@
 | Decision | Answer | Source | Consequence for plan |
 |---|---|---|---|
 | Repository | Use `ardapekis/llm-testing` | `USER_CONFIRMED` | All checkpoints are pushed to `codex/adaptive-irt-ranking` |
-| Milestone order | Execute M0–M5 in order | `USER_CONFIRMED` | M1-A failure blocks every later milestone |
-| Failed-gate behavior | Report; do not tune to the threshold | `USER_CONFIRMED` | Preserve E-M1-001 and stop |
+| Milestone order | Execute M0–M5 in order | `USER_CONFIRMED` | M1-B follows only after the revised M1-A gate passes |
+| Failed-gate behavior | Report; do not tune to the threshold | `USER_CONFIRMED` | Preserve E-M1-001 even after revising the contract |
+| Revised M1-A | Ability-rank recovery is the hard gate because its Spearman criterion passed; item difficulty RMSE is diagnostic | `USER_CONFIRMED` | Preregister and run M1-A v2 without changing data or estimator |
 | Paid evaluation | Not authorized | `REPO_INFERRED` | M4 would require explicit approval even if earlier gates passed |
 
 ## Proposed defaults and assumptions
@@ -39,11 +40,11 @@
 |---|---|---|---|---|
 | Development seeds 0–49 and sealed replay seeds from 10,000 | Prevent downstream tuning on the required 200-seed evaluation | Yes | Only if M2 is reached | Retained but unused |
 | Treat SWE submissions as replay entities | Preserves the public matrix while avoiding a false base-model interpretation | Yes | No | Accepted with caveat |
-| M1 recovery seed 20260823 and fixed discrimination 2.5 | Deterministic, high-information preregistered gate | No after observation | A changed experiment now requires approval | Frozen and failed |
+| M1 recovery seed 20260823 and fixed discrimination 2.5 | Preserve comparability with the failed run while changing only the authorized decision rule | No after observation | Authorized on 2026-08-23 | Frozen for v2 |
 
 ## Next configuration questions
 
-None while the ordered stop remains in force. Continuing would require the user to revise the M1-A statistical contract explicitly.
+None. The user explicitly revised M1-A on 2026-08-23.
 
 ## Authorization boundaries
 
@@ -72,3 +73,4 @@ None while the ordered stop remains in force. Continuing would require the user 
 
 - 2026-08-23: Repository inspected and found empty; task marked `READY` from the complete user specification.
 - 2026-08-23: Deferred only paid live-evaluation authorization; it does not block M0–M3.
+- 2026-08-23: User resumed the task and revised M1-A: theta Spearman >0.98 plus estimator convergence are hard gates; difficulty RMSE and its oracle/information-bound comparators are diagnostic.

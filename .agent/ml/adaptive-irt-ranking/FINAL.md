@@ -2,15 +2,16 @@
 
 ## Outer decision
 
-`STOP-BEST`
+`REFINE (resumed)`
 
-M0 passed. M1-A failed its frozen difficulty-RMSE threshold. The milestone contract requires stopping before M1-B and M2–M5.
+M0 passed. M1-A-v1 failed its frozen difficulty-RMSE threshold. The user revised M1-A on 2026-08-23 to gate ranking recovery on convergence and theta Spearman >0.98 while retaining difficulty RMSE as a diagnostic. M1-A-v2 is preregistered but not yet evaluated.
 
 ## Objective and locked contract
 
 - Objective: build and validate a cost-minimal adaptive IRT system for language-model benchmark ranking.
 - Ordered completion rule: pass M0–M5 in order; stop and report at the first failed gate.
-- M1-A rule: on a 50-model x 1,000-item synthetic experiment, difficulty RMSE <0.15 and theta Spearman >0.98.
+- Original M1-A-v1 rule: on a 50-model x 1,000-item synthetic experiment, difficulty RMSE <0.15 and theta Spearman >0.98.
+- Revised M1-A-v2 rule: on the unchanged experiment, the estimator converges and theta Spearman >0.98; difficulty RMSE is diagnostic.
 - Authorization: public downloads and local CPU work only; no paid API spend.
 
 ## Configuration sources, assumptions, and authorization
@@ -45,9 +46,10 @@ M0 passed. M1-A failed its frozen difficulty-RMSE threshold. The milestone contr
 | ID | Final status | Evidence | Notes |
 |---|---|---|---|
 | M0-A/B/C | PASS | E-M0-005 | Two public, dense, binary, manifested matrices |
-| M1-A | FAIL | E-M1-001 | b RMSE exceeds 0.15 |
-| M1-B | UNRESOLVED | Not run | Ordered stop after M1-A |
-| M2–M5 | UNRESOLVED | Not run | Ordered stop after M1-A |
+| M1-A-v1 | FAIL | E-M1-001 | b RMSE exceeds 0.15; preserved negative evidence |
+| M1-A-v2 | UNRESOLVED | `configs/m1_recovery_rank_v2.json` | User-authorized revised gate |
+| M1-B | UNRESOLVED | Not run | Begins only after M1-A-v2 passes |
+| M2–M5 | UNRESOLVED | Not run | Blocked by milestone order |
 | ENG | PASS | 18 tests; Ruff; strict mypy | No network tests |
 
 ## Weakest supported claim
@@ -84,7 +86,7 @@ The M1 command is expected to exit 2 because the gate fails. Exact config and pr
 
 ## Highest-value next experiment
 
-Requires a user-authorized contract revision. The most informative candidate is a preregistered sample-size study that tests whether difficulty RMSE can fall below 0.15 with more than 50 responses per item while keeping the original failed run in the ledger.
+Run `configs/m1_recovery_rank_v2.json` from the clean preregistration revision. If it passes, run M1-B against `girth` on one full real matrix.
 
 Evidence confidence: 98/100 for the M1-A failure decision; no confidence is assigned to unrun downstream claims.
 
@@ -93,4 +95,4 @@ Evidence confidence: 98/100 for the M1-A failure decision; no confidence is assi
 | Evidence ID | Artifact / command | Conclusion |
 |---|---|---|
 | E-M0-005 | Processed manifests; `scripts/verify_m0_data.py` | M0 passes |
-| E-M1-001 | `artifacts/m1-recovery-result.json`; `uv run python scripts/run_m1_recovery.py` | M1-A fails and forces the ordered stop |
+| E-M1-001 | `artifacts/m1-recovery-result.json`; `uv run python scripts/run_m1_recovery.py` | Original M1-A-v1 fails; result remains valid after contract revision |

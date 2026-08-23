@@ -44,9 +44,10 @@ def recovery_dataset(
 ) -> SyntheticData:
     """Generate the preregistered M1 1PL recovery dataset.
 
-    The relatively discriminating items make the requested per-item difficulty
-    RMSE statistically resolvable with only 50 response rows. The claim is
-    limited to this declared regime.
+    The original M1-A run used this exact regime. Its difficulty-RMSE threshold
+    was not statistically attainable with 50 response rows, so revised gates
+    must treat the observed item difficulty error as a diagnostic rather than
+    silently changing this generator after observing the result.
     """
 
     rng = np.random.default_rng(seed)
@@ -59,4 +60,3 @@ def recovery_dataset(
     )
     responses = generate_responses(abilities, parameters, seed=seed + 1)
     return SyntheticData(np.asarray(abilities), parameters, responses)
-

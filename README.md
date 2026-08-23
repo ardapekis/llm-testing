@@ -14,9 +14,10 @@ model measurements.
 
 ## Current result
 
-M0 passed, but the frozen M1-A synthetic recovery gate failed on difficulty RMSE. Work therefore
-stopped before M1-B and M2 as required by the milestone contract. See [REPORT.md](REPORT.md) for
-the exact metrics, diagnostics, provenance, and unresolved requirements.
+M0 passed. The original M1-A synthetic gate failed on difficulty RMSE and remains recorded. The
+user subsequently revised M1-A around ranking recovery: convergence and theta Spearman are hard
+checks, while difficulty RMSE is diagnostic. M1-A-v2 is preregistered and M1-B/M2 remain unrun.
+See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
 
 ## Development
 

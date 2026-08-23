@@ -17,6 +17,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 - Baselines: random, stratified, hard-subset, cat-se, cat-cost.
 - Development / sealed evaluation: seeds 0–49 / at least 200 seeds beginning at 10,000.
 - Completion: all M0–M5 gates pass in order with reproducible direct evidence.
+- Revised M1-A: convergence and theta Spearman >0.98 are hard requirements; difficulty RMSE is diagnostic. The original v1 failure remains valid evidence.
 - External budget: no paid API spend authorized; public downloads and local CPU work only.
 
 ## Current provenance
@@ -51,22 +52,24 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 |---|---|---|---|---|---|---|
 | H-M0-001 | The two pinned sources satisfy M0 without paid evaluation | MMLU rows are 0/1; SWE unresolved complement counts as incorrect | >=15 entities, >=500 items, >=90% dense for both | Invalid values, fewer rows/items, unresolved IDs outside canonical set, or unusable provenance/licence | SUPPORTED | E-M0-005 |
 | H-M1-001 | The preregistered synthetic regime satisfies M1-A | 50 models, 1,000 items, fixed discrimination 2.5, seed 20260823, no post-result tuning | b RMSE <0.15 and theta Spearman >0.98 | Either threshold fails | REJECTED | E-M1-001 |
+| H-M1-002 | The unchanged synthetic run establishes ranking recovery under revised M1-A | Same data, estimator, and seed as v1; only the user-authorized decision rule changes | Convergence and theta Spearman >0.98 | Nonconvergence or theta Spearman <=0.98 | ACTIVE | Preregistered config `configs/m1_recovery_rank_v2.json` |
 
 ## Weakest currently admissible claim
 
 - Claim: the implemented 1PL MML-EM estimator converges and recovers ability ordering in the declared synthetic regime, but the required difficulty-recovery threshold is not met.
 - Directly tested scope: the frozen M1-A configuration at revision `121cec4` and seed 20260823.
 - Conditions retained: difficulty RMSE is 0.21386; the same-data true-theta oracle RMSE is 0.17570 and the Cramér–Rao RMS scale is 0.16688, both above the required threshold.
-- Action: stop at M1-A per the milestone contract. Do not run M1-B or begin M2.
+- Action: evaluate the preregistered M1-A v2 rule from a clean revision; proceed to M1-B only if it passes.
 
 ## Constraint summary
 
 | ID | Status | Evidence | Next action |
 |---|---|---|---|
 | M0 | PASS | E-M0-005 | Preserve artifacts and provenance |
-| M1-A | FAIL | E-M1-001 | Stop and report; no tuning after acceptance observation |
-| M1-B | UNRESOLVED | Not run because M1-A failed | Blocked by milestone order |
-| M2–M5 | UNRESOLVED | M1-A failure | Do not begin |
+| M1-A-v1 | FAIL | E-M1-001 | Preserve as rejected original contract |
+| M1-A-v2 | UNRESOLVED | User-authorized revised gate | Run from a clean preregistration commit |
+| M1-B | UNRESOLVED | Milestone order | Begin only after M1-A-v2 passes |
+| M2–M5 | UNRESOLVED | Milestone order | Do not begin until M1 passes |
 
 ## Validity concerns
 
@@ -74,23 +77,23 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 - The SWE-bench experiments repository does not include a root licence file in the pinned checkout. The manifest must distinguish the MIT SWE-bench code/dataset licence from the experiments artifact's `NOASSERTION` status.
 - SWE submissions confound base model and agent harness. Any later ranking claim must call them systems.
 
-## Stop condition
+## Contract revision
 
 - Constraint: M1-A synthetic parameter recovery.
 - Result: rejected by difficulty RMSE 0.21386 >= 0.15; theta Spearman 0.99178 > 0.98.
 - Diagnostic: the true-theta oracle RMSE (0.17570) and Cramér–Rao RMS scale (0.16688) also exceed 0.15 under the frozen 50-response-per-item regime.
-- Required action: report the failed gate. A revised statistical contract or explicitly authorized new experiment is required before further milestone work.
+- Revision: the user authorized ability-rank recovery as the M1-A hard gate on 2026-08-23. Difficulty RMSE remains diagnostic and E-M1-001 remains a valid failed result under v1.
 
 ## Next targeted objective
 
-- Constraint: M1-A remains failed under the locked contract.
-- Experiment: none authorized; the ordered milestone rule requires a stop.
-- Exact first action: if the user revises the contract, preregister the changed sample-size or acceptance rule before generating new outcomes.
-- Decision map: retain STOP-BEST while the contract is unchanged; a revision may permit a new M1-A experiment, but cannot erase E-M1-001.
+- Constraint: M1-A-v2 ranking recovery.
+- Experiment: same 50x1,000 deterministic response matrix and estimator as v1; revised hard checks only.
+- Exact first action: commit the v2 config and gate evaluator, then run it from that clean revision.
+- Decision map: pass permits M1-B; failure stops and reports again.
 
 ## Remaining budget
 
-- Full runs: no numerical limit supplied; zero are authorized after the failed gate under the current contract.
+- Full runs: no numerical limit supplied; the revised M1-A run and subsequent local milestone work are authorized.
 - Compute: local CPU available.
 - External cost: $0 authorized.
 - Recursive rounds: unbounded, subject to milestone gates.
