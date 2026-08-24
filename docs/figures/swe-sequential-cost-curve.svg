@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650" role="img" aria-labelledby="title desc">
+  <title id="title">Held-out SWE-bench ranking fidelity by item budget</title>
+  <desc id="desc">Sequential sampling improves the one-shot result at two and five percent, with the largest useful gain at five percent.</desc>
+  <rect width="1100" height="650" rx="24" fill="#f8fafc"/>
+  <g font-family="Inter,Arial,sans-serif">
+    <text x="70" y="55" font-size="27" font-weight="700" fill="#13211d">Later SWE-bench systems · ranking fidelity</text>
+    <text x="70" y="84" font-size="15" fill="#64748b">Median Kendall τ across 10 seeds · higher is better</text>
+    <g stroke="#dbe4e8" stroke-width="1">
+      <line x1="100" y1="500" x2="1030" y2="500"/><line x1="100" y1="413" x2="1030" y2="413"/>
+      <line x1="100" y1="325" x2="1030" y2="325"/><line x1="100" y1="238" x2="1030" y2="238"/><line x1="100" y1="150" x2="1030" y2="150"/>
+    </g>
+    <g fill="#64748b" font-size="14" text-anchor="end">
+      <text x="87" y="505">0.35</text><text x="87" y="418">0.45</text><text x="87" y="330">0.55</text><text x="87" y="243">0.65</text><text x="87" y="155">0.75</text>
+    </g>
+    <g fill="#64748b" font-size="14" text-anchor="middle">
+      <text x="150" y="542">1%</text><text x="380" y="542">2%</text><text x="700" y="542">5%</text><text x="1000" y="542">10%</text>
+      <text x="565" y="580" font-size="15">Share of 500 tasks evaluated</text>
+    </g>
+    <polyline points="150,399 380,345 700,266 1000,198" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="150,417 380,326 700,232 1000,221" fill="none" stroke="#0f766e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="150,476 380,361 700,224 1000,180" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#2563eb" stroke="#ffffff" stroke-width="3"><circle cx="150" cy="399" r="7"/><circle cx="380" cy="345" r="7"/><circle cx="700" cy="266" r="7"/><circle cx="1000" cy="198" r="7"/></g>
+    <g fill="#0f766e" stroke="#ffffff" stroke-width="3"><circle cx="150" cy="417" r="8"/><circle cx="380" cy="326" r="8"/><circle cx="700" cy="232" r="10"/><circle cx="1000" cy="221" r="8"/></g>
+    <g fill="#f59e0b" stroke="#ffffff" stroke-width="3"><circle cx="150" cy="476" r="7"/><circle cx="380" cy="361" r="7"/><circle cx="700" cy="224" r="7"/><circle cx="1000" cy="180" r="7"/></g>
+    <line x1="700" y1="232" x2="700" y2="266" stroke="#0f766e" stroke-width="2" stroke-dasharray="4 4"/>
+    <rect x="565" y="88" width="270" height="52" rx="12" fill="#dcfce7"/>
+    <text x="700" y="111" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">5% sequential: 0.617 → 0.656</text>
+    <text x="700" y="130" text-anchor="middle" font-size="13" fill="#166534">about 24 tasks per system</text>
+    <g transform="translate(520 610)"><line x1="0" y1="0" x2="30" y2="0" stroke="#2563eb" stroke-width="4"/><text x="40" y="5" font-size="13" fill="#334155">One-shot</text></g>
+    <g transform="translate(660 610)"><line x1="0" y1="0" x2="30" y2="0" stroke="#0f766e" stroke-width="5"/><text x="40" y="5" font-size="13" fill="#334155">Sequential</text></g>
+    <g transform="translate(820 610)"><line x1="0" y1="0" x2="30" y2="0" stroke="#f59e0b" stroke-width="4"/><text x="40" y="5" font-size="13" fill="#334155">Raw stratified</text></g>
+  </g>
+</svg>

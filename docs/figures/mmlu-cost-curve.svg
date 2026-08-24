@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="650" viewBox="0 0 1100 650" role="img" aria-labelledby="title desc">
+  <title id="title">Held-out MMLU ranking fidelity by item budget</title>
+  <desc id="desc">Active corrected sampling outperforms corrected random sampling from one to ten percent budgets.</desc>
+  <rect width="1100" height="650" rx="24" fill="#f8fafc"/>
+  <g font-family="Inter,Arial,sans-serif">
+    <text x="70" y="55" font-size="27" font-weight="700" fill="#13211d">Held-out MMLU ranking fidelity</text>
+    <text x="70" y="84" font-size="15" fill="#64748b">Median Kendall τ across 10 seeds · higher is better</text>
+    <g stroke="#dbe4e8" stroke-width="1">
+      <line x1="100" y1="500" x2="1030" y2="500"/><line x1="100" y1="367" x2="1030" y2="367"/>
+      <line x1="100" y1="233" x2="1030" y2="233"/><line x1="100" y1="167" x2="1030" y2="167"/>
+    </g>
+    <g fill="#64748b" font-size="14" text-anchor="end">
+      <text x="87" y="505">0.70</text><text x="87" y="372">0.80</text><text x="87" y="238">0.90</text><text x="87" y="172">0.95</text>
+    </g>
+    <g fill="#64748b" font-size="14" text-anchor="middle">
+      <text x="150" y="542">1%</text><text x="380" y="542">2%</text><text x="700" y="542">5%</text><text x="1000" y="542">10%</text>
+      <text x="565" y="580" font-size="15">Share of benchmark tasks evaluated</text>
+    </g>
+    <polyline points="150,356 380,277 700,212 1000,180" fill="none" stroke="#0f766e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="150,473 380,362 700,271 1000,213" fill="none" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <g fill="#0f766e" stroke="#ffffff" stroke-width="3">
+      <circle cx="150" cy="356" r="8"/><circle cx="380" cy="277" r="8"/><circle cx="700" cy="212" r="8"/><circle cx="1000" cy="180" r="8"/>
+    </g>
+    <g fill="#94a3b8" stroke="#ffffff" stroke-width="3">
+      <circle cx="150" cy="473" r="7"/><circle cx="380" cy="362" r="7"/><circle cx="700" cy="271" r="7"/><circle cx="1000" cy="213" r="7"/>
+    </g>
+    <g font-size="14" font-weight="700" fill="#0f766e" text-anchor="middle">
+      <text x="150" y="335">0.808</text><text x="380" y="256">0.867</text><text x="700" y="191">0.916</text><text x="1000" y="159">0.940</text>
+    </g>
+    <g transform="translate(685 610)"><line x1="0" y1="0" x2="36" y2="0" stroke="#0f766e" stroke-width="5"/><text x="48" y="5" font-size="14" fill="#334155">Active corrected</text></g>
+    <g transform="translate(860 610)"><line x1="0" y1="0" x2="36" y2="0" stroke="#94a3b8" stroke-width="4"/><text x="48" y="5" font-size="14" fill="#334155">Random corrected</text></g>
+    <rect x="585" y="105" width="270" height="58" rx="12" fill="#dcfce7"/>
+    <text x="720" y="130" text-anchor="middle" font-size="14" font-weight="700" fill="#166534">5% of tasks → τ = 0.916</text>
+    <text x="720" y="150" text-anchor="middle" font-size="13" fill="#166534">with 96% median score coverage</text>
+  </g>
+</svg>
