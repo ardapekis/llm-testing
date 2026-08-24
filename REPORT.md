@@ -73,6 +73,27 @@ M1-B-v2 corrects those defects with a like-for-like joint 2PL comparison, Stocki
 
 The clean M1-B-v2 run passed. Difficulty Spearman was 0.998752 (>0.98), discrimination Spearman was 0.952610 (>0.95), and observed difficulty, log-discrimination, and ICC RMSE values (0.247001, 0.152776, and 0.023439) were below their Monte Carlo q95 thresholds (0.768469, 0.569162, and 0.093079). The source matrix had 468/500 estimable items and all four Monte Carlo fits were valid.
 
+## Uncertainty-aware model ranking
+
+The package now supports calibrated model ranking rather than treating sampled accuracy as a final
+ranking method. `scripts/rank_models.py` can calibrate a reusable 1PL/2PL/3PL item bank on an
+independent historical response matrix or load an existing bank to rank new entities on the same
+latent scale. It emits EAP posterior means and standard deviations, an expected epsilon-rank,
+pairwise practical-superiority probabilities, and confidence tiers.
+
+The total order by posterior mean is display-only. The authoritative result is the partial order:
+model A is declared above B only when `P(theta_A > theta_B + epsilon)` reaches the configured
+confidence threshold. Models not separated by that decision rule remain unresolved in confidence
+tiers. Pairwise probabilities are integrated over the quadrature posterior rather than computed
+from point estimates alone.
+
+A real-data smoke run on SWE-bench Verified calibrated 468 estimable items and ranked all 134
+systems. The fast 1PL calibration converged in 22 iterations and produced 14 confidence tiers with
+`epsilon=0.1` and 95% superiority probability. This validates the workflow, not a claim that a
+unidimensional 1PL ranking is the uniquely correct substantive ranking. Independent 2PL anchoring
+is the preferred comparison workflow; current posterior uncertainty is conditional on the fixed
+item bank.
+
 ## Reproducibility
 
 ```bash
@@ -83,12 +104,13 @@ uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.js
 uv run python scripts/run_m1_reference_agreement.py  # expected exit code: 2
 uv run python scripts/run_m1_reference_agreement_v2.py
 uv run python scripts/run_reduced_m2_m5.py
+uv run python scripts/rank_models.py --help
 uv run pytest
 uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The recorded engineering verification passed with 39 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
+The recorded engineering verification passed with 44 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
 
 ## Cost curves, ablations, and guarantees
 

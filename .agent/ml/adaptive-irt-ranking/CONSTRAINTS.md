@@ -22,4 +22,5 @@ Statuses: `PASS`, `PROVISIONAL`, `UNRESOLVED`, `FAIL`, `INVALID`, `N/A`.
 | R-M3 | Reduced rank-aware comparison | Reduced | Rank-aware plus no-contest ablation | Compare and report without 5x gate | PASS (negative result) | E-R-001 | No clear win |
 | R-M4 | Reduced fake adapter | Reduced | Five fake models; cache; cap | Cache consistent; cap enforced before call | PASS | E-R-001 | No live calls |
 | R-M5 | Reduced report | Reduced | Artifact and limitations audit | Results, ablation, commands, caveats present | PASS | E-R-001; `REPORT.md` | Original M2–M5 unresolved |
-| ENG | Package quality | Hard | `pytest`, `ruff`, `mypy --strict` | All pass; no network calls in tests | PASS | E-M1-001 verification: 18 tests, Ruff, and strict mypy pass | Preserve |
+| ENG | Package quality | Hard | `pytest`, `ruff`, `mypy --strict` | All pass; no network calls in tests | PASS | 44 tests; Ruff; strict mypy | Preserve |
+| RANK | Anchored uncertainty-aware ranking | Hard | Fixed item bank; EAP posterior; pairwise epsilon rule | Total display order distinguished from confidence partial order | PASS | Library/CLI tests and 134-system smoke run | Prefer independent 2PL anchor |

@@ -24,6 +24,15 @@ class AbilityEstimate:
     standard_deviation: FloatArray
 
 
+@dataclass(frozen=True, slots=True)
+class AbilityPosterior:
+    """Discrete quadrature representation of independent ability posteriors."""
+
+    estimate: AbilityEstimate
+    nodes: FloatArray
+    mass: FloatArray
+
+
 def _validated_responses(responses: npt.ArrayLike, items: int) -> tuple[FloatArray, FloatArray]:
     matrix = np.asarray(responses, dtype=np.float64)
     if matrix.ndim == 1:
@@ -70,6 +79,21 @@ def estimate_eap(
 ) -> AbilityEstimate:
     """Estimate posterior means and standard deviations by quadrature."""
 
+    return estimate_eap_posterior(
+        responses,
+        parameters,
+        quadrature_points=quadrature_points,
+    ).estimate
+
+
+def estimate_eap_posterior(
+    responses: npt.ArrayLike,
+    parameters: ItemParameters,
+    *,
+    quadrature_points: int = 61,
+) -> AbilityPosterior:
+    """Return EAP summaries together with normalized quadrature posterior mass."""
+
     response_matrix, observed = _validated_responses(responses, parameters.items)
     nodes, weights = normal_quadrature(quadrature_points)
     log_posterior = _log_likelihood_grid(response_matrix, observed, parameters, nodes)
@@ -78,7 +102,8 @@ def estimate_eap(
     posterior = np.exp(log_posterior)
     means = posterior @ nodes
     variances = posterior @ np.square(nodes) - np.square(means)
-    return AbilityEstimate(means, np.sqrt(np.maximum(variances, 0.0)))
+    estimate = AbilityEstimate(means, np.sqrt(np.maximum(variances, 0.0)))
+    return AbilityPosterior(estimate=estimate, nodes=nodes, mass=posterior)
 
 
 def estimate_map(

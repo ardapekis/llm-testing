@@ -25,6 +25,34 @@ provider. It is exploratory and does not satisfy the original fixed-confidence, 
 live-provider, dollar-cost, or 5x gates.
 See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
 
+## Ranking models
+
+Use the anchored IRT ranking command for model-level results. It ranks by EAP posterior mean for
+display, but treats pairwise posterior probabilities and confidence tiers as authoritative. Models
+in the same tier are not claimed to be distinguishable.
+
+```bash
+# Preferred: calibrate on an independent historical matrix with matching item IDs.
+uv run python scripts/rank_models.py \
+  --matrix data/processed/swebench_verified/responses.parquet \
+  --calibration-matrix path/to/historical_responses.parquet \
+  --save-item-bank artifacts/swebench-item-bank.json \
+  --output artifacts/swebench-ranking.json \
+  --epsilon 0.1 --confidence 0.95
+
+# Rank later models on exactly the same latent scale.
+uv run python scripts/rank_models.py \
+  --matrix path/to/new_responses.parquet \
+  --item-bank artifacts/swebench-item-bank.json \
+  --output artifacts/new-ranking.json \
+  --epsilon 0.1 --confidence 0.95
+```
+
+Omitting both calibration options performs a joint descriptive calibration on the target matrix.
+That is useful for describing a complete historical matrix, but a saved independent item bank is
+required for fair longitudinal comparisons. SWE-bench rows must be described as model-plus-agent
+systems. See [RANKING.md](docs/RANKING.md) for interpretation details.
+
 ## Development
 
 ```bash
