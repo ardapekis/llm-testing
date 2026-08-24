@@ -1,0 +1,26 @@
+{
+  "experiment": "non_irt_prediction_corrected_ranking",
+  "scope": "Offline holdout diagnostic of a low-rank surrogate plus randomized, design-corrected sampling. This is not a production fixed-confidence guarantee.",
+  "matrices": [
+    {
+      "id": "mmlu_openllm",
+      "path": "data/processed/mmlu_openllm/responses.parquet",
+      "surrogate_rank": 24,
+      "split": "creator_group_hash"
+    },
+    {
+      "id": "swebench_verified",
+      "path": "data/processed/swebench_verified/responses.parquet",
+      "surrogate_rank": 12,
+      "split": "chronological_suffix"
+    }
+  ],
+  "holdout_fraction": 0.25,
+  "seeds": {
+    "start": 24000,
+    "count": 10
+  },
+  "budget_fractions": [0.01, 0.02, 0.05, 0.1],
+  "sentinel_share_of_budget": 0.2,
+  "active_exploration": 0.2
+}
