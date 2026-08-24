@@ -91,7 +91,8 @@ def fake_provider_evidence(config: dict[str, Any]) -> dict[str, object]:
     cached_results = [evaluator.evaluate(*key) for key in selected]
     cap_enforced = False
     try:
-        evaluator.evaluate(*list(outcomes)[int(config["request_limit"])])
+        unseen_key = next(key for key in all_keys if key not in selected)
+        evaluator.evaluate(*unseen_key)
     except RequestLimitExceeded:
         cap_enforced = True
     return {
