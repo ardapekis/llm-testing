@@ -118,7 +118,7 @@ uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The recorded engineering verification passed with 44 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
+The recorded engineering verification passed with 45 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
 
 ## Cost curves, ablations, and guarantees
 

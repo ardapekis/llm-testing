@@ -27,6 +27,7 @@ replay on both matrices, five policies including a rank-aware ablation, and a ca
 provider. It is exploratory and does not satisfy the original fixed-confidence, 200-seed,
 live-provider, dollar-cost, or 5x gates.
 See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
+For a presentation-ready overview, open [REPORT.html](REPORT.html) in a browser.
 
 ## Ranking models
 

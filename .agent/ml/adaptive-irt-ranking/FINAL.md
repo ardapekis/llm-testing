@@ -59,7 +59,7 @@ M0, M1-A-v2, and the lightweight M1-B-v2 pass. The user-authorized reduced M2–
 | Reduced M2–M5 | COMPLETE | E-R-001 | Exploratory offline/fake-provider scope only |
 | Original M2–M5 | UNRESOLVED | Scope explicitly deferred | No original-gate claims |
 | RANK | PASS | Anchored item bank, EAP posterior, pairwise epsilon probabilities, confidence tiers | Joint calibration labeled descriptive |
-| ENG | PASS | 44 tests; Ruff; strict mypy | No network tests |
+| ENG | PASS | 45 tests; Ruff; strict mypy | No network tests |
 
 ## Weakest supported claim
 

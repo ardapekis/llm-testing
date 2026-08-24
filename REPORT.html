@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Evidence-backed report for the IRT Rank model-ranking project">
+  <title>IRT Rank — Evidence Report</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f2e9;
+      --muted: #aaa99f;
+      --paper: #0f1110;
+      --panel: #171a18;
+      --panel-2: #1e221f;
+      --line: #343a35;
+      --lime: #c8f169;
+      --mint: #73e2b7;
+      --gold: #f4c95d;
+      --rose: #ff8d85;
+      --blue: #85b9ff;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 85% -10%, rgba(200, 241, 105, 0.12), transparent 30rem),
+        radial-gradient(circle at 0 32%, rgba(115, 226, 183, 0.07), transparent 26rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: var(--lime); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    a:hover { color: var(--mint); }
+    code, pre, .mono { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+    code { color: #dfffa3; }
+
+    .wrap { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
+    .eyebrow {
+      color: var(--lime);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(15, 17, 16, 0.9);
+      backdrop-filter: blur(14px);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+    nav strong { letter-spacing: -0.02em; }
+    nav ul { display: flex; gap: 1.1rem; margin: 0; padding: 0; list-style: none; }
+    nav a { color: var(--muted); font-size: 0.86rem; text-decoration: none; }
+    nav a:hover { color: var(--ink); }
+
+    header { padding: 7rem 0 4rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.45fr 0.8fr; gap: 3rem; align-items: end; }
+    h1 {
+      max-width: 850px;
+      margin: 0.55rem 0 1.2rem;
+      font-size: clamp(3rem, 8vw, 6.8rem);
+      font-weight: 850;
+      line-height: 0.92;
+      letter-spacing: -0.065em;
+    }
+    h1 span { color: var(--lime); }
+    .lede { max-width: 760px; color: #d2d1c9; font-size: clamp(1.08rem, 2vw, 1.34rem); }
+    .hero-note {
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(200,241,105,0.08), rgba(255,255,255,0.02));
+    }
+    .hero-note p { margin-bottom: 0; color: var(--muted); }
+
+    section { padding: 4.5rem 0; border-top: 1px solid rgba(255,255,255,0.07); }
+    h2 { margin: 0.35rem 0 1rem; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1; letter-spacing: -0.045em; }
+    h3 { margin: 0 0 0.55rem; font-size: 1.1rem; }
+    .section-intro { max-width: 760px; margin-bottom: 2rem; color: var(--muted); font-size: 1.05rem; }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--line); }
+    .stat { min-height: 150px; padding: 1.35rem; background: var(--panel); }
+    .stat b { display: block; margin-bottom: 0.25rem; color: var(--lime); font-size: clamp(2rem, 4vw, 3.3rem); letter-spacing: -0.055em; }
+    .stat span { color: var(--muted); font-size: 0.9rem; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .card { padding: 1.35rem; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .card p { margin-bottom: 0; color: var(--muted); }
+    .status { display: inline-flex; align-items: center; gap: 0.45rem; margin-bottom: 1rem; padding: 0.28rem 0.58rem; border-radius: 999px; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+    .status::before { width: 0.48rem; height: 0.48rem; border-radius: 50%; background: currentColor; content: ""; }
+    .pass { color: var(--mint); background: rgba(115,226,183,0.1); }
+    .negative { color: var(--gold); background: rgba(244,201,93,0.1); }
+    .deferred { color: var(--muted); background: rgba(255,255,255,0.05); }
+
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; counter-reset: step; }
+    .step { position: relative; min-height: 220px; padding: 1.3rem; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); counter-increment: step; }
+    .step::before { display: block; margin-bottom: 2.5rem; color: var(--lime); content: "0" counter(step); font: 800 0.8rem/1 monospace; letter-spacing: 0.1em; }
+    .step:not(:last-child)::after { position: absolute; top: 2rem; right: -0.72rem; z-index: 2; color: var(--lime); content: "→"; font-size: 1.2rem; }
+    .step p { margin-bottom: 0; color: var(--muted); font-size: 0.9rem; }
+
+    .formula { margin: 2rem 0; padding: 1.5rem; overflow-x: auto; border-left: 4px solid var(--lime); background: var(--panel); color: #e5fdb1; font: 1.05rem/1.6 monospace; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+    th { color: var(--muted); background: var(--panel-2); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    tr:last-child td { border-bottom: 0; }
+    td.good { color: var(--mint); font-weight: 700; }
+    td.warn { color: var(--gold); }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .chart { padding: 1.4rem; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+    .chart h3 { margin-bottom: 1.2rem; }
+    .bar-row { display: grid; grid-template-columns: 8rem 1fr 3.7rem; gap: 0.7rem; align-items: center; margin: 0.8rem 0; font-size: 0.82rem; }
+    .bar-track { height: 11px; overflow: hidden; border-radius: 99px; background: #292d2a; }
+    .bar { width: calc(var(--value) * 1%); height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--mint), var(--lime)); }
+    .bar.rank { background: linear-gradient(90deg, var(--blue), var(--lime)); }
+    .bar-value { color: var(--muted); text-align: right; font-family: monospace; }
+
+    .callout { display: grid; grid-template-columns: auto 1fr; gap: 1rem; margin-top: 1.3rem; padding: 1.2rem; border: 1px solid rgba(244,201,93,0.35); border-radius: 16px; background: rgba(244,201,93,0.06); }
+    .callout strong { color: var(--gold); }
+    .callout p { margin: 0.2rem 0 0; color: var(--muted); }
+
+    pre { margin: 1rem 0 0; padding: 1.25rem; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #0a0c0b; color: #dfffa3; font-size: 0.82rem; }
+    .artifacts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    .artifact { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); text-decoration: none; }
+    .artifact span { color: var(--muted); font-size: 0.8rem; }
+
+    footer { padding: 3rem 0 5rem; color: var(--muted); font-size: 0.85rem; }
+    .footer-grid { display: flex; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+
+    @media (max-width: 900px) {
+      .hero-grid, .split { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .flow { grid-template-columns: 1fr 1fr; }
+      .step:nth-child(2)::after { display: none; }
+    }
+    @media (max-width: 620px) {
+      nav ul { display: none; }
+      header { padding-top: 4rem; }
+      .stats, .cards, .flow, .artifacts { grid-template-columns: 1fr; }
+      .step::after { display: none; }
+      .bar-row { grid-template-columns: 6.2rem 1fr 3.4rem; }
+      .footer-grid { display: block; }
+    }
+    @media print {
+      :root { color-scheme: light; --ink: #111; --muted: #555; --paper: #fff; --panel: #f7f7f4; --panel-2: #eee; --line: #ccc; }
+      nav { display: none; }
+      body { background: white; }
+      section { break-inside: avoid; }
+      a { color: #254f00; }
+    }
+  </style>
+</head>
+<body>
+  <nav aria-label="Report navigation">
+    <div class="wrap">
+      <strong>IRT Rank / Evidence Report</strong>
+      <ul>
+        <li><a href="#outcomes">Outcomes</a></li>
+        <li><a href="#ranking">Ranking method</a></li>
+        <li><a href="#evidence">Evidence</a></li>
+        <li><a href="#replay">Replay</a></li>
+        <li><a href="#run">Run it</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Cost-aware evaluation · August 2026</div>
+        <h1>Rank models with <span>evidence,</span> not false precision.</h1>
+        <p class="lede">A typed Python research system for anchored IRT calibration, posterior model ranking, pairwise confidence decisions, and cost-aware offline replay across MMLU and SWE-bench Verified.</p>
+      </div>
+      <aside class="hero-note">
+        <div class="status pass">Reviewable build</div>
+        <strong>Branch <span class="mono">codex/adaptive-irt-ranking</span></strong>
+        <p>Core gates pass. The uncertainty-aware ranking path is implemented and tested. Reduced replay is complete; the original production-scale M2–M5 contract remains explicitly deferred.</p>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="outcomes">
+      <div class="wrap">
+        <div class="eyebrow">At a glance</div>
+        <h2>What was delivered</h2>
+        <p class="section-intro">The work moves from pinned public evidence to calibrated item parameters, posterior ability estimates, confidence-aware rankings, and a reproducible offline policy comparison.</p>
+        <div class="stats">
+          <div class="stat"><b>5.61M</b><span>validated binary responses across two pinned matrices</span></div>
+          <div class="stat"><b>529</b><span>evaluated rows: models on MMLU and systems on SWE-bench</span></div>
+          <div class="stat"><b>45</b><span>passing tests, plus clean Ruff and strict mypy</span></div>
+          <div class="stat"><b>20/20</b><span>valid replicates in the full corrected M1-B gate</span></div>
+        </div>
+
+        <div class="cards" style="margin-top: 1rem">
+          <article class="card"><div class="status pass">Pass</div><h3>M0 · Response evidence</h3><p>Dense, binary, pair-unique MMLU and SWE-bench matrices with pinned source revisions, checksums, and manifests.</p></article>
+          <article class="card"><div class="status pass">Pass</div><h3>M1 · IRT foundation</h3><p>1PL/2PL/3PL curves, correct 3PL information, MML-EM, MAP/EAP, synthetic recovery, scale linking, and independent reference agreement.</p></article>
+          <article class="card"><div class="status pass">Pass</div><h3>Ranking · Partial order</h3><p>Reusable item banks, EAP posteriors, exact grid-integrated superiority probabilities, expected ranks, and confidence tiers.</p></article>
+          <article class="card"><div class="status pass">Complete</div><h3>Reduced M2 · Replay</h3><p>Both matrices, 20 seeds, five budgets, unit cost, three baselines, and median/interquartile curves.</p></article>
+          <article class="card"><div class="status negative">Negative result</div><h3>Reduced M3 · Rank-aware</h3><p>The rank-aware policy was evaluated with an ablation but did not clearly beat simpler uncertainty and balanced baselines.</p></article>
+          <article class="card"><div class="status pass">Fake-only pass</div><h3>Reduced M4/M5 · Integration</h3><p>Provider-neutral cache and request cap validated across five fake systems; artifacts and limitations documented.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ranking">
+      <div class="wrap">
+        <div class="eyebrow">Authoritative ranking path</div>
+        <h2>From responses to defensible tiers</h2>
+        <p class="section-intro">A single sorted score list overstates what the data know. This implementation separates a convenient display order from the confidence-backed partial order used for claims.</p>
+        <div class="flow">
+          <article class="step"><h3>Calibrate an anchor bank</h3><p>Fit estimable items on an independent historical cohort under a selected 1PL, 2PL, or 3PL model. Freeze item IDs and parameters.</p></article>
+          <article class="step"><h3>Estimate EAP posteriors</h3><p>Align new responses to the bank and integrate each entity's ability posterior over normal quadrature nodes. Missing responses remain allowed.</p></article>
+          <article class="step"><h3>Resolve pairwise claims</h3><p>Compute practical superiority directly from posterior mass instead of comparing point estimates or overlapping standard errors.</p></article>
+          <article class="step"><h3>Publish confidence tiers</h3><p>Use the full pairwise dominance graph. Models in the same tier remain unresolved even when their posterior means produce different display ranks.</p></article>
+        </div>
+        <div class="formula" role="math" aria-label="Probability theta A exceeds theta B plus epsilon">
+          Declare A above B only if&nbsp;&nbsp; P(θ<sub>A</sub> &gt; θ<sub>B</sub> + ε | observed responses, fixed item bank) ≥ 1 − δ
+        </div>
+        <div class="callout">
+          <strong>Interpretation</strong>
+          <div><b>The total order is not the scientific conclusion.</b><p>Posterior-mean order is included for navigation. Pairwise probabilities and tiers decide which differences are supported. SWE-bench entities are model-plus-agent systems, never isolated base models.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="wrap">
+        <div class="eyebrow">Direct evidence</div>
+        <h2>Pinned data and passing gates</h2>
+        <p class="section-intro">Every primary result is tied to a clean Git revision and a checked-in machine-readable artifact.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Evidence</th><th>Scope</th><th>Observed</th><th>Decision</th><th>Clean revision</th></tr></thead>
+            <tbody>
+              <tr><td>M0 · MMLU</td><td>395 × 14,042</td><td>5,546,590 responses · 100% dense</td><td class="good">Pass</td><td><code>8c2ba93</code></td></tr>
+              <tr><td>M0 · SWE Verified</td><td>134 × 500</td><td>67,000 responses · 100% dense</td><td class="good">Pass</td><td><code>8c2ba93</code></td></tr>
+              <tr><td>M1-A-v2</td><td>50 × 1,000 synthetic</td><td>θ Spearman 0.99178</td><td class="good">Pass</td><td><code>496012a</code></td></tr>
+              <tr><td>M1-B fast</td><td>64 items · 4 replicates</td><td>b ρ 0.99875 · a ρ 0.95261</td><td class="good">Pass · 52.44 s</td><td><code>ed6ca95</code></td></tr>
+              <tr><td>M1-B full</td><td>468 items · 20 replicates</td><td>b ρ 0.99939 · a ρ 0.97603</td><td class="good">Pass · 4,950.01 s</td><td><code>5d8f926</code></td></tr>
+              <tr><td>Ranking smoke</td><td>134 SWE systems · 468 items</td><td>22 calibration iterations · 14 tiers</td><td class="good">Pass</td><td><code>7066e13</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="split" style="margin-top: 1rem">
+          <div class="chart">
+            <h3>Full M1-B observed vs q95</h3>
+            <div class="bar-row"><span>Difficulty RMSE</span><div class="bar-track"><div class="bar" style="--value:46.9"></div></div><span class="bar-value">0.481 / 1.024</span></div>
+            <div class="bar-row"><span>Log-a RMSE</span><div class="bar-track"><div class="bar" style="--value:21.4"></div></div><span class="bar-value">0.140 / 0.653</span></div>
+            <div class="bar-row"><span>ICC RMSE</span><div class="bar-track"><div class="bar" style="--value:26.5"></div></div><span class="bar-value">0.032 / 0.120</span></div>
+            <p style="color:var(--muted);font-size:.82rem">Bars show observed disagreement as a percentage of its preregistered Monte Carlo tolerance. Lower is better.</p>
+          </div>
+          <div class="chart">
+            <h3>Engineering gate</h3>
+            <div class="bar-row"><span>Pytest</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">45 / 45</span></div>
+            <div class="bar-row"><span>Ruff</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
+            <div class="bar-row"><span>Strict mypy</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
+            <p style="color:var(--muted);font-size:.82rem">Tests are offline. Data acquisition and transformation remain explicit, reproducible commands.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="replay">
+      <div class="wrap">
+        <div class="eyebrow">Reduced fixed-budget replay</div>
+        <h2>Useful negative evidence</h2>
+        <p class="section-intro">At a 5% observation budget, rank-aware allocation was competitive but did not clearly outperform the simpler baselines. Reporting that result is more valuable than manufacturing a win.</p>
+        <div class="split">
+          <div class="chart">
+            <h3>MMLU median Kendall τ · 5% budget</h3>
+            <div class="bar-row"><span>Random</span><div class="bar-track"><div class="bar" style="--value:87.91"></div></div><span class="bar-value">0.8791</span></div>
+            <div class="bar-row"><span>Balanced</span><div class="bar-track"><div class="bar" style="--value:87.98"></div></div><span class="bar-value">0.8798</span></div>
+            <div class="bar-row"><span>CAT-SE proxy</span><div class="bar-track"><div class="bar" style="--value:88.02"></div></div><span class="bar-value">0.8802</span></div>
+            <div class="bar-row"><span>Rank-aware</span><div class="bar-track"><div class="bar rank" style="--value:88.03"></div></div><span class="bar-value">0.8803</span></div>
+          </div>
+          <div class="chart">
+            <h3>SWE Verified median Kendall τ · 5% budget</h3>
+            <div class="bar-row"><span>Random</span><div class="bar-track"><div class="bar" style="--value:70.69"></div></div><span class="bar-value">0.7069</span></div>
+            <div class="bar-row"><span>Balanced</span><div class="bar-track"><div class="bar" style="--value:72.31"></div></div><span class="bar-value">0.7231</span></div>
+            <div class="bar-row"><span>CAT-SE proxy</span><div class="bar-track"><div class="bar" style="--value:72.07"></div></div><span class="bar-value">0.7207</span></div>
+            <div class="bar-row"><span>Rank-aware</span><div class="bar-track"><div class="bar rank" style="--value:71.93"></div></div><span class="bar-value">0.7193</span></div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Scope boundary</strong>
+          <div><b>This is an exploratory policy benchmark.</b><p>It uses 20 seeds, five fixed-budget checkpoints, full-matrix accuracy as the replay proxy, and one normalized cost unit per unique observation. It does not establish the original 5× cost target, dollar savings, or a fixed-confidence guarantee.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="run">
+      <div class="wrap">
+        <div class="eyebrow">Reproduce and extend</div>
+        <h2>Run the ranking workflow</h2>
+        <p class="section-intro">Calibrate on an independent historical matrix whenever possible, save the bank, then reuse it for every future cohort with the same item IDs.</p>
+        <div class="split">
+          <div>
+            <h3>1 · Calibrate and rank</h3>
+            <pre><code>uv run python scripts/rank_models.py \
+  --matrix path/to/new_responses.parquet \
+  --calibration-matrix path/to/history.parquet \
+  --save-item-bank artifacts/item-bank.json \
+  --output artifacts/ranking.json \
+  --epsilon 0.1 --confidence 0.95</code></pre>
+          </div>
+          <div>
+            <h3>2 · Reuse the anchored scale</h3>
+            <pre><code>uv run python scripts/rank_models.py \
+  --matrix path/to/later_responses.parquet \
+  --item-bank artifacts/item-bank.json \
+  --output artifacts/later-ranking.json \
+  --epsilon 0.1 --confidence 0.95</code></pre>
+          </div>
+        </div>
+        <pre><code>uv sync --all-groups --all-extras
+uv run pytest
+uv run ruff check .
+uv run mypy src scripts tests</code></pre>
+      </div>
+    </section>
+
+    <section id="limits">
+      <div class="wrap">
+        <div class="eyebrow">Claims discipline</div>
+        <h2>What this report does not claim</h2>
+        <div class="cards">
+          <article class="card"><div class="status deferred">Deferred</div><h3>Fixed-confidence calibration</h3><p>No anytime-valid epsilon-inversion guarantee or 200-seed sealed coverage result has been established.</p></article>
+          <article class="card"><div class="status deferred">Deferred</div><h3>Item-bank uncertainty</h3><p>Ranking posteriors are conditional on fixed calibrated parameters; full item-parameter uncertainty is not integrated.</p></article>
+          <article class="card"><div class="status deferred">Deferred</div><h3>Dollar or live-provider savings</h3><p>No paid provider calls were made. Reduced replay uses normalized unit cost, not token- or task-priced dollars.</p></article>
+          <article class="card"><div class="status negative">Not supported</div><h3>Rank-aware superiority</h3><p>The reduced experiment does not support a claim that rank-aware allocation beats CAT-SE or balanced random.</p></article>
+          <article class="card"><div class="status deferred">Interpret carefully</div><h3>One-dimensional ability</h3><p>A global latent score can hide domain tradeoffs. MMLU decisions should also report subject-level or preregistered weighted rankings.</p></article>
+          <article class="card"><div class="status deferred">Entity semantics</div><h3>SWE-bench systems</h3><p>Submission rows combine a model with an agent harness, tools, and scaffolding. The resulting order is a system ranking.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="artifacts">
+      <div class="wrap">
+        <div class="eyebrow">Repository map</div>
+        <h2>Inspect the evidence</h2>
+        <div class="artifacts">
+          <a class="artifact" href="docs/RANKING.md"><b>Ranking methodology</b><span>docs/RANKING.md →</span></a>
+          <a class="artifact" href="src/irt_rank/ranking.py"><b>Ranking implementation</b><span>src/irt_rank/ranking.py →</span></a>
+          <a class="artifact" href="scripts/rank_models.py"><b>Ranking CLI</b><span>scripts/rank_models.py →</span></a>
+          <a class="artifact" href="REPORT.md"><b>Detailed Markdown report</b><span>REPORT.md →</span></a>
+          <a class="artifact" href=".agent/ml/adaptive-irt-ranking/artifacts/m1-reference-agreement-v2-full-result.json"><b>Full M1-B result</b><span>JSON artifact →</span></a>
+          <a class="artifact" href=".agent/ml/adaptive-irt-ranking/artifacts/reduced-m2-m5-result.json"><b>Reduced replay result</b><span>JSON artifact →</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <span>IRT Rank · evidence-backed model and system ranking</span>
+      <span>Repository: <a href="https://github.com/ardapekis/llm-testing/tree/codex/adaptive-irt-ranking">ardapekis/llm-testing</a></span>
+    </div>
+  </footer>
+</body>
+</html>
