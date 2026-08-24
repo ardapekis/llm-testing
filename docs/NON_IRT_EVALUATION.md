@@ -65,6 +65,26 @@ heterogeneous SWE-bench matrix. At very small SWE budgets, approximate interval 
 unstable. A production gate must therefore tune acquisition on training data only and validate
 coverage on substantially more held-out seeds.
 
+### Brief sequential test
+
+A three-stage variant was also tested: 20% of the budget for stratified sentinels, 10% for an
+adaptive training batch, and 70% for a final randomized audit. The final audit is essential: its
+logged probabilities correct the model after the earlier rounds adapt to observed outcomes.
+
+| Matrix | Budget | One-shot tau | Sequential tau | One-shot MAE | Sequential MAE |
+|---|---:|---:|---:|---:|---:|
+| MMLU | 5% | **0.9157** | 0.9103 | **0.0119** | 0.0145 |
+| MMLU | 10% | **0.9404** | 0.9351 | **0.0083** | 0.0088 |
+| SWE-bench Verified | 2% | 0.5268 | **0.5489** | **0.1041** | 0.1065 |
+| SWE-bench Verified | 5% | 0.6169 | **0.6559** | **0.0600** | 0.0732 |
+| SWE-bench Verified | 10% | **0.6955** | 0.6691 | **0.0481** | 0.0512 |
+
+The sequential result is mixed and does not replace the one-shot default. It helps SWE ordering at
+2–5% but loses at 10%, worsens score MAE, and is slightly worse throughout MMLU. The historical SVD
+surrogate is too weak under the chronological SWE distribution shift for extra fitting observations
+to consistently repay the audit budget they consume. Sequential acquisition should be revisited
+after adding repository, difficulty, issue-text, and system/scaffold features.
+
 The complete result is
 [`non-irt-efficiency-result.json`](../.agent/ml/adaptive-irt-ranking/artifacts/non-irt-efficiency-result.json).
 

@@ -28,10 +28,13 @@
       "count": 10,
       "start": 24000
     },
-    "sentinel_share_of_budget": 0.2
+    "sentinel_share_of_budget": 0.2,
+    "sequential_audit_exploration": 0.5,
+    "sequential_sentinel_share_of_budget": 0.2,
+    "sequential_training_share_of_budget": 0.1
   },
-  "config_sha256": "f00dd45e14f6b616dd5fceb863fcef748e17f07b5c11845a888b6fd69cac11d5",
-  "elapsed_seconds": 10.737652165000327,
+  "config_sha256": "a6e74adbc122e89767b7c8bf4f94592c11a6d650f7c9df245639a136db587787",
+  "elapsed_seconds": 17.53976203900129,
   "experiment": "non_irt_prediction_corrected_ranking",
   "matrices": {
     "mmlu_openllm": {
@@ -64,6 +67,20 @@
           "realized_observations_per_model": 134,
           "score_interval_coverage": 0.9595959595959596,
           "score_mae": 0.03245954958094899,
+          "seed": 24000,
+          "target_observations_per_model": 140
+        },
+        {
+          "adjacent_gap_coverage": 0.9387755102040817,
+          "adjacent_resolved_accuracy": 0.5714285714285714,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.09420737992166564,
+          "kendall_tau": 0.8115852401566688,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 146,
+          "score_interval_coverage": 0.9393939393939394,
+          "score_mae": 0.03113251649932326,
           "seed": 24000,
           "target_observations_per_model": 140
         },
@@ -118,6 +135,20 @@
           "target_observations_per_model": 140
         },
         {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.7142857142857143,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.08658008658008658,
+          "kendall_tau": 0.8264769959229511,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 149,
+          "score_interval_coverage": 0.9696969696969697,
+          "score_mae": 0.03248352429342585,
+          "seed": 24001,
+          "target_observations_per_model": 140
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.08843537414965986,
           "kendall_tau": 0.8107937447615091,
@@ -164,6 +195,20 @@
           "realized_observations_per_model": 150,
           "score_interval_coverage": 0.9696969696969697,
           "score_mae": 0.03125022404740404,
+          "seed": 24002,
+          "target_observations_per_model": 140
+        },
+        {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.75,
+          "adjacent_resolved_fraction": 0.04081632653061224,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.1090496804782519,
+          "kendall_tau": 0.7819006390434963,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 141,
+          "score_interval_coverage": 0.9595959595959596,
+          "score_mae": 0.030190199583535565,
           "seed": 24002,
           "target_observations_per_model": 140
         },
@@ -218,6 +263,20 @@
           "target_observations_per_model": 140
         },
         {
+          "adjacent_gap_coverage": 0.9081632653061225,
+          "adjacent_resolved_accuracy": 0.6363636363636364,
+          "adjacent_resolved_fraction": 0.11224489795918367,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.11564625850340136,
+          "kendall_tau": 0.7687074829931974,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 147,
+          "score_interval_coverage": 0.9393939393939394,
+          "score_mae": 0.03922784227902333,
+          "seed": 24003,
+          "target_observations_per_model": 140
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.09070294784580499,
           "kendall_tau": 0.8049751923392574,
@@ -264,6 +323,20 @@
           "realized_observations_per_model": 125,
           "score_interval_coverage": 0.9797979797979798,
           "score_mae": 0.04203670136691294,
+          "seed": 24004,
+          "target_observations_per_model": 140
+        },
+        {
+          "adjacent_gap_coverage": 0.8673469387755102,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.12244897959183673,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.11069882498453927,
+          "kendall_tau": 0.7780986432113024,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 144,
+          "score_interval_coverage": 0.9595959595959596,
+          "score_mae": 0.03483628768817603,
           "seed": 24004,
           "target_observations_per_model": 140
         },
@@ -318,6 +391,20 @@
           "target_observations_per_model": 140
         },
         {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.5714285714285714,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.10719439290867862,
+          "kendall_tau": 0.7854860365410573,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 145,
+          "score_interval_coverage": 0.98989898989899,
+          "score_mae": 0.029939419631457395,
+          "seed": 24005,
+          "target_observations_per_model": 140
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.08328179756751185,
           "kendall_tau": 0.8213317745742407,
@@ -364,6 +451,20 @@
           "realized_observations_per_model": 142,
           "score_interval_coverage": 0.98989898989899,
           "score_mae": 0.03500250944123729,
+          "seed": 24006,
+          "target_observations_per_model": 140
+        },
+        {
+          "adjacent_gap_coverage": 0.9387755102040817,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.061224489795918366,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.10781282209853639,
+          "kendall_tau": 0.7843743558029272,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 132,
+          "score_interval_coverage": 0.9393939393939394,
+          "score_mae": 0.032687332613414645,
           "seed": 24006,
           "target_observations_per_model": 140
         },
@@ -418,6 +519,20 @@
           "target_observations_per_model": 140
         },
         {
+          "adjacent_gap_coverage": 0.9897959183673469,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030612244897959183,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.07833436404864977,
+          "kendall_tau": 0.8433312719027005,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 151,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.034236777194414314,
+          "seed": 24007,
+          "target_observations_per_model": 140
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.07482993197278912,
           "kendall_tau": 0.8400918342743969,
@@ -464,6 +579,20 @@
           "realized_observations_per_model": 138,
           "score_interval_coverage": 0.9494949494949495,
           "score_mae": 0.04628323576114842,
+          "seed": 24008,
+          "target_observations_per_model": 140
+        },
+        {
+          "adjacent_gap_coverage": 0.9897959183673469,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.01020408163265306,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.1370851370851371,
+          "kendall_tau": 0.7258297258297258,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 116,
+          "score_interval_coverage": 0.9090909090909091,
+          "score_mae": 0.034840365671303525,
           "seed": 24008,
           "target_observations_per_model": 140
         },
@@ -518,6 +647,20 @@
           "target_observations_per_model": 140
         },
         {
+          "adjacent_gap_coverage": 0.9897959183673469,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.01020408163265306,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.07833436404864977,
+          "kendall_tau": 0.8433312719027005,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 146,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.02714354119286979,
+          "seed": 24009,
+          "target_observations_per_model": 140
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.07709750566893424,
           "kendall_tau": 0.8364780135408985,
@@ -564,6 +707,20 @@
           "realized_observations_per_model": 267,
           "score_interval_coverage": 0.9595959595959596,
           "score_mae": 0.02268075978291312,
+          "seed": 24000,
+          "target_observations_per_model": 281
+        },
+        {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.061224489795918366,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.06988249845392702,
+          "kendall_tau": 0.860235003092146,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 270,
+          "score_interval_coverage": 0.9595959595959596,
+          "score_mae": 0.022180179284703443,
           "seed": 24000,
           "target_observations_per_model": 281
         },
@@ -618,6 +775,20 @@
           "target_observations_per_model": 281
         },
         {
+          "adjacent_gap_coverage": 0.9081632653061225,
+          "adjacent_resolved_accuracy": 0.5714285714285714,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.07792207792207792,
+          "kendall_tau": 0.8440367017320443,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 288,
+          "score_interval_coverage": 0.9696969696969697,
+          "score_mae": 0.022552880581555367,
+          "seed": 24001,
+          "target_observations_per_model": 281
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.06246134817563389,
           "kendall_tau": 0.86844440359837,
@@ -664,6 +835,20 @@
           "realized_observations_per_model": 274,
           "score_interval_coverage": 0.8484848484848485,
           "score_mae": 0.03329081014740769,
+          "seed": 24002,
+          "target_observations_per_model": 281
+        },
+        {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.3333333333333333,
+          "adjacent_resolved_fraction": 0.030612244897959183,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.059575345289631,
+          "kendall_tau": 0.8808493094207381,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 290,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.019328590123394846,
           "seed": 24002,
           "target_observations_per_model": 281
         },
@@ -718,6 +903,20 @@
           "target_observations_per_model": 281
         },
         {
+          "adjacent_gap_coverage": 0.8775510204081632,
+          "adjacent_resolved_accuracy": 0.5833333333333334,
+          "adjacent_resolved_fraction": 0.12244897959183673,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.07132549989692846,
+          "kendall_tau": 0.8573490002061431,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 289,
+          "score_interval_coverage": 0.8585858585858586,
+          "score_mae": 0.03382322576810749,
+          "seed": 24003,
+          "target_observations_per_model": 281
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.059781488352916926,
           "kendall_tau": 0.8749974207558667,
@@ -764,6 +963,20 @@
           "realized_observations_per_model": 271,
           "score_interval_coverage": 0.9393939393939394,
           "score_mae": 0.03193410646004785,
+          "seed": 24004,
+          "target_observations_per_model": 281
+        },
+        {
+          "adjacent_gap_coverage": 0.9387755102040817,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.05102040816326531,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.08183879612451041,
+          "kendall_tau": 0.8362024577980389,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 288,
+          "score_interval_coverage": 0.9393939393939394,
+          "score_mae": 0.02386811304349247,
           "seed": 24004,
           "target_observations_per_model": 281
         },
@@ -818,6 +1031,20 @@
           "target_observations_per_model": 281
         },
         {
+          "adjacent_gap_coverage": 0.9081632653061225,
+          "adjacent_resolved_accuracy": 0.5555555555555556,
+          "adjacent_resolved_fraction": 0.09183673469387756,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.07895279323850753,
+          "kendall_tau": 0.8420944135229851,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 289,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.0242094265676393,
+          "seed": 24005,
+          "target_observations_per_model": 281
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.06926406926406926,
           "kendall_tau": 0.8559397117810703,
@@ -864,6 +1091,20 @@
           "realized_observations_per_model": 270,
           "score_interval_coverage": 0.9696969696969697,
           "score_mae": 0.025547646908592545,
+          "seed": 24006,
+          "target_observations_per_model": 281
+        },
+        {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.75,
+          "adjacent_resolved_fraction": 0.04081632653061224,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.07750979179550609,
+          "kendall_tau": 0.8449804164089879,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 275,
+          "score_interval_coverage": 0.9494949494949495,
+          "score_mae": 0.021247836357074792,
           "seed": 24006,
           "target_observations_per_model": 281
         },
@@ -918,6 +1159,20 @@
           "target_observations_per_model": 281
         },
         {
+          "adjacent_gap_coverage": 0.9693877551020408,
+          "adjacent_resolved_accuracy": 0.75,
+          "adjacent_resolved_fraction": 0.04081632653061224,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.05112347969490827,
+          "kendall_tau": 0.8977530406101835,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 296,
+          "score_interval_coverage": 0.98989898989899,
+          "score_mae": 0.020369601661009075,
+          "seed": 24007,
+          "target_observations_per_model": 281
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.0696763553906411,
           "kendall_tau": 0.8557016697362446,
@@ -964,6 +1219,20 @@
           "realized_observations_per_model": 287,
           "score_interval_coverage": 0.98989898989899,
           "score_mae": 0.02438035299548578,
+          "seed": 24008,
+          "target_observations_per_model": 281
+        },
+        {
+          "adjacent_gap_coverage": 0.9795918367346939,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.01020408163265306,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.07792207792207792,
+          "kendall_tau": 0.8441558441558442,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 262,
+          "score_interval_coverage": 0.9191919191919192,
+          "score_mae": 0.021108853711184546,
           "seed": 24008,
           "target_observations_per_model": 281
         },
@@ -1018,6 +1287,20 @@
           "target_observations_per_model": 281
         },
         {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.8,
+          "adjacent_resolved_fraction": 0.05102040816326531,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.0585446299732014,
+          "kendall_tau": 0.8829107400535973,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 280,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.01963175100860714,
+          "seed": 24009,
+          "target_observations_per_model": 281
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.0626674912389198,
           "kendall_tau": 0.869313924042466,
@@ -1064,6 +1347,20 @@
           "realized_observations_per_model": 667,
           "score_interval_coverage": 0.9292929292929293,
           "score_mae": 0.016277681779083213,
+          "seed": 24000,
+          "target_observations_per_model": 702
+        },
+        {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.04081632653061224,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.03751803751803752,
+          "kendall_tau": 0.924963924963925,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 709,
+          "score_interval_coverage": 0.98989898989899,
+          "score_mae": 0.011295462299552342,
           "seed": 24000,
           "target_observations_per_model": 702
         },
@@ -1118,6 +1415,20 @@
           "target_observations_per_model": 702
         },
         {
+          "adjacent_gap_coverage": 0.9387755102040817,
+          "adjacent_resolved_accuracy": 0.5,
+          "adjacent_resolved_fraction": 0.061224489795918366,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.061224489795918366,
+          "kendall_tau": 0.8775510204081632,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 702,
+          "score_interval_coverage": 0.9696969696969697,
+          "score_mae": 0.013663803431628952,
+          "seed": 24001,
+          "target_observations_per_model": 702
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.046176046176046176,
           "kendall_tau": 0.9053933797387486,
@@ -1164,6 +1475,20 @@
           "realized_observations_per_model": 711,
           "score_interval_coverage": 0.9292929292929293,
           "score_mae": 0.01835231816516853,
+          "seed": 24002,
+          "target_observations_per_model": 702
+        },
+        {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.030612244897959183,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.035868893011750155,
+          "kendall_tau": 0.9282622139764998,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 742,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.013285600555648772,
           "seed": 24002,
           "target_observations_per_model": 702
         },
@@ -1218,6 +1543,20 @@
           "target_observations_per_model": 702
         },
         {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.8333333333333334,
+          "adjacent_resolved_fraction": 0.12244897959183673,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.05813234384662956,
+          "kendall_tau": 0.883735312306741,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 676,
+          "score_interval_coverage": 0.9595959595959596,
+          "score_mae": 0.01454575654748904,
+          "seed": 24003,
+          "target_observations_per_model": 702
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.04864976293547722,
           "kendall_tau": 0.9002089364930241,
@@ -1264,6 +1603,20 @@
           "realized_observations_per_model": 719,
           "score_interval_coverage": 0.9696969696969697,
           "score_mae": 0.014862442614790028,
+          "seed": 24004,
+          "target_observations_per_model": 702
+        },
+        {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.7142857142857143,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.047619047619047616,
+          "kendall_tau": 0.9047619047619048,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 687,
+          "score_interval_coverage": 0.8888888888888888,
+          "score_mae": 0.015700660284618688,
           "seed": 24004,
           "target_observations_per_model": 702
         },
@@ -1318,6 +1671,20 @@
           "target_observations_per_model": 702
         },
         {
+          "adjacent_gap_coverage": 0.9285714285714286,
+          "adjacent_resolved_accuracy": 0.9090909090909091,
+          "adjacent_resolved_fraction": 0.11224489795918367,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.04308390022675737,
+          "kendall_tau": 0.9138321995464853,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 740,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.014436721745552532,
+          "seed": 24005,
+          "target_observations_per_model": 702
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.05318491032776747,
           "kendall_tau": 0.8916895512648362,
@@ -1364,6 +1731,20 @@
           "realized_observations_per_model": 684,
           "score_interval_coverage": 0.9494949494949495,
           "score_mae": 0.014440292131159873,
+          "seed": 24006,
+          "target_observations_per_model": 702
+        },
+        {
+          "adjacent_gap_coverage": 0.8979591836734694,
+          "adjacent_resolved_accuracy": 0.8333333333333334,
+          "adjacent_resolved_fraction": 0.12244897959183673,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.05277262420119563,
+          "kendall_tau": 0.8944547515976088,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 715,
+          "score_interval_coverage": 0.9090909090909091,
+          "score_mae": 0.015487354477030164,
           "seed": 24006,
           "target_observations_per_model": 702
         },
@@ -1418,6 +1799,20 @@
           "target_observations_per_model": 702
         },
         {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.09183673469387756,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.04658833230261802,
+          "kendall_tau": 0.906823335394764,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 708,
+          "score_interval_coverage": 0.898989898989899,
+          "score_mae": 0.016533254009637115,
+          "seed": 24007,
+          "target_observations_per_model": 702
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.039579468150896725,
           "kendall_tau": 0.9181677333203522,
@@ -1464,6 +1859,20 @@
           "realized_observations_per_model": 711,
           "score_interval_coverage": 0.9393939393939394,
           "score_mae": 0.01593282463781352,
+          "seed": 24008,
+          "target_observations_per_model": 702
+        },
+        {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.42857142857142855,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.042465471036899606,
+          "kendall_tau": 0.9150690579262009,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 672,
+          "score_interval_coverage": 0.9292929292929293,
+          "score_mae": 0.012505681740417754,
           "seed": 24008,
           "target_observations_per_model": 702
         },
@@ -1518,6 +1927,20 @@
           "target_observations_per_model": 702
         },
         {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.8571428571428571,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.04122861265718408,
+          "kendall_tau": 0.9175427746856318,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 707,
+          "score_interval_coverage": 0.9393939393939394,
+          "score_mae": 0.014697465037806862,
+          "seed": 24009,
+          "target_observations_per_model": 702
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.04782519068233354,
           "kendall_tau": 0.9009555332927159,
@@ -1564,6 +1987,20 @@
           "realized_observations_per_model": 1376,
           "score_interval_coverage": 0.9696969696969697,
           "score_mae": 0.011165671384538929,
+          "seed": 24000,
+          "target_observations_per_model": 1404
+        },
+        {
+          "adjacent_gap_coverage": 0.9795918367346939,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.08163265306122448,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.029684601113172542,
+          "kendall_tau": 0.940630797773655,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1393,
+          "score_interval_coverage": 0.9696969696969697,
+          "score_mae": 0.008017531230576401,
           "seed": 24000,
           "target_observations_per_model": 1404
         },
@@ -1618,6 +2055,20 @@
           "target_observations_per_model": 1404
         },
         {
+          "adjacent_gap_coverage": 0.9693877551020408,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.037311894454751596,
+          "kendall_tau": 0.9253762110904968,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1392,
+          "score_interval_coverage": 0.9595959595959596,
+          "score_mae": 0.00861664759158613,
+          "seed": 24001,
+          "target_observations_per_model": 1404
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.039991754277468566,
           "kendall_tau": 0.9183452735843549,
@@ -1664,6 +2115,20 @@
           "realized_observations_per_model": 1418,
           "score_interval_coverage": 0.9494949494949495,
           "score_mae": 0.010258458952087414,
+          "seed": 24002,
+          "target_observations_per_model": 1404
+        },
+        {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.6666666666666666,
+          "adjacent_resolved_fraction": 0.09183673469387756,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.02370645227788085,
+          "kendall_tau": 0.9525870954442385,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1464,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.007128696287425081,
           "seed": 24002,
           "target_observations_per_model": 1404
         },
@@ -1718,6 +2183,20 @@
           "target_observations_per_model": 1404
         },
         {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.8571428571428571,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.03813646670789528,
+          "kendall_tau": 0.9237270665842096,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1398,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.009465841539276976,
+          "seed": 24003,
+          "target_observations_per_model": 1404
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.036899608328179755,
           "kendall_tau": 0.9249825378785161,
@@ -1764,6 +2243,20 @@
           "realized_observations_per_model": 1400,
           "score_interval_coverage": 0.9696969696969697,
           "score_mae": 0.010039830134584704,
+          "seed": 24004,
+          "target_observations_per_model": 1404
+        },
+        {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.7142857142857143,
+          "adjacent_resolved_fraction": 0.07142857142857142,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.027829313543599257,
+          "kendall_tau": 0.9443413729128015,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1403,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.008975038719006012,
           "seed": 24004,
           "target_observations_per_model": 1404
         },
@@ -1818,6 +2311,20 @@
           "target_observations_per_model": 1404
         },
         {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.8,
+          "adjacent_resolved_fraction": 0.10204081632653061,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.027623170480313337,
+          "kendall_tau": 0.9447536590393734,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1443,
+          "score_interval_coverage": 0.9797979797979798,
+          "score_mae": 0.00861011637861337,
+          "seed": 24005,
+          "target_observations_per_model": 1404
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.03421974850546279,
           "kendall_tau": 0.9300174863435432,
@@ -1864,6 +2371,20 @@
           "realized_observations_per_model": 1375,
           "score_interval_coverage": 0.9191919191919192,
           "score_mae": 0.01169576722475164,
+          "seed": 24006,
+          "target_observations_per_model": 1404
+        },
+        {
+          "adjacent_gap_coverage": 0.9489795918367347,
+          "adjacent_resolved_accuracy": 0.875,
+          "adjacent_resolved_fraction": 0.08163265306122448,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.036487322201607914,
+          "kendall_tau": 0.9270253555967843,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1388,
+          "score_interval_coverage": 0.9696969696969697,
+          "score_mae": 0.009195153431153347,
           "seed": 24006,
           "target_observations_per_model": 1404
         },
@@ -1918,6 +2439,20 @@
           "target_observations_per_model": 1404
         },
         {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.8,
+          "adjacent_resolved_fraction": 0.10204081632653061,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.036281179138321996,
+          "kendall_tau": 0.927437641723356,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1395,
+          "score_interval_coverage": 0.9292929292929293,
+          "score_mae": 0.011005244236275765,
+          "seed": 24007,
+          "target_observations_per_model": 1404
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.032158317872603585,
           "kendall_tau": 0.9346955437340326,
@@ -1968,6 +2503,20 @@
           "target_observations_per_model": 1404
         },
         {
+          "adjacent_gap_coverage": 0.9591836734693877,
+          "adjacent_resolved_accuracy": 0.875,
+          "adjacent_resolved_fraction": 0.08163265306122448,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.03421974850546279,
+          "kendall_tau": 0.9315605029890746,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1381,
+          "score_interval_coverage": 0.9494949494949495,
+          "score_mae": 0.008434296099017228,
+          "seed": 24008,
+          "target_observations_per_model": 1404
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.027829313543599257,
           "kendall_tau": 0.9425988495152396,
@@ -2014,6 +2563,20 @@
           "realized_observations_per_model": 1412,
           "score_interval_coverage": 0.9595959595959596,
           "score_mae": 0.011005019581259008,
+          "seed": 24009,
+          "target_observations_per_model": 1404
+        },
+        {
+          "adjacent_gap_coverage": 0.9081632653061225,
+          "adjacent_resolved_accuracy": 0.7692307692307693,
+          "adjacent_resolved_fraction": 0.1326530612244898,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.030715316429602145,
+          "kendall_tau": 0.9385693671407959,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 1428,
+          "score_interval_coverage": 0.9191919191919192,
+          "score_mae": 0.010074179342639458,
           "seed": 24009,
           "target_observations_per_model": 1404
         },
@@ -2126,6 +2689,90 @@
           "score_interval_coverage_median": 0.9545454545454546,
           "score_mae_mean": 0.008163236872872945,
           "score_mae_median": 0.008327136918494226
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9438775510204083,
+          "adjacent_gap_coverage_median": 0.9387755102040817,
+          "adjacent_resolved_accuracy_mean": 0.7576839826839826,
+          "adjacent_resolved_accuracy_median": 0.6904761904761905,
+          "adjacent_resolved_fraction_mean": 0.06020408163265306,
+          "adjacent_resolved_fraction_median": 0.06632653061224489,
+          "budget_fraction": 0.01,
+          "inversion_rate_mean": 0.10249433106575964,
+          "inversion_rate_median": 0.1075036075036075,
+          "kendall_tau_mean": 0.7949121663306727,
+          "kendall_tau_median": 0.7849301961719923,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 141.7,
+          "realized_observations_per_model_median": 145.5,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.9585858585858584,
+          "score_interval_coverage_median": 0.9595959595959596,
+          "score_mae_mean": 0.03267178066469437,
+          "score_mae_median": 0.032585428453420245
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9377551020408162,
+          "adjacent_gap_coverage_median": 0.9438775510204083,
+          "adjacent_resolved_accuracy_mean": 0.701031746031746,
+          "adjacent_resolved_accuracy_median": 0.7083333333333333,
+          "adjacent_resolved_fraction_mean": 0.05714285714285714,
+          "adjacent_resolved_fraction_median": 0.05102040816326531,
+          "budget_fraction": 0.02,
+          "inversion_rate_mean": 0.07045969903112762,
+          "inversion_rate_median": 0.07441764584621727,
+          "kendall_tau_mean": 0.8590566927000708,
+          "kendall_tau_median": 0.8511647083075655,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 282.7,
+          "realized_observations_per_model_median": 288.0,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.9525252525252524,
+          "score_interval_coverage_median": 0.9646464646464646,
+          "score_mae_mean": 0.022832045810676847,
+          "score_mae_median": 0.021714007820889118
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9387755102040817,
+          "adjacent_gap_coverage_median": 0.9438775510204083,
+          "adjacent_resolved_accuracy_mean": 0.740909090909091,
+          "adjacent_resolved_accuracy_median": 0.7738095238095238,
+          "adjacent_resolved_fraction_mean": 0.07959183673469387,
+          "adjacent_resolved_fraction_median": 0.07142857142857142,
+          "budget_fraction": 0.05,
+          "inversion_rate_mean": 0.04665017522160379,
+          "inversion_rate_median": 0.0448361162646877,
+          "kendall_tau_mean": 0.9066996495567926,
+          "kendall_tau_median": 0.9103277674706247,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 705.8,
+          "realized_observations_per_model_median": 707.5,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.9444444444444444,
+          "score_interval_coverage_median": 0.9494949494949495,
+          "score_mae_mean": 0.014215176012938221,
+          "score_mae_median": 0.014491239146520786
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9540816326530612,
+          "adjacent_gap_coverage_median": 0.9591836734693877,
+          "adjacent_resolved_accuracy_mean": 0.8357326007326007,
+          "adjacent_resolved_accuracy_median": 0.8285714285714285,
+          "adjacent_resolved_fraction_mean": 0.08877551020408163,
+          "adjacent_resolved_fraction_median": 0.08163265306122448,
+          "budget_fraction": 0.1,
+          "inversion_rate_mean": 0.032199546485260765,
+          "inversion_rate_median": 0.032467532467532464,
+          "kendall_tau_mean": 0.9356009070294785,
+          "kendall_tau_median": 0.9350649350649352,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 1408.5,
+          "realized_observations_per_model_median": 1396.5,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.9636363636363636,
+          "score_interval_coverage_median": 0.9696969696969697,
+          "score_mae_mean": 0.008952274485556978,
+          "score_mae_median": 0.008795843155296072
         },
         {
           "adjacent_gap_coverage_mean": 0.9602040816326533,
@@ -2352,6 +2999,20 @@
           "target_observations_per_model": 5
         },
         {
+          "adjacent_gap_coverage": 0.6060606060606061,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.14337568058076225,
+          "kendall_tau": 0.5192490502416195,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 5,
+          "score_interval_coverage": 0.9117647058823529,
+          "score_mae": 0.1028094595144735,
+          "seed": 24000,
+          "target_observations_per_model": 5
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.10344827586206896,
           "kendall_tau": 0.3861567770229612,
@@ -2398,6 +3059,20 @@
           "realized_observations_per_model": 5,
           "score_interval_coverage": 1.0,
           "score_mae": 0.09064594217030394,
+          "seed": 24001,
+          "target_observations_per_model": 5
+        },
+        {
+          "adjacent_gap_coverage": 0.3939393939393939,
+          "adjacent_resolved_accuracy": 0.3333333333333333,
+          "adjacent_resolved_fraction": 0.36363636363636365,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.16878402903811252,
+          "kendall_tau": 0.49668034219377266,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 3,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.1381345665178587,
           "seed": 24001,
           "target_observations_per_model": 5
         },
@@ -2452,6 +3127,20 @@
           "target_observations_per_model": 5
         },
         {
+          "adjacent_gap_coverage": 0.5757575757575758,
+          "adjacent_resolved_accuracy": 0.25,
+          "adjacent_resolved_fraction": 0.12121212121212122,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.21052631578947367,
+          "kendall_tau": 0.37298304542425353,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 4,
+          "score_interval_coverage": 0.7647058823529411,
+          "score_mae": 0.13248449412565594,
+          "seed": 24002,
+          "target_observations_per_model": 5
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.18148820326678766,
           "kendall_tau": 0.4845271001483154,
@@ -2498,6 +3187,20 @@
           "realized_observations_per_model": 4,
           "score_interval_coverage": 1.0,
           "score_mae": 0.1519808992193039,
+          "seed": 24003,
+          "target_observations_per_model": 5
+        },
+        {
+          "adjacent_gap_coverage": 0.7878787878787878,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.2631578947368421,
+          "kendall_tau": 0.28695273130024773,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 4,
+          "score_interval_coverage": 0.9117647058823529,
+          "score_mae": 0.15023410319093566,
           "seed": 24003,
           "target_observations_per_model": 5
         },
@@ -2552,6 +3255,20 @@
           "target_observations_per_model": 5
         },
         {
+          "adjacent_gap_coverage": 0.8484848484848485,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.21960072595281308,
+          "kendall_tau": 0.45359315546512374,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 5,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.09030278485208688,
+          "seed": 24004,
+          "target_observations_per_model": 5
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.15789473684210525,
           "kendall_tau": 0.475126784848135,
@@ -2598,6 +3315,20 @@
           "realized_observations_per_model": 4,
           "score_interval_coverage": 0.38235294117647056,
           "score_mae": 0.1674647631864048,
+          "seed": 24005,
+          "target_observations_per_model": 5
+        },
+        {
+          "adjacent_gap_coverage": 0.5454545454545454,
+          "adjacent_resolved_accuracy": 0.36363636363636365,
+          "adjacent_resolved_fraction": 0.3333333333333333,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.21960072595281308,
+          "kendall_tau": 0.4247527350537486,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 3,
+          "score_interval_coverage": 0.9117647058823529,
+          "score_mae": 0.10815372345444046,
           "seed": 24005,
           "target_observations_per_model": 5
         },
@@ -2652,6 +3383,20 @@
           "target_observations_per_model": 5
         },
         {
+          "adjacent_gap_coverage": 0.5454545454545454,
+          "adjacent_resolved_accuracy": 0.4,
+          "adjacent_resolved_fraction": 0.15151515151515152,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.1996370235934664,
+          "kendall_tau": 0.4371126201394681,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 3,
+          "score_interval_coverage": 0.8235294117647058,
+          "score_mae": 0.08157753604251013,
+          "seed": 24006,
+          "target_observations_per_model": 5
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.2631578947368421,
           "kendall_tau": -0.14849517398526693,
@@ -2698,6 +3443,20 @@
           "realized_observations_per_model": 7,
           "score_interval_coverage": 0.20588235294117646,
           "score_mae": 0.16251433617173633,
+          "seed": 24007,
+          "target_observations_per_model": 5
+        },
+        {
+          "adjacent_gap_coverage": 0.48484848484848486,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.07078039927404718,
+          "kendall_tau": 0.4553453447001615,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 5,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.08116374588375909,
           "seed": 24007,
           "target_observations_per_model": 5
         },
@@ -2752,6 +3511,20 @@
           "target_observations_per_model": 5
         },
         {
+          "adjacent_gap_coverage": 0.3333333333333333,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.0925589836660617,
+          "kendall_tau": 0.39907103594259824,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 3,
+          "score_interval_coverage": 0.029411764705882353,
+          "score_mae": 0.20681432319495074,
+          "seed": 24008,
+          "target_observations_per_model": 5
+        },
+        {
           "budget_fraction": 0.01,
           "inversion_rate": 0.17422867513611615,
           "kendall_tau": 0.23643621357175545,
@@ -2798,6 +3571,20 @@
           "realized_observations_per_model": 2,
           "score_interval_coverage": 0.0,
           "score_mae": 0.22165308262366515,
+          "seed": 24009,
+          "target_observations_per_model": 5
+        },
+        {
+          "adjacent_gap_coverage": 0.9393939393939394,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate": 0.17785843920145192,
+          "kendall_tau": 0.5811978478331203,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 6,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.41928750655770924,
           "seed": 24009,
           "target_observations_per_model": 5
         },
@@ -2852,6 +3639,20 @@
           "target_observations_per_model": 10
         },
         {
+          "adjacent_gap_coverage": 0.8181818181818182,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.14156079854809436,
+          "kendall_tau": 0.6039540776034426,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 11,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.16637754129317286,
+          "seed": 24000,
+          "target_observations_per_model": 10
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.1161524500907441,
           "kendall_tau": 0.5427400448669708,
@@ -2898,6 +3699,20 @@
           "realized_observations_per_model": 9,
           "score_interval_coverage": 0.9705882352941176,
           "score_mae": 0.09666985522540623,
+          "seed": 24001,
+          "target_observations_per_model": 10
+        },
+        {
+          "adjacent_gap_coverage": 0.8484848484848485,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.19419237749546278,
+          "kendall_tau": 0.5199601158076969,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 8,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.07180357002793161,
           "seed": 24001,
           "target_observations_per_model": 10
         },
@@ -2952,6 +3767,20 @@
           "target_observations_per_model": 10
         },
         {
+          "adjacent_gap_coverage": 0.8181818181818182,
+          "adjacent_resolved_accuracy": 0.3333333333333333,
+          "adjacent_resolved_fraction": 0.09090909090909091,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.1724137931034483,
+          "kendall_tau": 0.5900275481482014,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 9,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.050468467612887556,
+          "seed": 24002,
+          "target_observations_per_model": 10
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.1996370235934664,
           "kendall_tau": 0.49378932874903536,
@@ -2998,6 +3827,20 @@
           "realized_observations_per_model": 11,
           "score_interval_coverage": 1.0,
           "score_mae": 0.3327496638249226,
+          "seed": 24003,
+          "target_observations_per_model": 10
+        },
+        {
+          "adjacent_gap_coverage": 0.9090909090909091,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.2849364791288566,
+          "kendall_tau": 0.40909158527590644,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 11,
+          "score_interval_coverage": 0.9705882352941176,
+          "score_mae": 0.0986809428622637,
           "seed": 24003,
           "target_observations_per_model": 10
         },
@@ -3052,6 +3895,20 @@
           "target_observations_per_model": 10
         },
         {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.3248638838475499,
+          "kendall_tau": 0.32969253382455727,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 10,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.1074081623150968,
+          "seed": 24004,
+          "target_observations_per_model": 10
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.12704174228675136,
           "kendall_tau": 0.6197262309103176,
@@ -3098,6 +3955,20 @@
           "realized_observations_per_model": 10,
           "score_interval_coverage": 0.9411764705882353,
           "score_mae": 0.09774445538080376,
+          "seed": 24005,
+          "target_observations_per_model": 10
+        },
+        {
+          "adjacent_gap_coverage": 0.6666666666666666,
+          "adjacent_resolved_accuracy": 0.3,
+          "adjacent_resolved_fraction": 0.30303030303030304,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.14882032667876588,
+          "kendall_tau": 0.638247200095799,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 7,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.10561681923376424,
           "seed": 24005,
           "target_observations_per_model": 10
         },
@@ -3152,6 +4023,20 @@
           "target_observations_per_model": 10
         },
         {
+          "adjacent_gap_coverage": 0.9090909090909091,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.1397459165154265,
+          "kendall_tau": 0.6564752488266267,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 8,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.0798934998600513,
+          "seed": 24006,
+          "target_observations_per_model": 10
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.2631578947368421,
           "kendall_tau": -0.14849517398526693,
@@ -3198,6 +4083,20 @@
           "realized_observations_per_model": 13,
           "score_interval_coverage": 0.8823529411764706,
           "score_mae": 0.07857846176736082,
+          "seed": 24007,
+          "target_observations_per_model": 10
+        },
+        {
+          "adjacent_gap_coverage": 0.5151515151515151,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.09437386569872959,
+          "kendall_tau": 0.42979898972189895,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 7,
+          "score_interval_coverage": 0.5294117647058824,
+          "score_mae": 0.13542386253762762,
           "seed": 24007,
           "target_observations_per_model": 10
         },
@@ -3252,6 +4151,20 @@
           "target_observations_per_model": 10
         },
         {
+          "adjacent_gap_coverage": 0.8484848484848485,
+          "adjacent_resolved_accuracy": 0.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.23049001814882034,
+          "kendall_tau": 0.47256651098538516,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 8,
+          "score_interval_coverage": 0.35294117647058826,
+          "score_mae": 0.16209874227000853,
+          "seed": 24008,
+          "target_observations_per_model": 10
+        },
+        {
           "budget_fraction": 0.02,
           "inversion_rate": 0.1560798548094374,
           "kendall_tau": 0.512745270480931,
@@ -3298,6 +4211,20 @@
           "realized_observations_per_model": 9,
           "score_interval_coverage": 0.9411764705882353,
           "score_mae": 0.09243348023086838,
+          "seed": 24009,
+          "target_observations_per_model": 10
+        },
+        {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate": 0.20326678765880218,
+          "kendall_tau": 0.5778994990219577,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 14,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.2928059300194417,
           "seed": 24009,
           "target_observations_per_model": 10
         },
@@ -3352,6 +4279,20 @@
           "target_observations_per_model": 25
         },
         {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.14156079854809436,
+          "kendall_tau": 0.71046038291995,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 34,
+          "score_interval_coverage": 0.9117647058823529,
+          "score_mae": 0.16240652301668324,
+          "seed": 24000,
+          "target_observations_per_model": 25
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.09800362976406533,
           "kendall_tau": 0.7285129743371835,
@@ -3398,6 +4339,20 @@
           "realized_observations_per_model": 27,
           "score_interval_coverage": 0.9705882352941176,
           "score_mae": 0.07998644826074394,
+          "seed": 24001,
+          "target_observations_per_model": 25
+        },
+        {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 0.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.23774954627949182,
+          "kendall_tau": 0.5144479761005099,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 23,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.10620418977666843,
           "seed": 24001,
           "target_observations_per_model": 25
         },
@@ -3452,6 +4407,20 @@
           "target_observations_per_model": 25
         },
         {
+          "adjacent_gap_coverage": 0.9393939393939394,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.2159709618874773,
+          "kendall_tau": 0.5564645740807265,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 24,
+          "score_interval_coverage": 0.8529411764705882,
+          "score_mae": 0.07198731015941942,
+          "seed": 24002,
+          "target_observations_per_model": 25
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.12704174228675136,
           "kendall_tau": 0.6834328425804574,
@@ -3498,6 +4467,20 @@
           "realized_observations_per_model": 33,
           "score_interval_coverage": 1.0,
           "score_mae": 0.1753125845952631,
+          "seed": 24003,
+          "target_observations_per_model": 25
+        },
+        {
+          "adjacent_gap_coverage": 0.9393939393939394,
+          "adjacent_resolved_accuracy": 0.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.16333938294010888,
+          "kendall_tau": 0.6660884624221045,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 22,
+          "score_interval_coverage": 0.8823529411764706,
+          "score_mae": 0.07442392686179289,
           "seed": 24003,
           "target_observations_per_model": 25
         },
@@ -3552,6 +4535,20 @@
           "target_observations_per_model": 25
         },
         {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.15970961887477314,
+          "kendall_tau": 0.6732894187726137,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 26,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.039376439929830045,
+          "seed": 24004,
+          "target_observations_per_model": 25
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.08711433756805807,
           "kendall_tau": 0.7409465668197895,
@@ -3598,6 +4595,20 @@
           "realized_observations_per_model": 22,
           "score_interval_coverage": 0.9117647058823529,
           "score_mae": 0.10002128971520768,
+          "seed": 24005,
+          "target_observations_per_model": 25
+        },
+        {
+          "adjacent_gap_coverage": 0.9393939393939394,
+          "adjacent_resolved_accuracy": 0.0,
+          "adjacent_resolved_fraction": 0.06060606060606061,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.17967332123411978,
+          "kendall_tau": 0.6174904362791431,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 19,
+          "score_interval_coverage": 0.7352941176470589,
+          "score_mae": 0.10366915971479593,
           "seed": 24005,
           "target_observations_per_model": 25
         },
@@ -3652,6 +4663,20 @@
           "target_observations_per_model": 25
         },
         {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.13793103448275862,
+          "kendall_tau": 0.711841046064306,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 21,
+          "score_interval_coverage": 0.9411764705882353,
+          "score_mae": 0.0708511652471298,
+          "seed": 24006,
+          "target_observations_per_model": 25
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.17785843920145192,
           "kendall_tau": 0.4881711807415921,
@@ -3698,6 +4723,20 @@
           "realized_observations_per_model": 28,
           "score_interval_coverage": 0.6176470588235294,
           "score_mae": 0.09514874212330006,
+          "seed": 24007,
+          "target_observations_per_model": 25
+        },
+        {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.1724137931034483,
+          "kendall_tau": 0.6456395523848165,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 24,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.044268815485302565,
           "seed": 24007,
           "target_observations_per_model": 25
         },
@@ -3752,6 +4791,20 @@
           "target_observations_per_model": 25
         },
         {
+          "adjacent_gap_coverage": 0.9090909090909091,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.18148820326678766,
+          "kendall_tau": 0.6194371310687166,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 25,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.033995722668412234,
+          "seed": 24008,
+          "target_observations_per_model": 25
+        },
+        {
           "budget_fraction": 0.05,
           "inversion_rate": 0.14882032667876588,
           "kendall_tau": 0.637624823350899,
@@ -3798,6 +4851,20 @@
           "realized_observations_per_model": 23,
           "score_interval_coverage": 0.8823529411764706,
           "score_mae": 0.10185081721533426,
+          "seed": 24009,
+          "target_observations_per_model": 25
+        },
+        {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.05,
+          "inversion_rate": 0.15245009074410162,
+          "kendall_tau": 0.6876913314736324,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 30,
+          "score_interval_coverage": 0.9705882352941176,
+          "score_mae": 0.09898452130759426,
           "seed": 24009,
           "target_observations_per_model": 25
         },
@@ -3852,6 +4919,20 @@
           "target_observations_per_model": 50
         },
         {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.1161524500907441,
+          "kendall_tau": 0.76082213158263,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 55,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.06019946441481987,
+          "seed": 24000,
+          "target_observations_per_model": 50
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.132486388384755,
           "kendall_tau": 0.69327925941341,
@@ -3898,6 +4979,20 @@
           "realized_observations_per_model": 53,
           "score_interval_coverage": 1.0,
           "score_mae": 0.05100308516787316,
+          "seed": 24001,
+          "target_observations_per_model": 50
+        },
+        {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.1996370235934664,
+          "kendall_tau": 0.59534781454811,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 50,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.06678727858276533,
           "seed": 24001,
           "target_observations_per_model": 50
         },
@@ -3952,6 +5047,20 @@
           "target_observations_per_model": 50
         },
         {
+          "adjacent_gap_coverage": 0.8787878787878788,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.12121212121212122,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.17785843920145192,
+          "kendall_tau": 0.63851502768755,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 41,
+          "score_interval_coverage": 0.23529411764705882,
+          "score_mae": 0.10616408388721142,
+          "seed": 24002,
+          "target_observations_per_model": 50
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.14337568058076225,
           "kendall_tau": 0.6753698695737499,
@@ -3998,6 +5107,20 @@
           "realized_observations_per_model": 51,
           "score_interval_coverage": 1.0,
           "score_mae": 0.07363947692723748,
+          "seed": 24003,
+          "target_observations_per_model": 50
+        },
+        {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.1397459165154265,
+          "kendall_tau": 0.71405765068157,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 48,
+          "score_interval_coverage": 0.9411764705882353,
+          "score_mae": 0.06040267600508016,
           "seed": 24003,
           "target_observations_per_model": 50
         },
@@ -4052,6 +5175,20 @@
           "target_observations_per_model": 50
         },
         {
+          "adjacent_gap_coverage": 0.9090909090909091,
+          "adjacent_resolved_accuracy": 0.3333333333333333,
+          "adjacent_resolved_fraction": 0.09090909090909091,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.16333938294010888,
+          "kendall_tau": 0.66729316978051,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 49,
+          "score_interval_coverage": 0.9411764705882353,
+          "score_mae": 0.044979758833342834,
+          "seed": 24004,
+          "target_observations_per_model": 50
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.11978221415607986,
           "kendall_tau": 0.7203324696684279,
@@ -4098,6 +5235,20 @@
           "realized_observations_per_model": 46,
           "score_interval_coverage": 1.0,
           "score_mae": 0.048124995559715444,
+          "seed": 24005,
+          "target_observations_per_model": 50
+        },
+        {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.0998185117967332,
+          "kendall_tau": 0.7921051985560162,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 50,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.039625839376128326,
           "seed": 24005,
           "target_observations_per_model": 50
         },
@@ -4152,6 +5303,20 @@
           "target_observations_per_model": 50
         },
         {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.030303030303030304,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.13611615245009073,
+          "kendall_tau": 0.72125218620481,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 47,
+          "score_interval_coverage": 0.9117647058823529,
+          "score_mae": 0.03826886268317189,
+          "seed": 24006,
+          "target_observations_per_model": 50
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.15970961887477314,
           "kendall_tau": 0.6315536443237166,
@@ -4198,6 +5363,20 @@
           "realized_observations_per_model": 55,
           "score_interval_coverage": 0.9705882352941176,
           "score_mae": 0.03772574493173095,
+          "seed": 24007,
+          "target_observations_per_model": 50
+        },
+        {
+          "adjacent_gap_coverage": 0.9393939393939394,
+          "adjacent_resolved_accuracy": 0.5,
+          "adjacent_resolved_fraction": 0.06060606060606061,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.1705989110707804,
+          "kendall_tau": 0.65290409873403,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 55,
+          "score_interval_coverage": 1.0,
+          "score_mae": 0.040066457434769887,
           "seed": 24007,
           "target_observations_per_model": 50
         },
@@ -4252,6 +5431,20 @@
           "target_observations_per_model": 50
         },
         {
+          "adjacent_gap_coverage": 1.0,
+          "adjacent_resolved_accuracy": 1.0,
+          "adjacent_resolved_fraction": 0.0,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.16152450090744103,
+          "kendall_tau": 0.6708904375421301,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 48,
+          "score_interval_coverage": 0.8235294117647058,
+          "score_mae": 0.05554456263629654,
+          "seed": 24008,
+          "target_observations_per_model": 50
+        },
+        {
           "budget_fraction": 0.1,
           "inversion_rate": 0.08892921960072596,
           "kendall_tau": 0.7749375168118203,
@@ -4298,6 +5491,20 @@
           "realized_observations_per_model": 43,
           "score_interval_coverage": 0.8529411764705882,
           "score_mae": 0.06767923269198071,
+          "seed": 24009,
+          "target_observations_per_model": 50
+        },
+        {
+          "adjacent_gap_coverage": 0.9696969696969697,
+          "adjacent_resolved_accuracy": 0.5,
+          "adjacent_resolved_fraction": 0.06060606060606061,
+          "budget_fraction": 0.1,
+          "inversion_rate": 0.18874773139745918,
+          "kendall_tau": 0.61693142111783,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model": 52,
+          "score_interval_coverage": 0.9705882352941176,
+          "score_mae": 0.04689609740377878,
           "seed": 24009,
           "target_observations_per_model": 50
         },
@@ -4410,6 +5617,90 @@
           "score_interval_coverage_median": 0.9411764705882353,
           "score_mae_mean": 0.05383872976201852,
           "score_mae_median": 0.04814993955596767
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.6060606060606061,
+          "adjacent_gap_coverage_median": 0.5606060606060606,
+          "adjacent_resolved_accuracy_mean": 0.7346969696969696,
+          "adjacent_resolved_accuracy_median": 1.0,
+          "adjacent_resolved_fraction_mean": 0.09696969696969697,
+          "adjacent_resolved_fraction_median": 0.0,
+          "budget_fraction": 0.01,
+          "inversion_rate_mean": 0.1765880217785844,
+          "inversion_rate_median": 0.18874773139745915,
+          "kendall_tau_mean": 0.4426937908294114,
+          "kendall_tau_median": 0.4453528878022959,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 4.1,
+          "realized_observations_per_model_median": 4.0,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.8352941176470587,
+          "score_interval_coverage_median": 0.9117647058823529,
+          "score_mae_mean": 0.15109622433343803,
+          "score_mae_median": 0.1203191087900482
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.8333333333333333,
+          "adjacent_gap_coverage_median": 0.8484848484848485,
+          "adjacent_resolved_accuracy_mean": 0.7633333333333333,
+          "adjacent_resolved_accuracy_median": 1.0,
+          "adjacent_resolved_fraction_mean": 0.045454545454545456,
+          "adjacent_resolved_fraction_median": 0.0,
+          "budget_fraction": 0.02,
+          "inversion_rate_mean": 0.19346642468239564,
+          "inversion_rate_median": 0.18330308529945555,
+          "kendall_tau_mean": 0.5227713309311472,
+          "kendall_tau_median": 0.5489298074148272,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 9.3,
+          "realized_observations_per_model_median": 8.5,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.8852941176470587,
+          "score_interval_coverage_median": 1.0,
+          "score_mae_mean": 0.1270577538032246,
+          "score_mae_median": 0.10651249077443052
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9636363636363636,
+          "adjacent_gap_coverage_median": 0.9696969696969697,
+          "adjacent_resolved_accuracy_mean": 0.7,
+          "adjacent_resolved_accuracy_median": 1.0,
+          "adjacent_resolved_fraction_mean": 0.02727272727272727,
+          "adjacent_resolved_fraction_median": 0.030303030303030304,
+          "budget_fraction": 0.05,
+          "inversion_rate_mean": 0.17422867513611615,
+          "inversion_rate_median": 0.16787658802177857,
+          "kendall_tau_mean": 0.6402850311566518,
+          "kendall_tau_median": 0.6558640074034605,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 24.8,
+          "realized_observations_per_model_median": 24.0,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.9294117647058824,
+          "score_interval_coverage_median": 0.9558823529411764,
+          "score_mae_mean": 0.08061677741676289,
+          "score_mae_median": 0.07320561851060615
+        },
+        {
+          "adjacent_gap_coverage_mean": 0.9606060606060606,
+          "adjacent_gap_coverage_median": 0.9696969696969697,
+          "adjacent_resolved_accuracy_mean": 0.8333333333333333,
+          "adjacent_resolved_accuracy_median": 1.0,
+          "adjacent_resolved_fraction_mean": 0.0393939393939394,
+          "adjacent_resolved_fraction_median": 0.030303030303030304,
+          "budget_fraction": 0.1,
+          "inversion_rate_mean": 0.15535390199637025,
+          "inversion_rate_median": 0.16243194192377497,
+          "kendall_tau_mean": 0.6830119136435187,
+          "kendall_tau_median": 0.66909180366132,
+          "method": "sequential_active_corrected",
+          "realized_observations_per_model_mean": 49.5,
+          "realized_observations_per_model_median": 49.5,
+          "replicates": 10,
+          "score_interval_coverage_mean": 0.8823529411764705,
+          "score_interval_coverage_median": 0.9558823529411764,
+          "score_mae_mean": 0.05589350812573651,
+          "score_mae_median": 0.05122033002003766
         },
         {
           "adjacent_gap_coverage_mean": 0.4727272727272728,
@@ -4605,7 +5896,7 @@
   },
   "provenance": {
     "dirty": true,
-    "revision": "b7892420d2ce801e676e7d2a5efe35952fff017b"
+    "revision": "f80f3dda735ed805333448ecaed784e6ec92fc64"
   },
   "schema_version": 1,
   "scope": "Offline holdout diagnostic of a low-rank surrogate plus randomized, design-corrected sampling. This is not a production fixed-confidence guarantee."

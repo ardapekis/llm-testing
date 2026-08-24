@@ -202,7 +202,7 @@
         <div class="stats">
           <div class="stat"><b>5.61M</b><span>validated binary responses across two pinned matrices</span></div>
           <div class="stat"><b>529</b><span>evaluated rows: models on MMLU and systems on SWE-bench</span></div>
-          <div class="stat"><b>52</b><span>passing tests, plus clean Ruff and strict mypy</span></div>
+          <div class="stat"><b>53</b><span>passing tests, plus clean Ruff and strict mypy</span></div>
           <div class="stat"><b>20/20</b><span>valid replicates in the full corrected M1-B gate</span></div>
         </div>
 
@@ -271,7 +271,7 @@
         </div>
         <div class="callout">
           <strong>Honest boundary</strong>
-          <div><b>The architecture is stronger than the current acquisition heuristic.</b><p>Active correction beats corrected random sampling in both holdouts, but does not always beat a raw stratified mean on point-ordering metrics. The 10-seed normal intervals are diagnostics, not a production fixed-confidence guarantee.</p></div>
+          <div><b>The architecture is stronger than the current acquisition heuristic.</b><p>Active correction beats corrected random sampling in both holdouts, but does not always beat a raw stratified mean. A three-stage sequential test improved SWE τ at 5% from 0.6169 to 0.6559, then lost at 10% and worsened MAE; it remains experimental. The 10-seed normal intervals are diagnostics, not a production fixed-confidence guarantee.</p></div>
         </div>
       </div>
     </section>
@@ -305,7 +305,7 @@
           </div>
           <div class="chart">
             <h3>Engineering gate</h3>
-            <div class="bar-row"><span>Pytest</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">52 / 52</span></div>
+            <div class="bar-row"><span>Pytest</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">53 / 53</span></div>
             <div class="bar-row"><span>Ruff</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
             <div class="bar-row"><span>Strict mypy</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
             <p style="color:var(--muted);font-size:.82rem">Tests are offline. Data acquisition and transformation remain explicit, reproducible commands.</p>

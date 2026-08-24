@@ -120,7 +120,7 @@ uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The recorded engineering verification passed with 52 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
+The recorded engineering verification passed with 53 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
 
 ## Non-IRT prediction-corrected evaluation
 
@@ -145,6 +145,11 @@ gap intervals should define unresolved tiers; the current normal intervals remai
 are not anytime-valid. Full methodology and exact results are in
 [`docs/NON_IRT_EVALUATION.md`](docs/NON_IRT_EVALUATION.md) and
 `non-irt-efficiency-result.json`.
+
+A brief sequential variant reserves 20% of each budget for sentinels, 10% for an adaptive training
+round, and 70% for a final randomized audit. It improved SWE-bench median tau at 5% from 0.6169 to
+0.6559, but fell behind at 10% (0.6691 versus 0.6955), worsened score MAE, and was slightly worse on
+MMLU. It is retained as an experimental policy and does not replace one-shot active correction.
 
 ## Cost curves, ablations, and guarantees
 
