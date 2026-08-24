@@ -2,9 +2,9 @@
 
 ## Status
 
-**M1 COMPLETE; READY FOR M2.** M0, the user-revised M1-A-v2 gate, and the user-authorized lightweight M1-B-v2 gate passed. The M1-B-v1 raw result remains recorded, but its acceptance inference was invalidated because it compared non-equivalent estimators on unlinked scales with a bootstrap inconsistent with the declared prior. M2–M5 have not been run.
+**REDUCED OFFLINE PROTOTYPE COMPLETE.** M0 and the revised M1 gates passed. A user-authorized reduced M2–M5 path is implemented and reproducible. The original M2–M5 contract remains unmet because the reduced run intentionally omits 200 sealed seeds, fixed-confidence guarantees, dollar costs, a live provider, and the 5x target.
 
-The ordered milestone contract still applies. The revised gate changes only the decision rule and preserves the original response data, estimator, seed, and failed result. The repository currently contains no replay cost curves, adaptive-policy comparison, live run, or claimed cost reduction.
+The original ordered contract is retained as a clearly labeled deferred benchmark, while the reduced scope is the delivered endpoint. Existing response data and failed results remain preserved. The repository now contains exploratory replay curves and an offline adapter test, but no live run or claimed cost reduction.
 
 ## Milestone outcomes
 
@@ -15,10 +15,11 @@ The ordered milestone contract still applies. The revised gate changes only the 
 | M1-A-v2 — ranking recovery | **PASS** | Clean revision `496012a`: converged; theta Spearman 0.9917795029 >0.98. Difficulty RMSE remains diagnostic. |
 | M1-B-v1 — original reference agreement | INVALID | E-M1-004 measurements reproduce, but E-M1-005 shows the validator was not like-for-like. |
 | M1-B-v2 — corrected reference agreement | **PASS** | Clean revision `ed6ca95`; 93.6% estimable, all four replicates valid, all six checks pass in 52.44 seconds. |
-| M2 — replay baselines | NOT RUN | Unblocked by M1-B-v2. |
-| M3 — adaptive ranking | NOT RUN | Blocked until M2 passes. |
-| M4 — live adapter | NOT RUN | Blocked by milestone order; no paid API use is authorized. |
-| M5 — complete report and ablations | NOT RUN | Required upstream evidence does not exist. |
+| Reduced M2 — replay baselines | **COMPLETE** | Both matrices, 20 seeds, five checkpoints, unit cost, and three baseline curves. |
+| Reduced M3 — adaptive ranking | **COMPLETE / NO CLEAR WIN** | Rank-aware and no-contest ablation evaluated; neither clearly beats the baselines. |
+| Reduced M4 — adapter | **PASS (FAKE ONLY)** | Five fake models; cache consistency and hard cap verified. |
+| Reduced M5 — report | **COMPLETE** | JSON curves, summary metrics, ablation, commands, and limitations recorded. |
+| Original M2–M5 | DEFERRED | Explicitly excluded from the reduced scope; no original-gate claims. |
 
 ## M0 data evidence
 
@@ -81,21 +82,40 @@ uv run python scripts/run_m1_recovery.py  # expected exit code: 2
 uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.json --output .agent/ml/adaptive-irt-ranking/artifacts/m1-recovery-rank-v2-result.json
 uv run python scripts/run_m1_reference_agreement.py  # expected exit code: 2
 uv run python scripts/run_m1_reference_agreement_v2.py
+uv run python scripts/run_reduced_m2_m5.py
 uv run pytest
 uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The recorded engineering verification passed with 27 tests, Ruff, and strict mypy over 30 source files. Tests make no network calls. M1 result artifacts carry the implementation Git SHA and config hash.
+The recorded engineering verification passed with 39 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
 
 ## Cost curves, ablations, and guarantees
 
-No cost curves or ablations are reported. The replay harness, cost models, baseline and rank-aware policies, anytime-valid confidence sequences, item-parameter uncertainty propagation through replay, and live adapter belong to M2–M4. M2 is now unblocked. Consequently:
+The reduced runner evaluates five policies at 0.2%, 0.5%, 1%, 2%, and 5% of all model-item pairs over seeds 10000–10019. Every unique observation costs one normalized unit. The full-matrix accuracy ranking is the replay proxy, and allocation receives outcomes only through a duplicate-rejecting response oracle.
+
+At the 5% checkpoint, median results were:
+
+| Matrix | Policy | Kendall tau | Inversion rate |
+|---|---|---:|---:|
+| MMLU | random | 0.8791 | 0.0604 |
+| MMLU | balanced random | 0.8798 | 0.0596 |
+| MMLU | CAT-SE proxy | 0.8802 | 0.0598 |
+| MMLU | rank-aware | 0.8803 | 0.0597 |
+| SWE-bench Verified | random | 0.7069 | 0.1443 |
+| SWE-bench Verified | balanced random | 0.7231 | 0.1273 |
+| SWE-bench Verified | CAT-SE proxy | 0.7207 | 0.1318 |
+| SWE-bench Verified | rank-aware | 0.7193 | 0.1335 |
+
+The no-contest ablation is effectively tied with CAT-SE, and rank-aware does not clearly win. The clean run took 32.29 seconds at revision `6f7a11d`. The fake adapter used five models and two items, cached repeated reads, made exactly eight allowed provider calls, and rejected the ninth before calling the provider.
+
+Consequently:
 
 - no cost reduction at matched ranking fidelity has been demonstrated;
 - no fixed-confidence epsilon-inversion guarantee has been calibrated;
-- no fixed-budget Kendall-tau comparison exists;
+- a reduced fixed-budget comparison exists, but only with 20 exploratory seeds and unit cost;
 - no claim about rank-aware selection outperforming CAT or random is supported.
+- no live-provider, dollar-cost, anytime-valid, or fixed-confidence claim is supported.
 
 ## Assumptions and invalidation boundaries
 

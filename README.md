@@ -17,7 +17,12 @@ model measurements.
 M0 passed. The original M1-A synthetic gate failed on difficulty RMSE and remains recorded. The
 user subsequently revised M1-A around ranking recovery: convergence and theta Spearman are hard
 checks, while difficulty RMSE is diagnostic. M1-A-v2 passed. The corrected, lightweight M1-B-v2
-test passed from a clean revision in 52.44 seconds; M2 is now unblocked but remains unrun.
+test passed from a clean revision in 52.44 seconds.
+
+A user-authorized reduced M2–M5 prototype is also complete: 20-seed fixed-budget unit-cost
+replay on both matrices, five policies including a rank-aware ablation, and a cached/capped fake
+provider. It is exploratory and does not satisfy the original fixed-confidence, 200-seed,
+live-provider, dollar-cost, or 5x gates.
 See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
 
 ## Development

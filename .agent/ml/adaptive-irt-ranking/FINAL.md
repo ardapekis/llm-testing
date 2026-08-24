@@ -4,7 +4,7 @@
 
 `REFINE (resumed)`
 
-M0, M1-A-v2, and the lightweight M1-B-v2 pass. M1-A-v1 remains negative evidence. E-M1-005 invalidates the M1-B-v1 acceptance inference while preserving its raw measurements. M2 is unblocked and remains to be implemented.
+M0, M1-A-v2, and the lightweight M1-B-v2 pass. The user-authorized reduced M2–M5 offline prototype is complete and reproducible; rank-aware allocation shows no clear win. The original M2–M5 gates remain explicitly unresolved.
 
 ## Objective and locked contract
 
@@ -44,6 +44,7 @@ M0, M1-A-v2, and the lightweight M1-B-v2 pass. M1-A-v1 remains negative evidence
 | M1-A 1PL recovery | E-M1-001; clean revision `121cec4` | b RMSE 0.2138646913 (FAIL) | theta Spearman 0.9917795029; 10 iterations | 0.454 seconds; no paid cost |
 | M1-B-v1 reference agreement | E-M1-004 raw result; invalidated by E-M1-005 | b RMSE 0.66304 > q95 0.60888 | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
 | M1-B-v2 lightweight agreement | E-M1-006; clean revision `ed6ca95` | All six gate checks pass | b rho 0.99875; a rho 0.95261; 4/4 valid replicates | 52.44 seconds; no paid cost |
+| Reduced M2–M5 prototype | E-R-001; clean revision `6f7a11d` | Curves emitted; fake adapter passes | Rank-aware does not clearly beat baselines | 32.29 seconds; no paid cost |
 
 ## Constraint outcomes
 
@@ -54,7 +55,8 @@ M0, M1-A-v2, and the lightweight M1-B-v2 pass. M1-A-v1 remains negative evidence
 | M1-A-v2 | PASS | E-M1-002 | Converged; theta Spearman 0.99178 |
 | M1-B-v1 | INVALID | E-M1-005 | Non-equivalent estimators, unlinked scales, wrong bootstrap population |
 | M1-B-v2 | PASS | E-M1-006 | Clean lightweight validator; all checks pass |
-| M2–M5 | UNRESOLVED | Not run | M2 now unblocked |
+| Reduced M2–M5 | COMPLETE | E-R-001 | Exploratory offline/fake-provider scope only |
+| Original M2–M5 | UNRESOLVED | Scope explicitly deferred | No original-gate claims |
 | ENG | PASS | 31 tests; Ruff; strict mypy | No network tests |
 
 ## Weakest supported claim
@@ -89,13 +91,13 @@ The original M1-A-v1 command exits 2 under its preserved gate. The M1-B-v1 comma
 
 ## Remaining caveats and unresolved constraints
 
-- M2–M5 remain unresolved; M2 is no longer blocked by M1.
+- The original M2–M5 requirements remain unresolved despite completion of the reduced prototype.
 - The SWE matrix ranks submitted model-plus-agent systems and carries a `NOASSERTION` experiment-artifact license caveat.
 - No empirical cost-reduction or fixed-confidence claim can be made.
 
 ## Highest-value next experiment
 
-Implement and preregister the M2 replay engine, cost models, and five required baseline policies.
+If the original contract is resumed, implement calibrated fixed-confidence replay with 200 sealed seeds and obtain explicit live-provider authorization.
 
 Evidence confidence: high for the M1 implementation-agreement pass within its explicitly lightweight 64-item/four-replicate scope; no confidence is assigned to unrun downstream claims.
 
@@ -110,3 +112,4 @@ Evidence confidence: high for the M1 implementation-agreement pass within its ex
 | E-M1-004 | `artifacts/m1-reference-agreement-result.json`; `artifacts/M1B_FAILURE.md` | Reproducible M1-B-v1 raw measurements; acceptance inference invalidated by E-M1-005 |
 | E-M1-005 | `artifacts/M1B_VALIDATOR_DIAGNOSIS.md` | M1-B-v1 acceptance inference invalid; corrected validator required |
 | E-M1-006 | `artifacts/m1-reference-agreement-v2-result.json` | Lightweight corrected M1-B-v2 passes from a clean revision |
+| E-R-001 | `artifacts/reduced-m2-m5-result.json`; `REPORT.md` | Reduced offline prototype complete; no rank-aware win |

@@ -79,7 +79,14 @@ def fake_provider_evidence(config: dict[str, Any]) -> dict[str, object]:
     }
     provider = FakeProvider(outcomes)
     evaluator = CachedCappedEvaluator(provider, request_limit=int(config["request_limit"]))
-    selected = list(outcomes)[: int(config["request_limit"])]
+    all_keys = list(outcomes)
+    selected = [(model, items[0]) for model in models]
+    selected.extend(
+        key
+        for key in all_keys
+        if key not in selected
+    )
+    selected = selected[: int(config["request_limit"])]
     first_results = [evaluator.evaluate(*key) for key in selected]
     cached_results = [evaluator.evaluate(*key) for key in selected]
     cap_enforced = False
@@ -92,6 +99,7 @@ def fake_provider_evidence(config: dict[str, Any]) -> dict[str, object]:
         "items": len(items),
         "request_limit": int(config["request_limit"]),
         "provider_calls": provider.calls,
+        "queried_models": len({model for model, _item in selected}),
         "cache_consistent": first_results == cached_results,
         "cap_enforced_before_provider_call": cap_enforced,
         "pass": first_results == cached_results

@@ -18,4 +18,8 @@ Statuses: `PASS`, `PROVISIONAL`, `UNRESOLVED`, `FAIL`, `INVALID`, `N/A`.
 | M3-D | Ranking-selection signature | Hard | Selection trace analysis | Item difficulty concentrates near contested midpoint, not own theta | UNRESOLVED | | Blocked by M1-B and M2 order |
 | M4 | Live adapter and capped run | Hard | Integration run | >=5 models; cache; hard ceiling enforced; graceful report | UNRESOLVED | | Paid/provider authority deferred |
 | M5 | Final report and ablations | Hard | Artifact audit | Required curves, ablations, failures, invalidating assumptions | UNRESOLVED | | Blocked by prior gates |
+| R-M2 | Reduced fixed-budget replay | Reduced | 20 seeds; both matrices; five checkpoints; unit cost | Curves and IQR summaries emitted | PASS | E-R-001 | Exploratory only |
+| R-M3 | Reduced rank-aware comparison | Reduced | Rank-aware plus no-contest ablation | Compare and report without 5x gate | PASS (negative result) | E-R-001 | No clear win |
+| R-M4 | Reduced fake adapter | Reduced | Five fake models; cache; cap | Cache consistent; cap enforced before call | PASS | E-R-001 | No live calls |
+| R-M5 | Reduced report | Reduced | Artifact and limitations audit | Results, ablation, commands, caveats present | PASS | E-R-001; `REPORT.md` | Original M2–M5 unresolved |
 | ENG | Package quality | Hard | `pytest`, `ruff`, `mypy --strict` | All pass; no network calls in tests | PASS | E-M1-001 verification: 18 tests, Ruff, and strict mypy pass | Preserve |
