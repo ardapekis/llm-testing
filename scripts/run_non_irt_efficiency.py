@@ -21,6 +21,7 @@ from irt_rank.efficient import (
     SVDResponseSurrogate,
     infer_item_strata,
     prediction_corrected_mean,
+    randomized_active_batch,
     randomized_active_design,
     stratified_sentinel_indices,
 )
@@ -232,6 +233,60 @@ def run_matrix(
                 seed=seed + 2_000_000,
             )
 
+            sequential_sentinel_size = max(
+                1,
+                round(
+                    budget * float(config["sequential_sentinel_share_of_budget"])
+                ),
+            )
+            sequential_training_size = max(
+                1,
+                round(
+                    budget * float(config["sequential_training_share_of_budget"])
+                ),
+            )
+            if sequential_sentinel_size + sequential_training_size >= budget:
+                sequential_training_size = budget - sequential_sentinel_size - 1
+            sequential_sentinel = stratified_sentinel_indices(
+                strata,
+                sequential_sentinel_size,
+                seed=seed + 3_000_000,
+            )
+            first_predictions: list[np.ndarray] = []
+            first_scores: list[np.ndarray] = []
+            for response in target:
+                observed = np.full(target.shape[1], np.nan)
+                observed[sequential_sentinel] = response[sequential_sentinel]
+                prediction = surrogate.predict(observed)
+                first_predictions.append(prediction)
+                first_scores.append(surrogate.acquisition_scores(prediction))
+            training_batch = randomized_active_batch(
+                np.mean(np.stack(first_scores), axis=0),
+                strata,
+                sequential_sentinel,
+                size=sequential_training_size,
+                exploration=float(config["active_exploration"]),
+                seed=seed + 4_000_000,
+            )
+            training_indices = np.concatenate((sequential_sentinel, training_batch))
+            sequential_predictions: list[np.ndarray] = []
+            sequential_scores: list[np.ndarray] = []
+            for response in target:
+                observed = np.full(target.shape[1], np.nan)
+                observed[training_indices] = response[training_indices]
+                prediction = surrogate.predict(observed)
+                sequential_predictions.append(prediction)
+                sequential_scores.append(surrogate.acquisition_scores(prediction))
+            sequential_prediction_matrix = np.stack(sequential_predictions)
+            sequential_audit = randomized_active_design(
+                np.mean(np.stack(sequential_scores), axis=0),
+                strata,
+                training_indices,
+                expected_additional=budget - training_indices.size,
+                exploration=float(config["sequential_audit_exploration"]),
+                seed=seed + 5_000_000,
+            )
+
             active_mean, active_lower, active_upper = _corrected_vector(
                 target,
                 prediction_matrix,
@@ -243,6 +298,12 @@ def run_matrix(
                 prediction_matrix,
                 random.selected,
                 random.inclusion_probability,
+            )
+            sequential_mean, sequential_lower, sequential_upper = _corrected_vector(
+                target,
+                sequential_prediction_matrix,
+                sequential_audit.selected,
+                sequential_audit.inclusion_probability,
             )
             method_values: list[
                 tuple[str, np.ndarray, np.ndarray | None, np.ndarray | None, int]
@@ -260,6 +321,13 @@ def run_matrix(
                     random_lower,
                     random_upper,
                     int(random.selected.sum()),
+                ),
+                (
+                    "sequential_active_corrected",
+                    sequential_mean,
+                    sequential_lower,
+                    sequential_upper,
+                    int(sequential_audit.selected.sum()),
                 ),
                 (
                     "stratified_sample_mean",
@@ -301,6 +369,15 @@ def run_matrix(
                             prediction_matrix,
                             random.selected,
                             random.inclusion_probability,
+                        )
+                    )
+                elif method == "sequential_active_corrected":
+                    row.update(
+                        _adjacent_pair_diagnostics(
+                            target,
+                            sequential_prediction_matrix,
+                            sequential_audit.selected,
+                            sequential_audit.inclusion_probability,
                         )
                     )
                 replicates.append(row)

@@ -181,6 +181,57 @@ class SamplingDesign:
     sentinel: BoolArray
 
 
+def randomized_active_batch(
+    acquisition_score: npt.ArrayLike,
+    strata: npt.ArrayLike,
+    excluded_indices: npt.ArrayLike,
+    *,
+    size: int,
+    exploration: float = 0.2,
+    seed: int,
+) -> IntArray:
+    """Select an exact-size adaptive training batch without revealing outcomes."""
+
+    scores = np.asarray(acquisition_score, dtype=np.float64)
+    labels = np.asarray(strata, dtype=str)
+    if scores.ndim != 1 or labels.shape != scores.shape:
+        raise ValueError("scores and strata must be aligned vectors")
+    if not bool(np.isfinite(scores).all()) or bool(np.any(scores < 0)):
+        raise ValueError("acquisition scores must be finite and non-negative")
+    if exploration <= 0 or exploration > 1:
+        raise ValueError("exploration must be in (0, 1]")
+    excluded_index = np.asarray(excluded_indices, dtype=np.int64)
+    if excluded_index.ndim != 1 or bool(
+        np.any((excluded_index < 0) | (excluded_index >= scores.size))
+    ):
+        raise ValueError("excluded indices are out of bounds")
+    excluded = np.zeros(scores.size, dtype=np.bool_)
+    excluded[excluded_index] = True
+    eligible = ~excluded
+    if size < 0 or size > int(eligible.sum()):
+        raise ValueError("batch size exceeds eligible items")
+    if size == 0:
+        return np.empty(0, dtype=np.int64)
+
+    active_weight = np.where(eligible, scores, 0.0)
+    if active_weight.sum() == 0:
+        active_weight = eligible.astype(np.float64)
+    active_weight /= active_weight.sum()
+    random_weight = np.zeros(scores.size, dtype=np.float64)
+    eligible_labels = np.unique(labels[eligible])
+    for label in eligible_labels:
+        group = eligible & (labels == label)
+        random_weight[group] = 1.0 / (eligible_labels.size * int(group.sum()))
+    weight = (1.0 - exploration) * active_weight + exploration * random_weight
+    eligible_index = np.flatnonzero(eligible)
+    probabilities = weight[eligible] / weight[eligible].sum()
+    rng = np.random.default_rng(seed)
+    return np.asarray(
+        rng.choice(eligible_index, size=size, replace=False, p=probabilities),
+        dtype=np.int64,
+    )
+
+
 def randomized_active_design(
     acquisition_score: npt.ArrayLike,
     strata: npt.ArrayLike,

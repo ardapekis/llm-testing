@@ -22,5 +22,8 @@
   },
   "budget_fractions": [0.01, 0.02, 0.05, 0.1],
   "sentinel_share_of_budget": 0.2,
-  "active_exploration": 0.2
+  "active_exploration": 0.2,
+  "sequential_sentinel_share_of_budget": 0.2,
+  "sequential_training_share_of_budget": 0.1,
+  "sequential_audit_exploration": 0.5
 }

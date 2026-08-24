@@ -6,6 +6,7 @@ from irt_rank.efficient import (
     infer_item_strata,
     prediction_corrected_gap,
     prediction_corrected_mean,
+    randomized_active_batch,
     randomized_active_design,
     stratified_sentinel_indices,
 )
@@ -66,6 +67,21 @@ def test_active_design_logs_probabilities_and_preserves_exploration() -> None:
     assert design.inclusion_probability[5] == 1.0
     assert design.inclusion_probability.sum() == pytest.approx(3.5)
     assert np.all(design.inclusion_probability > 0)
+
+
+def test_active_training_batch_has_exact_size_and_excludes_seen_items() -> None:
+    selected = randomized_active_batch(
+        [100.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        ["a", "a", "a", "b", "b", "b"],
+        [0, 5],
+        size=3,
+        exploration=0.2,
+        seed=12,
+    )
+
+    assert selected.size == 3
+    assert np.unique(selected).size == 3
+    assert not {0, 5} & set(selected.tolist())
 
 
 def test_prediction_correction_is_exact_at_full_census() -> None:
