@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Evidence-backed report for the IRT Rank model-ranking project">
-  <title>IRT Rank — Evidence Report</title>
+  <meta name="description" content="Evidence-backed report for cost-efficient model ranking">
+  <title>Cost-Efficient Model Ranking — Evidence Report</title>
   <style>
     :root {
       color-scheme: dark;
@@ -166,10 +166,11 @@
 <body>
   <nav aria-label="Report navigation">
     <div class="wrap">
-      <strong>IRT Rank / Evidence Report</strong>
+      <strong>Model Evaluation / Evidence Report</strong>
       <ul>
         <li><a href="#outcomes">Outcomes</a></li>
         <li><a href="#ranking">Ranking method</a></li>
+        <li><a href="#non-irt">Non-IRT path</a></li>
         <li><a href="#evidence">Evidence</a></li>
         <li><a href="#replay">Replay</a></li>
         <li><a href="#run">Run it</a></li>
@@ -182,12 +183,12 @@
       <div>
         <div class="eyebrow">Cost-aware evaluation · August 2026</div>
         <h1>Rank models with <span>evidence,</span> not false precision.</h1>
-        <p class="lede">A typed Python research system for anchored IRT calibration, posterior model ranking, pairwise confidence decisions, and cost-aware offline replay across MMLU and SWE-bench Verified.</p>
+        <p class="lede">A typed Python research system with two independent paths: anchored IRT ranking and prediction-corrected randomized evaluation without IRT, tested across MMLU and SWE-bench Verified.</p>
       </div>
       <aside class="hero-note">
         <div class="status pass">Reviewable build</div>
         <strong>Branch <span class="mono">codex/adaptive-irt-ranking</span></strong>
-        <p>Core gates pass. The uncertainty-aware ranking path is implemented and tested. Reduced replay is complete; the original production-scale M2–M5 contract remains explicitly deferred.</p>
+        <p>Core gates pass. Both the anchored ranking path and the non-IRT cheap-evaluation prototype are implemented and tested. Production fixed-confidence calibration remains explicitly deferred.</p>
       </aside>
     </div>
   </header>
@@ -201,7 +202,7 @@
         <div class="stats">
           <div class="stat"><b>5.61M</b><span>validated binary responses across two pinned matrices</span></div>
           <div class="stat"><b>529</b><span>evaluated rows: models on MMLU and systems on SWE-bench</span></div>
-          <div class="stat"><b>45</b><span>passing tests, plus clean Ruff and strict mypy</span></div>
+          <div class="stat"><b>52</b><span>passing tests, plus clean Ruff and strict mypy</span></div>
           <div class="stat"><b>20/20</b><span>valid replicates in the full corrected M1-B gate</span></div>
         </div>
 
@@ -212,6 +213,7 @@
           <article class="card"><div class="status pass">Complete</div><h3>Reduced M2 · Replay</h3><p>Both matrices, 20 seeds, five budgets, unit cost, three baselines, and median/interquartile curves.</p></article>
           <article class="card"><div class="status negative">Negative result</div><h3>Reduced M3 · Rank-aware</h3><p>The rank-aware policy was evaluated with an ablation but did not clearly beat simpler uncertainty and balanced baselines.</p></article>
           <article class="card"><div class="status pass">Fake-only pass</div><h3>Reduced M4/M5 · Integration</h3><p>Provider-neutral cache and request cap validated across five fake systems; artifacts and limitations documented.</p></article>
+          <article class="card"><div class="status pass">Diagnostic</div><h3>Non-IRT · Corrected sampling</h3><p>Low-rank prediction, content sentinels, randomized active acquisition, propensity correction, paired gaps, and held-out cost curves.</p></article>
         </div>
       </div>
     </section>
@@ -233,6 +235,43 @@
         <div class="callout">
           <strong>Interpretation</strong>
           <div><b>The total order is not the scientific conclusion.</b><p>Posterior-mean order is included for navigation. Pairwise probabilities and tiers decide which differences are supported. SWE-bench entities are model-plus-agent systems, never isolated base models.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="non-irt">
+      <div class="wrap">
+        <div class="eyebrow">Prediction-assisted randomized evaluation</div>
+        <h2>Cheap evaluation without IRT</h2>
+        <p class="section-intro">Historical response structure predicts where a new model is likely to succeed, but the final score does not have to trust that prediction. Randomized exploration and logged inclusion probabilities correct the surrogate's errors.</p>
+        <div class="flow">
+          <article class="step"><h3>Learn response structure</h3><p>Fit a ridge-regularized low-rank surrogate on completed historical models. No item-response curve or latent ability model is assumed.</p></article>
+          <article class="step"><h3>Probe with sentinels</h3><p>Evaluate a small content-stratified set and adapt the historical prediction to the new model without consulting hidden outcomes.</p></article>
+          <article class="step"><h3>Randomize acquisition</h3><p>Mix predicted residual risk with mandatory stratified exploration. Record every item's inclusion probability before revealing outcomes.</p></article>
+          <article class="step"><h3>Correct and resolve</h3><p>Apply a propensity-weighted residual correction. Rank point estimates for display, but claim separation only for paired gaps whose intervals clear epsilon.</p></article>
+        </div>
+        <div class="formula" role="math" aria-label="Prediction-corrected finite-population mean">
+          score_hat = mean(q<sub>i</sub>) + (1 / N) Σ<sub>sampled i</sub> (y<sub>i</sub> − q<sub>i</sub>) / π<sub>i</sub>
+        </div>
+        <div class="split">
+          <div class="chart">
+            <h3>MMLU held-out models · median Kendall τ</h3>
+            <div class="bar-row"><span>1% · active</span><div class="bar-track"><div class="bar rank" style="--value:80.85"></div></div><span class="bar-value">0.8085</span></div>
+            <div class="bar-row"><span>5% · active</span><div class="bar-track"><div class="bar rank" style="--value:91.57"></div></div><span class="bar-value">0.9157</span></div>
+            <div class="bar-row"><span>10% · active</span><div class="bar-track"><div class="bar rank" style="--value:94.04"></div></div><span class="bar-value">0.9404</span></div>
+            <div class="bar-row"><span>10% · random</span><div class="bar-track"><div class="bar" style="--value:91.53"></div></div><span class="bar-value">0.9153</span></div>
+          </div>
+          <div class="chart">
+            <h3>SWE Verified later systems · median Kendall τ</h3>
+            <div class="bar-row"><span>1% · active</span><div class="bar-track"><div class="bar rank" style="--value:46.54"></div></div><span class="bar-value">0.4654</span></div>
+            <div class="bar-row"><span>5% · active</span><div class="bar-track"><div class="bar rank" style="--value:61.69"></div></div><span class="bar-value">0.6169</span></div>
+            <div class="bar-row"><span>10% · active</span><div class="bar-track"><div class="bar rank" style="--value:69.55"></div></div><span class="bar-value">0.6955</span></div>
+            <div class="bar-row"><span>10% · raw</span><div class="bar-track"><div class="bar" style="--value:71.56"></div></div><span class="bar-value">0.7156</span></div>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Honest boundary</strong>
+          <div><b>The architecture is stronger than the current acquisition heuristic.</b><p>Active correction beats corrected random sampling in both holdouts, but does not always beat a raw stratified mean on point-ordering metrics. The 10-seed normal intervals are diagnostics, not a production fixed-confidence guarantee.</p></div>
         </div>
       </div>
     </section>
@@ -266,7 +305,7 @@
           </div>
           <div class="chart">
             <h3>Engineering gate</h3>
-            <div class="bar-row"><span>Pytest</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">45 / 45</span></div>
+            <div class="bar-row"><span>Pytest</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">52 / 52</span></div>
             <div class="bar-row"><span>Ruff</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
             <div class="bar-row"><span>Strict mypy</span><div class="bar-track"><div class="bar" style="--value:100"></div></div><span class="bar-value">clean</span></div>
             <p style="color:var(--muted);font-size:.82rem">Tests are offline. Data acquisition and transformation remain explicit, reproducible commands.</p>
@@ -355,11 +394,14 @@ uv run mypy src scripts tests</code></pre>
         <h2>Inspect the evidence</h2>
         <div class="artifacts">
           <a class="artifact" href="docs/RANKING.md"><b>Ranking methodology</b><span>docs/RANKING.md →</span></a>
+          <a class="artifact" href="docs/NON_IRT_EVALUATION.md"><b>Non-IRT methodology</b><span>docs/NON_IRT_EVALUATION.md →</span></a>
           <a class="artifact" href="src/irt_rank/ranking.py"><b>Ranking implementation</b><span>src/irt_rank/ranking.py →</span></a>
+          <a class="artifact" href="src/irt_rank/efficient.py"><b>Non-IRT implementation</b><span>src/irt_rank/efficient.py →</span></a>
           <a class="artifact" href="scripts/rank_models.py"><b>Ranking CLI</b><span>scripts/rank_models.py →</span></a>
           <a class="artifact" href="REPORT.md"><b>Detailed Markdown report</b><span>REPORT.md →</span></a>
           <a class="artifact" href=".agent/ml/adaptive-irt-ranking/artifacts/m1-reference-agreement-v2-full-result.json"><b>Full M1-B result</b><span>JSON artifact →</span></a>
           <a class="artifact" href=".agent/ml/adaptive-irt-ranking/artifacts/reduced-m2-m5-result.json"><b>Reduced replay result</b><span>JSON artifact →</span></a>
+          <a class="artifact" href=".agent/ml/adaptive-irt-ranking/artifacts/non-irt-efficiency-result.json"><b>Non-IRT replay result</b><span>JSON artifact →</span></a>
         </div>
       </div>
     </section>

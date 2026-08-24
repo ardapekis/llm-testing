@@ -1,8 +1,9 @@
 # llm-testing
 
-`irt-rank` is a research package for ranking language models with Item Response Theory while
-minimizing evaluation cost. The primary objective is a ranking guarantee, not independent
-per-model standard-error minimization.
+`irt-rank` is a research package for ranking language models while minimizing evaluation cost.
+It now contains two distinct paths: anchored IRT ranking and a non-IRT, prediction-corrected
+randomized evaluation design. The primary objective is a defensible ranking decision, not
+independent per-model standard-error minimization.
 
 The project is milestone-gated. M0 builds two pinned offline-replay matrices:
 
@@ -28,6 +29,23 @@ provider. It is exploratory and does not satisfy the original fixed-confidence, 
 live-provider, dollar-cost, or 5x gates.
 See [REPORT.md](REPORT.md) for exact metrics, provenance, and current gate status.
 For a presentation-ready overview, open [REPORT.html](REPORT.html) in a browser.
+
+## Non-IRT cheap evaluation
+
+The non-IRT prototype learns a low-rank response surrogate from historical models, adapts it with a
+small stratified sentinel set, samples additional items with a randomized exploration floor, and
+uses logged inclusion probabilities to correct prediction error. The correction—not the
+surrogate—makes the score target valid under model misspecification.
+
+In 10-seed held-out replay, active corrected evaluation reached median Kendall tau 0.8085 on MMLU
+at 1% of items and 0.9404 at 10%. On the harder chronological SWE-bench holdout, it reached 0.6955
+at roughly 46 of 500 items; active selection did not consistently beat the raw stratified baseline,
+so no universal superiority claim is made. See
+[NON_IRT_EVALUATION.md](docs/NON_IRT_EVALUATION.md) for the design, exact results, and limitations.
+
+```bash
+uv run python scripts/run_non_irt_efficiency.py
+```
 
 ## Ranking models
 

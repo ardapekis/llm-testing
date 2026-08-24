@@ -2,7 +2,7 @@
 
 ## Status
 
-**REDUCED OFFLINE PROTOTYPE COMPLETE.** M0 and the revised M1 gates passed. A user-authorized reduced M2–M5 path is implemented and reproducible. The original M2–M5 contract remains unmet because the reduced run intentionally omits 200 sealed seeds, fixed-confidence guarantees, dollar costs, a live provider, and the 5x target.
+**REDUCED OFFLINE PROTOTYPES COMPLETE.** M0 and the revised M1 gates passed. A user-authorized reduced M2–M5 path and a separate non-IRT prediction-corrected path are implemented and reproducible. The original M2–M5 contract remains unmet because the reduced runs intentionally omit 200 sealed seeds, fixed-confidence guarantees, dollar costs, a live provider, and the 5x target.
 
 The original ordered contract is retained as a clearly labeled deferred benchmark, while the reduced scope is the delivered endpoint. Existing response data and failed results remain preserved. The repository now contains exploratory replay curves and an offline adapter test, but no live run or claimed cost reduction.
 
@@ -19,6 +19,7 @@ The original ordered contract is retained as a clearly labeled deferred benchmar
 | Reduced M3 — adaptive ranking | **COMPLETE / NO CLEAR WIN** | Rank-aware and no-contest ablation evaluated; neither clearly beats the baselines. |
 | Reduced M4 — adapter | **PASS (FAKE ONLY)** | Five fake models; cache consistency and hard cap verified. |
 | Reduced M5 — report | **COMPLETE** | JSON curves, summary metrics, ablation, commands, and limitations recorded. |
+| Non-IRT evaluation | **IMPLEMENTED / DIAGNOSTIC** | SVD response surrogate, stratified sentinels, randomized active sampling, propensity correction, paired gaps, held-out replay, and seven focused tests. |
 | Original M2–M5 | DEFERRED | Explicitly excluded from the reduced scope; no original-gate claims. |
 
 ## M0 data evidence
@@ -112,13 +113,38 @@ uv run python scripts/run_m1_recovery.py --config configs/m1_recovery_rank_v2.js
 uv run python scripts/run_m1_reference_agreement.py  # expected exit code: 2
 uv run python scripts/run_m1_reference_agreement_v2.py
 uv run python scripts/run_reduced_m2_m5.py
+uv run python scripts/run_non_irt_efficiency.py
 uv run python scripts/rank_models.py --help
 uv run pytest
 uv run ruff check .
 uv run mypy src scripts tests
 ```
 
-The recorded engineering verification passed with 45 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
+The recorded engineering verification passed with 52 tests, Ruff, and strict mypy. Tests make no network calls. Result artifacts carry the implementation Git SHA and config hash.
+
+## Non-IRT prediction-corrected evaluation
+
+The alternative path removes IRT from both response prediction and score estimation. A low-rank
+surrogate trained on completed historical models predicts a new model's item responses after a
+small content-stratified sentinel sample. Additional items are selected with a randomized mixture
+of predicted residual risk and stratified exploration. A Horvitz–Thompson residual correction uses
+the logged inclusion probabilities, so surrogate misspecification affects variance rather than the
+target benchmark mean.
+
+The offline diagnostic holds out complete creator groups on MMLU (296 historical / 99 target
+models) and the chronological final quarter on SWE-bench Verified (100 historical / 34 target
+systems). Across ten seeds, median active-corrected Kendall tau was 0.8085, 0.9157, and 0.9404 on
+MMLU at 1%, 5%, and 10% item budgets. Corresponding SWE-bench values were 0.4654, 0.6169, and
+0.6955. Median MMLU score-interval coverage remained about 95%; the very small SWE samples were
+less stable.
+
+Active correction consistently beat corrected random sampling, but it did not consistently beat
+the raw stratified sample mean on point-ranking metrics. This is therefore evidence for a robust
+architecture—not a claim that the current acquisition heuristic is optimal. Corrected pairwise
+gap intervals should define unresolved tiers; the current normal intervals remain diagnostic and
+are not anytime-valid. Full methodology and exact results are in
+[`docs/NON_IRT_EVALUATION.md`](docs/NON_IRT_EVALUATION.md) and
+`non-irt-efficiency-result.json`.
 
 ## Cost curves, ablations, and guarantees
 
