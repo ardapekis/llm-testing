@@ -73,6 +73,14 @@ M1-B-v2 corrects those defects with a like-for-like joint 2PL comparison, Stocki
 
 The clean M1-B-v2 run passed. Difficulty Spearman was 0.998752 (>0.98), discrimination Spearman was 0.952610 (>0.95), and observed difficulty, log-discrimination, and ICC RMSE values (0.247001, 0.152776, and 0.023439) were below their Monte Carlo q95 thresholds (0.768469, 0.569162, and 0.093079). The source matrix had 468/500 estimable items and all four Monte Carlo fits were valid.
 
+The original full M1-B-v2 process, started before the user requested a lightweight replacement,
+later completed from clean preregistration revision `5d8f926`. It evaluated all 468 estimable items
+with 20/20 valid Monte Carlo replicates and passed all six checks in 4,950.01 seconds. Observed
+difficulty Spearman was 0.999391 and discrimination Spearman was 0.976031. Difficulty,
+log-discrimination, and ICC RMSE values were 0.480549, 0.139694, and 0.031774, below full-run q95
+thresholds 1.024234, 0.653442, and 0.119768. This stronger result is preserved separately as
+`m1-reference-agreement-v2-full-result.json`; it does not replace the fast regression artifact.
+
 ## Uncertainty-aware model ranking
 
 The package now supports calibrated model ranking rather than treating sampled accuracy as a final

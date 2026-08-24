@@ -44,6 +44,7 @@ Build and validate a Python 3.11+ cost-minimal adaptive IRT ranking system, exec
 | E-M1-004 | M1-B-v1 raw checks fail: b Spearman 0.999944 passes, but real b RMSE 0.66304 exceeds bootstrap q95 0.60888 and only 99/100 bootstrap local fits converge; E-M1-005 invalidates the acceptance inference | Revision `2e93db3`, clean worktree | `artifacts/m1-reference-agreement-result.json`; exit code 2 |
 | E-M1-005 | M1-B-v1 validator is invalid: it compared different 1PL estimating equations on unlinked scales and generated Monte Carlo outcomes from fixed EAP abilities rather than N(0,1) draws | Raw E-M1-004 preserved | `artifacts/M1B_VALIDATOR_DIAGNOSIS.md` |
 | E-M1-006 | Lightweight M1-B-v2 passes all six checks on a deterministic 64-item sample; all four Monte Carlo replicates are valid | Revision `ed6ca95`, clean worktree; 52.44 seconds | `artifacts/m1-reference-agreement-v2-result.json`; exit code 0 |
+| E-M1-007 | Original full M1-B-v2 later completes and passes all six checks on 468 estimable items with 20/20 valid replicates | Revision `5d8f926`, clean worktree; 4,950.01 seconds | `artifacts/m1-reference-agreement-v2-full-result.json`; exit code 0 |
 | E-R-001 | Reduced M2–M5 prototype completes on both matrices over 20 seeds; fake adapter passes; rank-aware shows no clear baseline win | Revision `6b1565f`, clean worktree; 31.12 seconds | `artifacts/reduced-m2-m5-result.json`; exit code 0 |
 
 ## Best valid candidate

@@ -44,6 +44,7 @@ M0, M1-A-v2, and the lightweight M1-B-v2 pass. The user-authorized reduced M2–
 | M1-A 1PL recovery | E-M1-001; clean revision `121cec4` | b RMSE 0.2138646913 (FAIL) | theta Spearman 0.9917795029; 10 iterations | 0.454 seconds; no paid cost |
 | M1-B-v1 reference agreement | E-M1-004 raw result; invalidated by E-M1-005 | b RMSE 0.66304 > q95 0.60888 | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
 | M1-B-v2 lightweight agreement | E-M1-006; clean revision `ed6ca95` | All six gate checks pass | b rho 0.99875; a rho 0.95261; 4/4 valid replicates | 52.44 seconds; no paid cost |
+| M1-B-v2 full agreement | E-M1-007; clean revision `5d8f926` | All six gate checks pass | b rho 0.99939; a rho 0.97603; 20/20 valid replicates | 4,950.01 seconds; no paid cost |
 | Reduced M2–M5 prototype | E-R-001; clean revision `6b1565f` | Curves emitted; fake adapter passes | Rank-aware does not clearly beat baselines | 31.12 seconds; no paid cost |
 
 ## Constraint outcomes
@@ -113,4 +114,5 @@ Evidence confidence: high for the M1 implementation-agreement pass within its ex
 | E-M1-004 | `artifacts/m1-reference-agreement-result.json`; `artifacts/M1B_FAILURE.md` | Reproducible M1-B-v1 raw measurements; acceptance inference invalidated by E-M1-005 |
 | E-M1-005 | `artifacts/M1B_VALIDATOR_DIAGNOSIS.md` | M1-B-v1 acceptance inference invalid; corrected validator required |
 | E-M1-006 | `artifacts/m1-reference-agreement-v2-result.json` | Lightweight corrected M1-B-v2 passes from a clean revision |
+| E-M1-007 | `artifacts/m1-reference-agreement-v2-full-result.json` | Full corrected M1-B-v2 passes from its clean preregistration revision |
 | E-R-001 | `artifacts/reduced-m2-m5-result.json`; `REPORT.md` | Reduced offline prototype complete; no rank-aware win |
