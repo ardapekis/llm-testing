@@ -107,7 +107,7 @@ At the 5% checkpoint, median results were:
 | SWE-bench Verified | CAT-SE proxy | 0.7207 | 0.1318 |
 | SWE-bench Verified | rank-aware | 0.7193 | 0.1335 |
 
-The no-contest ablation is effectively tied with CAT-SE, and rank-aware does not clearly win. The clean run took 32.29 seconds at revision `6f7a11d`. The fake adapter used five models and two items, cached repeated reads, made exactly eight allowed provider calls, and rejected the ninth before calling the provider.
+The no-contest ablation is effectively tied with CAT-SE, and rank-aware does not clearly win. The final clean run took 31.12 seconds at revision `6b1565f`. The fake adapter queried all five models, cached repeated reads, made exactly eight allowed provider calls, and rejected an unseen ninth request before calling the provider.
 
 Consequently:
 

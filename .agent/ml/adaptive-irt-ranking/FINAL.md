@@ -44,7 +44,7 @@ M0, M1-A-v2, and the lightweight M1-B-v2 pass. The user-authorized reduced M2–
 | M1-A 1PL recovery | E-M1-001; clean revision `121cec4` | b RMSE 0.2138646913 (FAIL) | theta Spearman 0.9917795029; 10 iterations | 0.454 seconds; no paid cost |
 | M1-B-v1 reference agreement | E-M1-004 raw result; invalidated by E-M1-005 | b RMSE 0.66304 > q95 0.60888 | b Spearman 0.999944; 99/100 bootstrap fits converged | 147.16 seconds; no paid cost |
 | M1-B-v2 lightweight agreement | E-M1-006; clean revision `ed6ca95` | All six gate checks pass | b rho 0.99875; a rho 0.95261; 4/4 valid replicates | 52.44 seconds; no paid cost |
-| Reduced M2–M5 prototype | E-R-001; clean revision `6f7a11d` | Curves emitted; fake adapter passes | Rank-aware does not clearly beat baselines | 32.29 seconds; no paid cost |
+| Reduced M2–M5 prototype | E-R-001; clean revision `6b1565f` | Curves emitted; fake adapter passes | Rank-aware does not clearly beat baselines | 31.12 seconds; no paid cost |
 
 ## Constraint outcomes
 
